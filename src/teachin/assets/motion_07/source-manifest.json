@@ -1,0 +1,1249 @@
+{
+  "id": "motion_07",
+  "width": 540,
+  "height": 720,
+  "fps": 30,
+  "frameCount": 239,
+  "columns": 3,
+  "rows": 2,
+  "framesPerAtlas": 6,
+  "sourceDirectory": "D:\\KiwiiGit\\Teachin\\motion_07 重心前后左右\\motion_07_half",
+  "atlases": [
+    {
+      "file": "atlas-000.webp",
+      "bytes": 1182208,
+      "sha256": "4b14f7bf0f6f0d6d59aace8712ed074b449caee17f238fdd89f2ec0324769ebe",
+      "sources": [
+        {
+          "name": "motion_07_half_00000.png",
+          "sha256": "5df407ecd7a0ddf6a53bb6e87da11dbe78d668f0af4b7a6e6d30a03560fbce3a"
+        },
+        {
+          "name": "motion_07_half_00001.png",
+          "sha256": "5f83a0063438eed21237525531a691dcf78a35bc75b88711b8bc9338fc103aa6"
+        },
+        {
+          "name": "motion_07_half_00002.png",
+          "sha256": "e31bc8710b9a1a0d73222cb712c782da75787a18801d731d0bf729c64f0e62dd"
+        },
+        {
+          "name": "motion_07_half_00003.png",
+          "sha256": "da79f7b2b877db28336d4ad8467a805eda199ecc21038fe24eeb1094f76362f7"
+        },
+        {
+          "name": "motion_07_half_00004.png",
+          "sha256": "8bc499d7e3aaef8e2570b321cc34973fb26645905958135b7478bc4c0c52250b"
+        },
+        {
+          "name": "motion_07_half_00005.png",
+          "sha256": "21b65829734ebbd5cfb4039c07dce6789959c7dedf9e40bdb7a69a2836f76493"
+        }
+      ]
+    },
+    {
+      "file": "atlas-001.webp",
+      "bytes": 1166236,
+      "sha256": "cd3c41fbf2c4c6094215d4b33b3ee696024ad8e10b8812489a89dee5bf75fd76",
+      "sources": [
+        {
+          "name": "motion_07_half_00006.png",
+          "sha256": "c5376244830056bf4b95d343f7f29a71d00b0a3e758da9d2a0a93417d0eadd9f"
+        },
+        {
+          "name": "motion_07_half_00007.png",
+          "sha256": "a3f62a404ac7297c5bd18acf67aa07247aafc25babce2fcf4ecc593f8a012063"
+        },
+        {
+          "name": "motion_07_half_00008.png",
+          "sha256": "5170d58f1e669b0b0a0dd33afa16b8136c7ef438689cd49694541882d353421d"
+        },
+        {
+          "name": "motion_07_half_00009.png",
+          "sha256": "4531b1dea91ab19a16cba172fba95761e0aa2c81ac47f6423efd342537ccd059"
+        },
+        {
+          "name": "motion_07_half_00010.png",
+          "sha256": "52c0048a1fb5e3017eaea4d28a5efd540d9ac33f058fdf02aef8db131030f315"
+        },
+        {
+          "name": "motion_07_half_00011.png",
+          "sha256": "0c240bcec314fc8ac1a205f0061237974b383b70f73c3570137856a2fb4f0f27"
+        }
+      ]
+    },
+    {
+      "file": "atlas-002.webp",
+      "bytes": 1107702,
+      "sha256": "9760dffa46998f85476972c79f69be9d389ce74979422c9b4c1354079fad26c6",
+      "sources": [
+        {
+          "name": "motion_07_half_00012.png",
+          "sha256": "ebfd171405e9bb9d4a128a67d8facc519f98cbebcbe43e8ec50e28f179b596b7"
+        },
+        {
+          "name": "motion_07_half_00013.png",
+          "sha256": "cab14dbcfff30cb82ec21cdff7f5f167c04cf4ebe266b38119719a04a5877d39"
+        },
+        {
+          "name": "motion_07_half_00014.png",
+          "sha256": "d35fb3109b9236931df0e7afc75f486810b5126d68c68b51f10c3d7616e0abfb"
+        },
+        {
+          "name": "motion_07_half_00015.png",
+          "sha256": "af5871bb82e311c2b81e3371684fed9555cde90805c6db676895b395b0a43b2b"
+        },
+        {
+          "name": "motion_07_half_00016.png",
+          "sha256": "01a256701899cdaf14e79a017aa67c6aed1ea93f7c906ee3080238c43ddcbc6e"
+        },
+        {
+          "name": "motion_07_half_00017.png",
+          "sha256": "a8aa310dbc381a235e89cda6efc2b3facfcc6c7e29d3c520a8125ed58c9191fa"
+        }
+      ]
+    },
+    {
+      "file": "atlas-003.webp",
+      "bytes": 1165816,
+      "sha256": "0c4fb5d61be8b8f7a3ee5fd96db33652298022c1f8450f517bf97161511a1ff0",
+      "sources": [
+        {
+          "name": "motion_07_half_00018.png",
+          "sha256": "b0fe489b1071eebe0f7c95e7869f91636f8ab7ff0011036b46c4eeff4c856fe3"
+        },
+        {
+          "name": "motion_07_half_00019.png",
+          "sha256": "35d9c6f6affe894c84e4b7bdaacbace52250d1b54c43f95215841bc3649c9b10"
+        },
+        {
+          "name": "motion_07_half_00020.png",
+          "sha256": "45bfb425a0ef52ad86037d3108150e945d63a720bfaae094b0496d53dca7e0a9"
+        },
+        {
+          "name": "motion_07_half_00021.png",
+          "sha256": "45ccc1071c0682871cdc4f88996b47e814d03dddba68a402fa24895cb2023dfa"
+        },
+        {
+          "name": "motion_07_half_00022.png",
+          "sha256": "2fe7f8fd91c93ce656ecc4f7a712b7cb317ed6d64caf1d088355c072858e4c57"
+        },
+        {
+          "name": "motion_07_half_00023.png",
+          "sha256": "30f61db3cb5398e2c9f45bcfed878dccef27ecee4fc358bb2bf21285cd94cca7"
+        }
+      ]
+    },
+    {
+      "file": "atlas-004.webp",
+      "bytes": 1123986,
+      "sha256": "c755aee034824bbcf2df0161ed531a790922ae966c8171403d41eacb468b7770",
+      "sources": [
+        {
+          "name": "motion_07_half_00024.png",
+          "sha256": "cca8b219fb73bf533efa341f6f66358e520bcc99bd19550f4f2d5855a8e7b848"
+        },
+        {
+          "name": "motion_07_half_00025.png",
+          "sha256": "48ff7ddc65cb8cf1d05407912ef4c128ff0d474015b54195df2821cf211b3376"
+        },
+        {
+          "name": "motion_07_half_00026.png",
+          "sha256": "e448040cc4371e92fdca3759c3fbd82e73fe1db28a0fc7e7b158f92c814ce3d4"
+        },
+        {
+          "name": "motion_07_half_00027.png",
+          "sha256": "65b92bf5c5261d196c71ea0aa2e8b6d49f590f42b87f6303a4f722f6b9d134d9"
+        },
+        {
+          "name": "motion_07_half_00028.png",
+          "sha256": "b93ad8f038d53156d9ac6c5a03841e9126dd3863e8f21bd9d7f53335f3ee2300"
+        },
+        {
+          "name": "motion_07_half_00029.png",
+          "sha256": "a3769230a540600152282aad35ebeda6afa751bfd6f7aa491bd52b0224631678"
+        }
+      ]
+    },
+    {
+      "file": "atlas-005.webp",
+      "bytes": 1192046,
+      "sha256": "807253a17db269f8e84d28ec1583862917d8b41c0f53a857eec41d9020e0c5e7",
+      "sources": [
+        {
+          "name": "motion_07_half_00030.png",
+          "sha256": "73d8b8ef41537c44d8e0b3388f226638b8dc6840baf245909175ea7829f317f3"
+        },
+        {
+          "name": "motion_07_half_00031.png",
+          "sha256": "563287fee5e382539cd2590b2937cec3a7bc3f3949709701dd56b4fe9498b644"
+        },
+        {
+          "name": "motion_07_half_00032.png",
+          "sha256": "48fc60ad3e5f4f3f888ea9ce860f1b17a82c3ebb80f6a40165f0627fa0424bc2"
+        },
+        {
+          "name": "motion_07_half_00033.png",
+          "sha256": "2be93be8e2031a6ff317d54735541da84c0a2de4c7034673ef201740143eeb7d"
+        },
+        {
+          "name": "motion_07_half_00034.png",
+          "sha256": "948a54c90bae0585a1ea38bf64f72905c5a0250794d8cd7534caddd79296e703"
+        },
+        {
+          "name": "motion_07_half_00035.png",
+          "sha256": "ddc7013c1d0a240d7fcde517b8cef968302c37f14866c868ec9a3252a3170ba4"
+        }
+      ]
+    },
+    {
+      "file": "atlas-006.webp",
+      "bytes": 1199786,
+      "sha256": "ec3a20c676e05d2941c9d990caad97d9dfb4e34e2104c3fbcd27482019760a29",
+      "sources": [
+        {
+          "name": "motion_07_half_00036.png",
+          "sha256": "f254a87a37493d414ef76a8cbe09ab40c359f2cd73111411dabc11be3d368b33"
+        },
+        {
+          "name": "motion_07_half_00037.png",
+          "sha256": "e9482e136ed8d6eae90bf91c3f83c4f6ac27234754c4b8a2489fbf8964dee0ac"
+        },
+        {
+          "name": "motion_07_half_00038.png",
+          "sha256": "554584679132dd4bb0b2f77dfbf821991372b7cadfa751f1f6d5e9ce5a44f1a6"
+        },
+        {
+          "name": "motion_07_half_00039.png",
+          "sha256": "065b9af960d6aac20c98e589d3770eb35ab08b1b33a7759d85be401627668aae"
+        },
+        {
+          "name": "motion_07_half_00040.png",
+          "sha256": "d9fc6b2c1d3f578393fa2a1fbd420c6fb831c55b1ac64d717e30bb1665b94e8d"
+        },
+        {
+          "name": "motion_07_half_00041.png",
+          "sha256": "d316ec4e1e943ee44062a16804dec6e7b5ccffac3e436db338e869bac96291c9"
+        }
+      ]
+    },
+    {
+      "file": "atlas-007.webp",
+      "bytes": 1180822,
+      "sha256": "82998c222ad8c073fd75bef3027a1d4a99afc1107838050b1051eb03357648c0",
+      "sources": [
+        {
+          "name": "motion_07_half_00042.png",
+          "sha256": "fed7fcb25e97c9a24e110a9f2ddf72a1928e1bc91825ee645308269da48fc1e0"
+        },
+        {
+          "name": "motion_07_half_00043.png",
+          "sha256": "ac7daea9f656948a816d2f8ef514ac44f67ea58915d2b720ebeffec5a382c54c"
+        },
+        {
+          "name": "motion_07_half_00044.png",
+          "sha256": "ab13f907b3c2451db097432d736241fc8013625e28aef57b5c48677f41894a9b"
+        },
+        {
+          "name": "motion_07_half_00045.png",
+          "sha256": "06a5c4295c15037722ad3a263a435df6b7cd876b80b690075a0b7ab057c42c17"
+        },
+        {
+          "name": "motion_07_half_00046.png",
+          "sha256": "4b8f541e82886c82175f883c1c0d95f6bbead75e7c699721c0507c227b3ede7e"
+        },
+        {
+          "name": "motion_07_half_00047.png",
+          "sha256": "0011b792c0ef9f0f0ea53313fbb8dde649431cc95fe75d5ed73679517ad83d0e"
+        }
+      ]
+    },
+    {
+      "file": "atlas-008.webp",
+      "bytes": 1260112,
+      "sha256": "ec5ccba73567cfd5ff382b6421483abca5cfb6c2e2f22176d966a82163f3befe",
+      "sources": [
+        {
+          "name": "motion_07_half_00048.png",
+          "sha256": "13f2db297660f36b4c67a1827677b5dbd241fa130b3e50b992e2b2a95d5d30f0"
+        },
+        {
+          "name": "motion_07_half_00049.png",
+          "sha256": "e37483a22afa078de4c6ecdcfa073f1d016d70b48fa0b089f5e950c5916905bd"
+        },
+        {
+          "name": "motion_07_half_00050.png",
+          "sha256": "b0afc5e5b55f30ccffea1ed74307e53d1907e6f0c146bfb0890da1956be4e994"
+        },
+        {
+          "name": "motion_07_half_00051.png",
+          "sha256": "e16edc62fafbf6b5453dea666f5ea7cbff005065908a3380a5205dd56e4aaf83"
+        },
+        {
+          "name": "motion_07_half_00052.png",
+          "sha256": "4c8cbb5a361effb53c9994ca5c21cb9db240b11a7512077123d428b492c6a5e6"
+        },
+        {
+          "name": "motion_07_half_00053.png",
+          "sha256": "fb390deed663c2ac67fa6aae14896bb26e3c775ef6fb5b792edbaf4214ba4bd7"
+        }
+      ]
+    },
+    {
+      "file": "atlas-009.webp",
+      "bytes": 1229858,
+      "sha256": "348303b050284e34ab215b1771f88027d34f3482f5c7792d7e05a72658cdeb67",
+      "sources": [
+        {
+          "name": "motion_07_half_00054.png",
+          "sha256": "52b740042559dd5ff2cc3f6beff23b897d1a5079dbcb7396d07f075005a35683"
+        },
+        {
+          "name": "motion_07_half_00055.png",
+          "sha256": "a571d859c7d512e33ae41f89f2439e40ea5d790cebfabceaed519bf0986b9969"
+        },
+        {
+          "name": "motion_07_half_00056.png",
+          "sha256": "c73e8a6f452092011f2faf0e76b9153e4b40bc6b1ce43a187670abf015d13640"
+        },
+        {
+          "name": "motion_07_half_00057.png",
+          "sha256": "ee7cb0032a5b1c7c79a5f7a725029b032dd865a17a8223606d522a4ee1328130"
+        },
+        {
+          "name": "motion_07_half_00058.png",
+          "sha256": "bdefaf713c9e88cf6cbce8b4a6af018814b5fc0eea1c142be01fffb22263e7f4"
+        },
+        {
+          "name": "motion_07_half_00059.png",
+          "sha256": "bbd9a4666202bd0116742dbdab15e91ffdf317f5025388d4d99e8ef961c46e70"
+        }
+      ]
+    },
+    {
+      "file": "atlas-010.webp",
+      "bytes": 1280394,
+      "sha256": "72ee955cc2b9c9fcc992def22ec6406c47aad78ec3faf9b8aa96edaf4c32759d",
+      "sources": [
+        {
+          "name": "motion_07_half_00060.png",
+          "sha256": "b7d86bf74c5ea620d5bcdb94f713f9ed08904f3d60f29df01ac68c37d45c5a17"
+        },
+        {
+          "name": "motion_07_half_00061.png",
+          "sha256": "54f12547783f54f0c7b5bdc9f96425f7ecb1c4505b99c8f8f6e3bd12c2962879"
+        },
+        {
+          "name": "motion_07_half_00062.png",
+          "sha256": "0d2558d909c4adf68a695271e98c3a029e5c11643847f30b1b88376dcb221678"
+        },
+        {
+          "name": "motion_07_half_00063.png",
+          "sha256": "5790bea18f0c03852fc826efcac6372abc6231eb6fede434a5c36a5b60eae1b1"
+        },
+        {
+          "name": "motion_07_half_00064.png",
+          "sha256": "3671b8591f9de0840067aa49676da1c413fe05391aaa944fecb1886038c299ef"
+        },
+        {
+          "name": "motion_07_half_00065.png",
+          "sha256": "d03adbfbbea3d87c91fb754c3d09980eeab9354e3fdaa250861085d8ed7f6acf"
+        }
+      ]
+    },
+    {
+      "file": "atlas-011.webp",
+      "bytes": 1313428,
+      "sha256": "ff4b3569fde0a8652d521564e761644ec026119be7ebee2674e1a157fd19e8cd",
+      "sources": [
+        {
+          "name": "motion_07_half_00066.png",
+          "sha256": "3cfc8a604ffabe15112ae8c583e0bcd40d4bee4acd1630f030cdc6c2fc42d3f2"
+        },
+        {
+          "name": "motion_07_half_00067.png",
+          "sha256": "79ab1633f069c2f39928804ca0eae79fd4333a3a4609e287d4289f4323ffcb83"
+        },
+        {
+          "name": "motion_07_half_00068.png",
+          "sha256": "9e61ee39384c05cf6223d49537a84a52fc81bcc92b9d1afc9ac83faaac73b49d"
+        },
+        {
+          "name": "motion_07_half_00069.png",
+          "sha256": "5c35b1098434113842f92c8a42b2f4ef118ae57e36f5ff5d76461d8cdc670082"
+        },
+        {
+          "name": "motion_07_half_00070.png",
+          "sha256": "50d1001d1d47a73c08402748a1640485ee188a4adb3863aa125c78df97d03c6c"
+        },
+        {
+          "name": "motion_07_half_00071.png",
+          "sha256": "6f735bc26444b3d0301c323fafb46c48b8524ed4150e0c2334dcf90109565113"
+        }
+      ]
+    },
+    {
+      "file": "atlas-012.webp",
+      "bytes": 1261140,
+      "sha256": "6bc8f8a09a916be06ce6e72563163008bd2374a50d2aa381eb9d114ba1ee835d",
+      "sources": [
+        {
+          "name": "motion_07_half_00072.png",
+          "sha256": "c7f9b742619c77806c759aea873ad9857a4bd88f88bbf5ee52fb09e6742ffb78"
+        },
+        {
+          "name": "motion_07_half_00073.png",
+          "sha256": "8c7e084feda23338474df5999319d5658f45df61af23bb2adbcc70a52a2d8844"
+        },
+        {
+          "name": "motion_07_half_00074.png",
+          "sha256": "621cf8a54124dde57fb8ecc2ebfbd200a0dcbe0ac5bbf7f88e134dfd435015cf"
+        },
+        {
+          "name": "motion_07_half_00075.png",
+          "sha256": "f1fb6ccba34335bf81f828ba6b5a435e91ee999ff82802bd5821d5cfa8483951"
+        },
+        {
+          "name": "motion_07_half_00076.png",
+          "sha256": "0b49634690ef5b8682b16392668a1d6528e6f871adb8f64be03a1c5f0e3801b3"
+        },
+        {
+          "name": "motion_07_half_00077.png",
+          "sha256": "31f755bf5edeb55b1f3020a25e2029e8a6b9e6b45cc2d6fbaa8199d3c41b3e9a"
+        }
+      ]
+    },
+    {
+      "file": "atlas-013.webp",
+      "bytes": 1321826,
+      "sha256": "917c7a4976f3658b4e36935e9e95a59cde6f2a9a608879b8d9c96b2e67632195",
+      "sources": [
+        {
+          "name": "motion_07_half_00078.png",
+          "sha256": "41d9335616df690eaa8578bb1bbb731f3ce9f1354640936f389e2b61474ca143"
+        },
+        {
+          "name": "motion_07_half_00079.png",
+          "sha256": "9c7ded5dfebda9d614adeb024a92e5b3c4e206a2f7c9e64d6bdd5e98a188becb"
+        },
+        {
+          "name": "motion_07_half_00080.png",
+          "sha256": "497d3b26e80df7b0e875e65b469f1932572033707b86b1df32966c487d45305d"
+        },
+        {
+          "name": "motion_07_half_00081.png",
+          "sha256": "e27b876adaca933287f46b8ba157946ef35d5323a7fdbff8595a8a91036368d1"
+        },
+        {
+          "name": "motion_07_half_00082.png",
+          "sha256": "4a8f33d52321aedb9969794741a9d2be23511506bd7278290e753436ab34bf68"
+        },
+        {
+          "name": "motion_07_half_00083.png",
+          "sha256": "7d90848c77b6980c074716716d10d76251dc5df2049e420837f3aa2d2a37eea1"
+        }
+      ]
+    },
+    {
+      "file": "atlas-014.webp",
+      "bytes": 1258268,
+      "sha256": "d8cb5c39588e0f589d3cc6bb0f2c8a5266d85a58e078a8d6935200c625010abd",
+      "sources": [
+        {
+          "name": "motion_07_half_00084.png",
+          "sha256": "54b5e122b7c7337dbc9a452513906a51467a70b375a54ab57a4d9885119b536a"
+        },
+        {
+          "name": "motion_07_half_00085.png",
+          "sha256": "845454df3a101538db89e48ece992b40e53a3b6b49fd640185ae7cfc21374398"
+        },
+        {
+          "name": "motion_07_half_00086.png",
+          "sha256": "12a8d34020ba003bf716b83882716c5e645bd9d3897cdf54bd8ee3febcf9f967"
+        },
+        {
+          "name": "motion_07_half_00087.png",
+          "sha256": "766c70d757e974140cd017b55ed145055bd864ba2238df6a9cee97329b7632ee"
+        },
+        {
+          "name": "motion_07_half_00088.png",
+          "sha256": "bf3c5b2611c2b934178a4f386337eb72b1a5353f1095159e20079aa849c48a6d"
+        },
+        {
+          "name": "motion_07_half_00089.png",
+          "sha256": "e88a655deb8cab84aa7696fb0ca8d302c2d2c2dd95800aa04e21124e48f78cc2"
+        }
+      ]
+    },
+    {
+      "file": "atlas-015.webp",
+      "bytes": 1317842,
+      "sha256": "b83a596e7345830d478b138f4aace71549257b8c6733b00d8536f792e7e244c4",
+      "sources": [
+        {
+          "name": "motion_07_half_00090.png",
+          "sha256": "df3cac724c49d40741d309c518ed5a90b7994c0a72e5bcfa0eb816c454e2def3"
+        },
+        {
+          "name": "motion_07_half_00091.png",
+          "sha256": "fe9eef9bf3eb70c20b61159a9d8063b5e5aecbb5e8ac3bde0efd00af915cdd58"
+        },
+        {
+          "name": "motion_07_half_00092.png",
+          "sha256": "885f2762e1657861a9f2e0babc85e563f648202aefe7366db83b66ac8883cf4a"
+        },
+        {
+          "name": "motion_07_half_00093.png",
+          "sha256": "b90fed49c035f902af0a921854646fe41a8d35d03f49c0d7f7511e3ee77dab5b"
+        },
+        {
+          "name": "motion_07_half_00094.png",
+          "sha256": "1eb17a2676394607f3b00f9af7b12150eda5df956b351a71857099d0ed79ae22"
+        },
+        {
+          "name": "motion_07_half_00095.png",
+          "sha256": "0cde0f03bd0b3b13169848fa1154f3eee1ed2cec7d1fe55be03c0288dccecaef"
+        }
+      ]
+    },
+    {
+      "file": "atlas-016.webp",
+      "bytes": 1344342,
+      "sha256": "f2bf0810ecae917298fd6846e702acfc561083441984f86d62a3b001fd8af433",
+      "sources": [
+        {
+          "name": "motion_07_half_00096.png",
+          "sha256": "9142b28e2bf0600a9495da14867d64cbed2a8efd32064b93d8b9f7d0e5d20354"
+        },
+        {
+          "name": "motion_07_half_00097.png",
+          "sha256": "fc1030b91c2ec0db5ef54fd9da56747aa6874d84c42db0e3abc708d5c76bd465"
+        },
+        {
+          "name": "motion_07_half_00098.png",
+          "sha256": "6a606186cbd3ec050117395e8436e73a923c44827c031cfb5e8d1b165f38da70"
+        },
+        {
+          "name": "motion_07_half_00099.png",
+          "sha256": "b4a4dba451dd6ba8a7fd886f6347f3b46b61b9d277993133faeb7a101c97a26a"
+        },
+        {
+          "name": "motion_07_half_00100.png",
+          "sha256": "ed11316b5cb78baa5a93441d4face431ce588a8c78caec515f5e8073f0031445"
+        },
+        {
+          "name": "motion_07_half_00101.png",
+          "sha256": "4c157ccc3cc30e7c276c24cf9b351992c3d8e9fd711810e60db8affcce2b2212"
+        }
+      ]
+    },
+    {
+      "file": "atlas-017.webp",
+      "bytes": 1345322,
+      "sha256": "2c8ce34961a1c7acd78b1f0e319b53a7b8fde4365d1e54826d770a5cd74ee355",
+      "sources": [
+        {
+          "name": "motion_07_half_00102.png",
+          "sha256": "dfed6b7d44580961faacb42aec03e4fea402a2c548b99b9c2a7c510133a474ca"
+        },
+        {
+          "name": "motion_07_half_00103.png",
+          "sha256": "62937d03a887b5020f260264e53d1c597d0c3bd272aad0612b7f17f93d639456"
+        },
+        {
+          "name": "motion_07_half_00104.png",
+          "sha256": "40514d79f745d1f614645acb41afe40bacb39caaa72a360a1efa028912a0dc1d"
+        },
+        {
+          "name": "motion_07_half_00105.png",
+          "sha256": "6e2b9b60fa6e4e0f598e757546e72fcaf170dfc3d683e3cdf8dad5bc054ada2c"
+        },
+        {
+          "name": "motion_07_half_00106.png",
+          "sha256": "3c2256978dbfab84029453c0a4cd6cdd6cb9da485e8e1c29e9b6bd22b230ce60"
+        },
+        {
+          "name": "motion_07_half_00107.png",
+          "sha256": "cf731ffda95aed912e8381d93706404414aa7910e8a15a9e5b16577beebd1321"
+        }
+      ]
+    },
+    {
+      "file": "atlas-018.webp",
+      "bytes": 1408044,
+      "sha256": "2279218f692385cae791b13c2418f6c68d5597b143422f220b2eda8cc1e1fb53",
+      "sources": [
+        {
+          "name": "motion_07_half_00108.png",
+          "sha256": "0ccf0f610666b46a41b0a45e2c1c5018653e91ce3dda444bc8ff17552dfcb31b"
+        },
+        {
+          "name": "motion_07_half_00109.png",
+          "sha256": "7640cb4ae9f969e4d5345dc6ab3185770bd4aee22667194c210f3d1642d9e7da"
+        },
+        {
+          "name": "motion_07_half_00110.png",
+          "sha256": "f9cbc81e3d4e5cc50f69d68939ecfb4985f567c8c362ce98f459308b4e193a31"
+        },
+        {
+          "name": "motion_07_half_00111.png",
+          "sha256": "dc9c804ad7e90c79c5211fa81abbc8eb73d2644727dcadfae8237cd4efaf3ea9"
+        },
+        {
+          "name": "motion_07_half_00112.png",
+          "sha256": "c8645d5b5b39fb93f5878a6a8c8552f20f5432b770fc76a979e830f9a5de0cf1"
+        },
+        {
+          "name": "motion_07_half_00113.png",
+          "sha256": "c16017f11f056c3a5d2e91083d62ace316cf6543b4db11af3feb0793463bdd84"
+        }
+      ]
+    },
+    {
+      "file": "atlas-019.webp",
+      "bytes": 1362492,
+      "sha256": "d7063312b994bf01b91a5ee1db8335c4278baf1508c98c9bc1ed33665e184a1f",
+      "sources": [
+        {
+          "name": "motion_07_half_00114.png",
+          "sha256": "4f94dcee9680cc79907f57de827226d3f787edf083656cafdf2043a3b29051ed"
+        },
+        {
+          "name": "motion_07_half_00115.png",
+          "sha256": "ee0591f6f1faf613f41b88fee3b88ed35a0faa83497f83a0d714d345bb8927fe"
+        },
+        {
+          "name": "motion_07_half_00116.png",
+          "sha256": "76833a9912feff02380b11d6214a89e38d85bddd2d97bbe2ba46f22c6f6def70"
+        },
+        {
+          "name": "motion_07_half_00117.png",
+          "sha256": "aa3386f13f6fe39a58a7da4ca86e81c798f67b641a6c79956c5471d34ce4ba18"
+        },
+        {
+          "name": "motion_07_half_00118.png",
+          "sha256": "674a9e70242747b97aa3dfb039983b14c55807fe3a2e1c4324a5bea9e35e49b2"
+        },
+        {
+          "name": "motion_07_half_00119.png",
+          "sha256": "e971a98fb8836356aced3c3cc29e3efd30b6ebcb6b04e15a829e5b497329f3d5"
+        }
+      ]
+    },
+    {
+      "file": "atlas-020.webp",
+      "bytes": 1323928,
+      "sha256": "5776c852c3b64822af91bc9e8b19f24fc4e1aca548068f7b9cda27ae8fb05c89",
+      "sources": [
+        {
+          "name": "motion_07_half_00120.png",
+          "sha256": "85ecf35b5bfbd57bafa97128c33e5a570dc18b10a5ce7e92538dcc3943c45340"
+        },
+        {
+          "name": "motion_07_half_00121.png",
+          "sha256": "9aab555a82e5689956b234ef21415eb39d666d8438be6ca19bf071f4d76a58df"
+        },
+        {
+          "name": "motion_07_half_00122.png",
+          "sha256": "479855c5e8932cc3f7c3e2878a6de2259e9a58f6c6f29a6df98eb8eb8b18fbaf"
+        },
+        {
+          "name": "motion_07_half_00123.png",
+          "sha256": "e70c8cac6af9e3f3693c59a647c3d0e942fc0221ad7a8c7503579c3bfe650917"
+        },
+        {
+          "name": "motion_07_half_00124.png",
+          "sha256": "e6b7d840226d6a6b1dd9fe6a5f91b881ab9c39dc92c80ca59f08f19ff3e4a4ed"
+        },
+        {
+          "name": "motion_07_half_00125.png",
+          "sha256": "254d46837776b812d53bbed652d8ec56d2b017a95c559a2a5508c06f7201fb2c"
+        }
+      ]
+    },
+    {
+      "file": "atlas-021.webp",
+      "bytes": 1218206,
+      "sha256": "3cced4846c1b46b18670f6f140a1662bc662297e8b6a7eefd7930173c3a5d232",
+      "sources": [
+        {
+          "name": "motion_07_half_00126.png",
+          "sha256": "78409c6a46a4030c3b6b6b59572948e9427e15ccca81567f7b87db4cac366066"
+        },
+        {
+          "name": "motion_07_half_00127.png",
+          "sha256": "c7b4f3d964db37fe807f96a97e43498fd8f960daa101bf6e2d680977ed89068b"
+        },
+        {
+          "name": "motion_07_half_00128.png",
+          "sha256": "71853a84ebfc174cb1807a31e41764fc3e689b143342608dd9e1960aa969b784"
+        },
+        {
+          "name": "motion_07_half_00129.png",
+          "sha256": "fdd203405d0e14bd32cc363677f619185cab9ef3703ba3d1e0cd11c1153255f1"
+        },
+        {
+          "name": "motion_07_half_00130.png",
+          "sha256": "5a56dc4e9e7645c363cd600e7ed8aa104afb83004036c6cd73c2638aa639e81f"
+        },
+        {
+          "name": "motion_07_half_00131.png",
+          "sha256": "10895d559cf94b5660151ad8ad55ead2b9e6089156fd63561a7347d07ba5570a"
+        }
+      ]
+    },
+    {
+      "file": "atlas-022.webp",
+      "bytes": 1274586,
+      "sha256": "a4a628f66141b4dafc1b4cfc91390d452b63018850e2c29f4448ffb8da6c1f09",
+      "sources": [
+        {
+          "name": "motion_07_half_00132.png",
+          "sha256": "4714b5361fdac148e734fe7f0caefb5f1a03d4b679695feec00ef0fe888161b1"
+        },
+        {
+          "name": "motion_07_half_00133.png",
+          "sha256": "c6e065513bb984af4f713bfc2aa6681e2b859e95ab23c38d01ffe5d437852a88"
+        },
+        {
+          "name": "motion_07_half_00134.png",
+          "sha256": "b1bf72ab0ab1cf50d5e4cbef68876f1532fd1286f529f2fa5fc5708512342569"
+        },
+        {
+          "name": "motion_07_half_00135.png",
+          "sha256": "75f6be73b4ae06527d025962fd8f50dd51902a6fd3402d20ca03f646b0c47386"
+        },
+        {
+          "name": "motion_07_half_00136.png",
+          "sha256": "633de925221d4ad3c3aad3e96bfe3ed21902b15cffb619d9e7a97d12495fe716"
+        },
+        {
+          "name": "motion_07_half_00137.png",
+          "sha256": "6b65c6c415ff476413fb87ffcf25ebb67893356f3a9f81639bb366174140f08b"
+        }
+      ]
+    },
+    {
+      "file": "atlas-023.webp",
+      "bytes": 1299342,
+      "sha256": "51ab1b77f0440c54261644b2d9c2e4a3bd5f694a06556c26895b55ce81b4be40",
+      "sources": [
+        {
+          "name": "motion_07_half_00138.png",
+          "sha256": "ced824ad2d626dc9881598cc5bdef1f4c53d3e4e51a6f78edc5173644d0e183d"
+        },
+        {
+          "name": "motion_07_half_00139.png",
+          "sha256": "0e1aeaa272957f244bede553e74f56e186432d53c60631fdaff95a14cb504684"
+        },
+        {
+          "name": "motion_07_half_00140.png",
+          "sha256": "b7e133df482634ef4b41ca9868365eb9cd6ac7f5a3a365416f5e3d72520f8a23"
+        },
+        {
+          "name": "motion_07_half_00141.png",
+          "sha256": "c3ce278944bffd9ec90a3daf541002cd33a16de0050e13c4d94d170223945a47"
+        },
+        {
+          "name": "motion_07_half_00142.png",
+          "sha256": "e2416576085e29492ec91a434aafb9bccb01f2f1cf61a487da76d04b9e133f8e"
+        },
+        {
+          "name": "motion_07_half_00143.png",
+          "sha256": "4fa7b369f20d4af193d0570ca6f694a3bf762d657afcb21393616108efc97362"
+        }
+      ]
+    },
+    {
+      "file": "atlas-024.webp",
+      "bytes": 1228720,
+      "sha256": "8bd5fa93fd7c9c80109d65f79df376e447744776888d07f55c955fd5b411a6db",
+      "sources": [
+        {
+          "name": "motion_07_half_00144.png",
+          "sha256": "5e7107b7a2e69d5d8925c8766c15d553b82cbf0e91464f2084a997faae742ea9"
+        },
+        {
+          "name": "motion_07_half_00145.png",
+          "sha256": "8cc7b1ba5999adbda47034634afe648294230fd8549a3d9731cc448d070544fc"
+        },
+        {
+          "name": "motion_07_half_00146.png",
+          "sha256": "c90cb3d67208924e03145e0dc8642925817ff98946eee7e19a51f21c788faa5b"
+        },
+        {
+          "name": "motion_07_half_00147.png",
+          "sha256": "470b916c681dc1cb50e4fb13265b0fc14c798a905fe6c0ba723d63d3cf6afc6c"
+        },
+        {
+          "name": "motion_07_half_00148.png",
+          "sha256": "ea398a4698d61a7e1c55034db3a1197f0786b97ec742222da0073e2ec651f487"
+        },
+        {
+          "name": "motion_07_half_00149.png",
+          "sha256": "0d17447efee5f2897deded53866c39db96a4be64e23c42cff352d1f6c3e7395f"
+        }
+      ]
+    },
+    {
+      "file": "atlas-025.webp",
+      "bytes": 1156540,
+      "sha256": "31c8898055cc778e829d1124375e09eaf7d3e53444be040860e57c4db4a376d7",
+      "sources": [
+        {
+          "name": "motion_07_half_00150.png",
+          "sha256": "b0a860821a0f63dd817651bd74c5366b89fdae01d096562086b18c8ba6f9f19e"
+        },
+        {
+          "name": "motion_07_half_00151.png",
+          "sha256": "7da4f41cf97d8ca1c12420a67ea18fa636a9e27c7085dd4b0f3c4e8dacad3722"
+        },
+        {
+          "name": "motion_07_half_00152.png",
+          "sha256": "367a9e48d2f74a0a45c347bde3859a7e2686222e1a0f63df6261a81f93c3a8ea"
+        },
+        {
+          "name": "motion_07_half_00153.png",
+          "sha256": "dcb9be26d833cd9db9355d2e2115dc075561d2530cbe4b39ffe84bc6963342b0"
+        },
+        {
+          "name": "motion_07_half_00154.png",
+          "sha256": "5ca81fa7c408b18cc9cf48878f5e6c460417695d5c168ee90a8e3a43f74b4eeb"
+        },
+        {
+          "name": "motion_07_half_00155.png",
+          "sha256": "3525432979704a96291c7f8be50e1648857a24fa0011664e181d13f99fa7f2c1"
+        }
+      ]
+    },
+    {
+      "file": "atlas-026.webp",
+      "bytes": 1221538,
+      "sha256": "912579d2ce7a0a506a3b14ae7ae7e2f814aa26894f8ea3fdbde91b51d162cc34",
+      "sources": [
+        {
+          "name": "motion_07_half_00156.png",
+          "sha256": "dd3faa1d5304d95104f6e6808cace0d80b2cb96325c30bd10085bbb9cd5ee797"
+        },
+        {
+          "name": "motion_07_half_00157.png",
+          "sha256": "954841cdaf275d6a1438b1c4e805efa512edba51541e0f4412acc8c1b6f0ade3"
+        },
+        {
+          "name": "motion_07_half_00158.png",
+          "sha256": "6b88ec01fff084cdbd317776dbf14fe8489fb3d01819e050685d72643c07326f"
+        },
+        {
+          "name": "motion_07_half_00159.png",
+          "sha256": "8655e8505515b75ac425b06fc3b4a720db8335bf5ac039e88b1b24d3e592a304"
+        },
+        {
+          "name": "motion_07_half_00160.png",
+          "sha256": "acc92509bc24bccdcec13760a21ae1440d91f0fd2f21d0bf13fcf3ec68e39dbc"
+        },
+        {
+          "name": "motion_07_half_00161.png",
+          "sha256": "5d40957ea03a9c0e56e76e7eda8d6e2d752aacbdb0afaab9d6d7e3eced7e30af"
+        }
+      ]
+    },
+    {
+      "file": "atlas-027.webp",
+      "bytes": 1244048,
+      "sha256": "3b512abc1ee7cc2cdb6790c6df899f72602d322ba48f77147f8e40d73822f91a",
+      "sources": [
+        {
+          "name": "motion_07_half_00162.png",
+          "sha256": "400d11f82bcd2392332df4231df1bbeecd634a86b0cb278c160fe4b2453cf17f"
+        },
+        {
+          "name": "motion_07_half_00163.png",
+          "sha256": "819789a7cf487afacf7df63a7596f1f7a49a2e71e1f90b0fdf2675c908aa5d3d"
+        },
+        {
+          "name": "motion_07_half_00164.png",
+          "sha256": "01953ea7735d77259da8668e8c034027892fdf5b9dcd03137599a6f48021cd82"
+        },
+        {
+          "name": "motion_07_half_00165.png",
+          "sha256": "0a0ca766d4b1a2a083fea4d7b5e23b31088d933164c886d696c1e547452909d2"
+        },
+        {
+          "name": "motion_07_half_00166.png",
+          "sha256": "7bd2838014b7368834b97f62c7519433f07d847a94e097ed36d8dd46bf27440b"
+        },
+        {
+          "name": "motion_07_half_00167.png",
+          "sha256": "fc29eb744871be680cbdae7de8e81d2781ce15c61f738782fa1ca94f5b3341b6"
+        }
+      ]
+    },
+    {
+      "file": "atlas-028.webp",
+      "bytes": 1266580,
+      "sha256": "bed49e92bdebb1b7e8745b9870ba71233100d52a86926a2f0f59daa617195d08",
+      "sources": [
+        {
+          "name": "motion_07_half_00168.png",
+          "sha256": "9e464e1a8b5e61dbed6de44f743114945bcee54938b0fd0e73b9ee9ba2ccf010"
+        },
+        {
+          "name": "motion_07_half_00169.png",
+          "sha256": "29db3f427bbf419e2070e18283619620953a57f9abe6b74bcf612599d594adf2"
+        },
+        {
+          "name": "motion_07_half_00170.png",
+          "sha256": "256e8158d79bc319ad542dce1dd5a4fe8727bef2b2da189a91b06d3005bebbc3"
+        },
+        {
+          "name": "motion_07_half_00171.png",
+          "sha256": "dc621a6a5b374c7a5965aaea26c38facea10b47da39e559cd0d6f9ae1d1d6f74"
+        },
+        {
+          "name": "motion_07_half_00172.png",
+          "sha256": "1e44f3f949e37bc421c25bc794d98bf44df1d700328a0d828182ced5bfe377a4"
+        },
+        {
+          "name": "motion_07_half_00173.png",
+          "sha256": "d0b3a3f10e560f048861565e8528d84114d39d3c37bd6e06515fe2ae9614dcc1"
+        }
+      ]
+    },
+    {
+      "file": "atlas-029.webp",
+      "bytes": 1228312,
+      "sha256": "5b884e423e77f03850ac6c98bc182345b424991af40d3cb551fb613e653af8ea",
+      "sources": [
+        {
+          "name": "motion_07_half_00174.png",
+          "sha256": "fa703910dc5da235ea4ac4f0314b7d266e894b0b7c734b07c4c1d023f26613a1"
+        },
+        {
+          "name": "motion_07_half_00175.png",
+          "sha256": "f3c6edc3e5a43e05ab3bfe646ec4b4a379c7bd3da73d4524c6097a686789b814"
+        },
+        {
+          "name": "motion_07_half_00176.png",
+          "sha256": "7de28ceecacf912af0a8ddcef9adc8644f808bc6d0e1362379714b42b73a5c0f"
+        },
+        {
+          "name": "motion_07_half_00177.png",
+          "sha256": "08d535548434a99d50939524536dfba087e81a4b45326a346b0d00ee8f1d3fad"
+        },
+        {
+          "name": "motion_07_half_00178.png",
+          "sha256": "236f8446617e41ef37f2f608e350370a5d51274981185d86fed3d83e5bafde24"
+        },
+        {
+          "name": "motion_07_half_00179.png",
+          "sha256": "c6aae859a8ea96c7fd2e5cc4f7acd9a028e054bd421d0c23b44f209e19232b75"
+        }
+      ]
+    },
+    {
+      "file": "atlas-030.webp",
+      "bytes": 1218694,
+      "sha256": "24227b9ca04f11fc2a25579693099234d2aaa0b486dddc4368a5934a6a1c4358",
+      "sources": [
+        {
+          "name": "motion_07_half_00180.png",
+          "sha256": "3f2ef99310e2e03beae9a2360e9cff7e33dcc217e489321f7a0c57cca2987fbd"
+        },
+        {
+          "name": "motion_07_half_00181.png",
+          "sha256": "5d4358f37a6173e2176bf7b6b800b39da3e161f88e3917145d769dd8709e2d72"
+        },
+        {
+          "name": "motion_07_half_00182.png",
+          "sha256": "112fe46ac68a3f600c80bc9c97321107b0f26e980015478f37e04c861b548d15"
+        },
+        {
+          "name": "motion_07_half_00183.png",
+          "sha256": "01c8e69b72b1e79a078f6d94df0a94c35ac7c4c05ee41bfb61bd8d55cebabd53"
+        },
+        {
+          "name": "motion_07_half_00184.png",
+          "sha256": "1b1034faf188dc6664c5b3c729c5f111b60bca0283c3717314e49eaec6bc50ae"
+        },
+        {
+          "name": "motion_07_half_00185.png",
+          "sha256": "eec2c693b8e0dc62154d78409bfcb505070b278063a4a233d9251c861d75f636"
+        }
+      ]
+    },
+    {
+      "file": "atlas-031.webp",
+      "bytes": 1225298,
+      "sha256": "c78f3e77dcb01ee15693ee1b8f9c63dea0afc3497e13a2611cd769c824bc246a",
+      "sources": [
+        {
+          "name": "motion_07_half_00186.png",
+          "sha256": "95b83b2302fc397c7855d83a564f0f747317129bb6c64a0bdde6233bf0233d89"
+        },
+        {
+          "name": "motion_07_half_00187.png",
+          "sha256": "a57dbeede2fcec8d8885cd75e9473e803b4c0a0c56ac92cdface0fa383035edf"
+        },
+        {
+          "name": "motion_07_half_00188.png",
+          "sha256": "ea41a45b8be69d8ea6dd2a3374e4a014672dabc4268d091f52eef302b2d90944"
+        },
+        {
+          "name": "motion_07_half_00189.png",
+          "sha256": "6fad48494715e9a501ff5fa3808871fa6c97fe7c31265d1ce34258cd2b3ab9fd"
+        },
+        {
+          "name": "motion_07_half_00190.png",
+          "sha256": "da0fdf88e5c1b8ef65281048a2f1810c131485b2e2e3fba1d5fe89701c124d26"
+        },
+        {
+          "name": "motion_07_half_00191.png",
+          "sha256": "d971a5a615739ccd41b35df0c22473539dd316fefff7ce6810b7e272b23c222c"
+        }
+      ]
+    },
+    {
+      "file": "atlas-032.webp",
+      "bytes": 1282296,
+      "sha256": "dd7d2fd70463867d55bc25285b048d8d46eabc8c8377dd0a4227cf5b685fd2fd",
+      "sources": [
+        {
+          "name": "motion_07_half_00192.png",
+          "sha256": "48c620a9b1ef108c4b9ccc4397e3f0f7ad3cec4d0878cdc62ba3b610fc422598"
+        },
+        {
+          "name": "motion_07_half_00193.png",
+          "sha256": "42bddbfc9dbe7c74c2623d410eac6c32cab4c386ccec4c291ff5ac44ae8f8648"
+        },
+        {
+          "name": "motion_07_half_00194.png",
+          "sha256": "90ebf762d20a4b8dedad44b137a7e950e339b06dd882fc60309fa2cc1434050a"
+        },
+        {
+          "name": "motion_07_half_00195.png",
+          "sha256": "74bd1d1819428aeb77dc64d4974795a6446b23253bfd315d57972d562ab33ff7"
+        },
+        {
+          "name": "motion_07_half_00196.png",
+          "sha256": "1e33a07513a70d306397a80784e7e9dfa768cabbc6f684b614b7026ba31cca85"
+        },
+        {
+          "name": "motion_07_half_00197.png",
+          "sha256": "03bde05ab35b8e0b907af3df0d751ae06cbd2cf1dea73673296c2b1268d84ebd"
+        }
+      ]
+    },
+    {
+      "file": "atlas-033.webp",
+      "bytes": 1416434,
+      "sha256": "8326eb9a351b96c62e50ea62429aee5526710255175587bdbbcfa75f0f56db7a",
+      "sources": [
+        {
+          "name": "motion_07_half_00198.png",
+          "sha256": "7dd0789519d0cdb9d355b92affd1ccb762c67cb303e592b32dbea08545e95275"
+        },
+        {
+          "name": "motion_07_half_00199.png",
+          "sha256": "6781bb2095212a167fd5a58acb02db946737432eb2527f531a4b207450b363c3"
+        },
+        {
+          "name": "motion_07_half_00200.png",
+          "sha256": "8c7a8505e5bee72f04fe6d5de282af402c2e3c3b5db7931fe6d86ff427bcda78"
+        },
+        {
+          "name": "motion_07_half_00201.png",
+          "sha256": "42c385584260e54569aa0d564212c206dd5ec1523a2fb26a8d27d20275073fae"
+        },
+        {
+          "name": "motion_07_half_00202.png",
+          "sha256": "0e775d1f34c7de6fa679f20ac7b286c9e8a9c3a1c504b62881f1d99b7265892e"
+        },
+        {
+          "name": "motion_07_half_00203.png",
+          "sha256": "994c16cc2ede8856b7e9193ca87530a7c3d403019b161beab55f1d8ab24bc614"
+        }
+      ]
+    },
+    {
+      "file": "atlas-034.webp",
+      "bytes": 1188286,
+      "sha256": "c2c413daf6bc5603949a0b670f8553e543378e09651af4acb7af7e784a4a196a",
+      "sources": [
+        {
+          "name": "motion_07_half_00204.png",
+          "sha256": "2aad4df58040250c4d1e2e5530caf8973d06f48a1d9ed608ad91a4a59f97cc6a"
+        },
+        {
+          "name": "motion_07_half_00205.png",
+          "sha256": "2ebad338f930dce3e1926cd3c2046802bfb8cf7d468f24e70383af00374bbcc0"
+        },
+        {
+          "name": "motion_07_half_00206.png",
+          "sha256": "faf254825d2ad6a8f80e39e6028b752423457425470147a389d60d4a881c8f7b"
+        },
+        {
+          "name": "motion_07_half_00207.png",
+          "sha256": "f1402d3b16d8b68c75f2448fb9fd8c3687b491bc5a05ca517abcfea775e33ea4"
+        },
+        {
+          "name": "motion_07_half_00208.png",
+          "sha256": "c6b88f3de3936a7e842e7b8b6deca619f1deef8d61f2b7796175c691d6b2ab47"
+        },
+        {
+          "name": "motion_07_half_00209.png",
+          "sha256": "2b0a5882d14bb5d39fd2839020d143e6a798d671dff0e5804702e2eaa0632ef2"
+        }
+      ]
+    },
+    {
+      "file": "atlas-035.webp",
+      "bytes": 1455960,
+      "sha256": "335270f49ff49d38362a2639fa77a9d853b4ef1bcd5134bd93f4a224a92613eb",
+      "sources": [
+        {
+          "name": "motion_07_half_00210.png",
+          "sha256": "61c3b0d9f7a383a5e34d0d5ab1b6439bf004bd77258c7d2153b0055eafcf218a"
+        },
+        {
+          "name": "motion_07_half_00211.png",
+          "sha256": "bb26f970ad8ce680d527631151918eaacecf51fc333266741b1c50b42ef752fa"
+        },
+        {
+          "name": "motion_07_half_00212.png",
+          "sha256": "4c74a3922e23e5f110e8097d34a30ca7a6cb511accf54bb03aca958cd82fec21"
+        },
+        {
+          "name": "motion_07_half_00213.png",
+          "sha256": "22b65d4dc6b4dfd03bd71890615bb1b0c289ee095725f0b3da6d270ee5ddd8f0"
+        },
+        {
+          "name": "motion_07_half_00214.png",
+          "sha256": "3223c2174ec6c38d9062a871b1d82b39e0641d4b62ee6f6a34ac22422effb267"
+        },
+        {
+          "name": "motion_07_half_00215.png",
+          "sha256": "e4ca8f0686cfb9b2611f87362d941b7728e3de6378fb6d4025f64e3d4612efe3"
+        }
+      ]
+    },
+    {
+      "file": "atlas-036.webp",
+      "bytes": 1445924,
+      "sha256": "1c4f28d99ee2419a2579beab1b3ff4613f221e86174a860c9b3552aae6b59141",
+      "sources": [
+        {
+          "name": "motion_07_half_00216.png",
+          "sha256": "d67aa2dc70826384de52d19725fc30a2bed9034ffaaa373c5e235ee41da5f6ea"
+        },
+        {
+          "name": "motion_07_half_00217.png",
+          "sha256": "bf60c58ef7df4a193d405ecc6b12b7b1b0a0d36cad654c98a3f5aa0a124b5933"
+        },
+        {
+          "name": "motion_07_half_00218.png",
+          "sha256": "ec1de04a3f066f6632e35f1af8a491ba355041c9211130038c999d70db4b4362"
+        },
+        {
+          "name": "motion_07_half_00219.png",
+          "sha256": "b66d782e529258ca3e1f0cbe21d21cd3659c4bffdd8ca9665c84f58f8fb66554"
+        },
+        {
+          "name": "motion_07_half_00220.png",
+          "sha256": "ce9751f97b9692faa87552bd96e639616a41503cd7dde7189eb0a57a03effe61"
+        },
+        {
+          "name": "motion_07_half_00221.png",
+          "sha256": "71f7b479d8853fdd7a806932caec7a616544646218901982975ca1ce8406eed7"
+        }
+      ]
+    },
+    {
+      "file": "atlas-037.webp",
+      "bytes": 1274990,
+      "sha256": "6faeb88877955e6f957ae1be410c10d75a936d5d4d965e2a09af06f38f8d2f5c",
+      "sources": [
+        {
+          "name": "motion_07_half_00222.png",
+          "sha256": "dcdf7936e1cb1a8ff45435cd251038215b8e5aeedb04d9d329cad78bf9dd424e"
+        },
+        {
+          "name": "motion_07_half_00223.png",
+          "sha256": "928b4a7475effc3c50b7da540695a5f112736a50602b0f4dadfaa64c4141a9b8"
+        },
+        {
+          "name": "motion_07_half_00224.png",
+          "sha256": "36029aef10b29848f07f553f05061a2a9671747148c08833cfc76c15239d1b36"
+        },
+        {
+          "name": "motion_07_half_00225.png",
+          "sha256": "2712dec8c0e16a4ae1732fb8ee55a6795cbca61f844400e9eeecf0c0a7b90864"
+        },
+        {
+          "name": "motion_07_half_00226.png",
+          "sha256": "8b22c759df9c7b9cd8d833e44fdfc2fd0bf85eadb3ec277754411a05d567aab2"
+        },
+        {
+          "name": "motion_07_half_00227.png",
+          "sha256": "1dda48e2a2d3a527e0b31a64ed559f18843f62ca3244a25357db4e220daf48b4"
+        }
+      ]
+    },
+    {
+      "file": "atlas-038.webp",
+      "bytes": 1237562,
+      "sha256": "6a438d0337c7051cf573773102ef2d2162232ecdf672cb60e2c8afcd9d5b0643",
+      "sources": [
+        {
+          "name": "motion_07_half_00228.png",
+          "sha256": "0f7ebb9b222542212413a311d0d9886bb25095737f23c0bea140b6427d9f91d1"
+        },
+        {
+          "name": "motion_07_half_00229.png",
+          "sha256": "957adb0d89425f4918ea3e4b4b0fb3b5be70a61c22d9958e117002c9257c3a9d"
+        },
+        {
+          "name": "motion_07_half_00230.png",
+          "sha256": "59562328da2bc69ece3e5c940f3616414bd4b84de195b57014f745e44116bfe1"
+        },
+        {
+          "name": "motion_07_half_00231.png",
+          "sha256": "9e39aab364a5e9135649c34febd7f0e00691aa0a6971f2b61f8f5fb94d7d10c5"
+        },
+        {
+          "name": "motion_07_half_00232.png",
+          "sha256": "684772493f8119c05aa4900e9f35a55fc1bc306ea05a5e8b6d9850194ce22767"
+        },
+        {
+          "name": "motion_07_half_00233.png",
+          "sha256": "fbaaa8dad89946a05a3af295b496a09b0b69b4489ff3c47e4a955771b16d7036"
+        }
+      ]
+    },
+    {
+      "file": "atlas-039.webp",
+      "bytes": 1034682,
+      "sha256": "c7651eebba476a27dcb32fccb21225f1ad2c401b96a2d8ac02204bcf2397b4b2",
+      "sources": [
+        {
+          "name": "motion_07_half_00234.png",
+          "sha256": "89fcf327d9731aa2c395da6a8a1bdb03c80afbd65a3ad0f2c32bbc29c2e4bf48"
+        },
+        {
+          "name": "motion_07_half_00235.png",
+          "sha256": "2c778753abd63a3a20c7261acfc733c41defc2c70e9aa9d8cf6700248bc16f8e"
+        },
+        {
+          "name": "motion_07_half_00236.png",
+          "sha256": "6852cba6ecfe555d22b3afb8117397d44222a3088d9314b6b2be571b284aa483"
+        },
+        {
+          "name": "motion_07_half_00237.png",
+          "sha256": "7dfe652d595205041bb5953e6fd8ba23b5bf845791598ca03aff36e295eebbc7"
+        },
+        {
+          "name": "motion_07_half_00238.png",
+          "sha256": "26f7dec4c871515f4190c12dbcc1f1136dbfaa3b82d6fabff8c9fc2084879b2f"
+        }
+      ]
+    }
+  ]
+}

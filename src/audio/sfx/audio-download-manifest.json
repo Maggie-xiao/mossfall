@@ -1,0 +1,237 @@
+{
+  "deprecated": true,
+  "deprecated_on": "2026-08-06",
+  "replaced_by": "audio-sources.json",
+  "deprecation_reason": "Retained only for the 2026-07 historical report. Current asset provenance, required flows, hashes, and processing results live in audio-sources.json.",
+  "site": "Kenney",
+  "license_name": "Creative Commons CC0 1.0 Universal",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "license_policy": "commercial-safe-cc0",
+  "output_dir": "audio/sfx",
+  "required_flows": [
+    "mode-select",
+    "teach-in",
+    "countdown",
+    "gameplay-collision",
+    "ball-capture",
+    "ball-fall",
+    "level-clear",
+    "pause-resume",
+    "result"
+  ],
+  "assets": [
+    {
+      "key": "ui-move",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "file": "ui-move.ogg",
+      "source_file": "_source/ui-move-source.ogg",
+      "event": "Mode changes, menu navigation, pause opening, modal navigation, and teach-page changes",
+      "query": "interface select click",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/select_006.ogg",
+      "title": "Interface Sounds - select 006",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 8,
+        "edge_fade_ms": 4
+      }
+    },
+    {
+      "key": "ui-confirm",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "file": "ui-confirm.ogg",
+      "event": "Start, resume, retry, quit confirmation, and modal close actions",
+      "query": "interface confirmation",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/confirmation_002.ogg",
+      "title": "Interface Sounds - confirmation 002",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    },
+    {
+      "key": "countdown-beat",
+      "category": "sfx",
+      "origin": "missing",
+      "decision": "add",
+      "file": "countdown-beat.ogg",
+      "event": "The 3, 2, and 1 countdown marks appear",
+      "query": "interface countdown tick",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/tick_001.ogg",
+      "title": "Interface Sounds - tick 001",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    },
+    {
+      "key": "countdown-go",
+      "category": "sfx",
+      "origin": "missing",
+      "decision": "add",
+      "file": "countdown-go.ogg",
+      "event": "The GO label appears and gameplay is about to start",
+      "query": "interface positive confirmation",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/confirmation_003.ogg",
+      "title": "Interface Sounds - confirmation 003",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    },
+    {
+      "key": "ball-impact",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "file": "ball-impact.ogg",
+      "event": "A marble collides with the board, wall, obstacle, or another marble",
+      "query": "light plate impact",
+      "page_url": "https://kenney.nl/assets/impact-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/impact-sounds/87b4ddecda-1677589768/kenney_impact-sounds.zip",
+      "archive_member": "Audio/impactPlate_light_000.ogg",
+      "title": "Impact Sounds - plate light 000",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    },
+    {
+      "key": "ball-capture",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "layer",
+      "file": "ball-capture.ogg",
+      "event": "A marble settles into a target hole",
+      "query": "interface drop bong",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/bong_001.ogg",
+      "title": "Interface Sounds - bong 001",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    },
+    {
+      "key": "ball-fall",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "file": "ball-fall.ogg",
+      "event": "A marble leaves the table and triggers the reset beat",
+      "query": "friendly interface error",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/error_004.ogg",
+      "title": "Interface Sounds - error 004",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    },
+    {
+      "key": "level-clear",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "file": "level-clear.ogg",
+      "event": "All marbles are captured and the level time bonus appears",
+      "query": "interface achievement confirmation",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/confirmation_004.ogg",
+      "title": "Interface Sounds - confirmation 004",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    },
+    {
+      "key": "result-count",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "file": "result-count.ogg",
+      "event": "Result score rows count upward",
+      "query": "interface result tick",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/tick_002.ogg",
+      "title": "Interface Sounds - tick 002",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    },
+    {
+      "key": "result-rank",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "file": "result-rank.ogg",
+      "event": "A result star or new personal record is revealed",
+      "query": "interface maximize reward",
+      "page_url": "https://kenney.nl/assets/interface-sounds",
+      "download_url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+      "archive_member": "Audio/maximize_008.ogg",
+      "title": "Interface Sounds - maximize 008",
+      "creator": "Kenney",
+      "site": "Kenney",
+      "license_name": "Creative Commons CC0 1.0 Universal",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "processing": {
+        "mode": "none"
+      }
+    }
+  ]
+}

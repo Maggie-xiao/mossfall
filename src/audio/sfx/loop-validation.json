@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-06T10:17:15.781609+00:00",
+  "target_html": "D:\\KiwiiGit\\Kiwii-AI\\h5-balance-mossfall\\src\\index.html",
+  "manifest": "D:\\KiwiiGit\\Kiwii-AI\\h5-balance-mossfall\\src\\audio\\sfx\\audio-sources.json",
+  "results": [
+    {
+      "key": "ui-move",
+      "mode": "trim",
+      "source_file": "_source/ui-move-source.ogg",
+      "file": "ui-move.ogg",
+      "source_start_seconds": 0.014422,
+      "source_end_seconds": 0.254036,
+      "output_duration_seconds": 0.239615,
+      "padding_ms": 8,
+      "edge_fade_ms": 4,
+      "quality_passed": true
+    },
+    {
+      "key": "level-clear",
+      "mode": "none",
+      "source_file": "_source/police-jump-people-shout-oo2-source.mp3",
+      "file": "level-clear.ogg",
+      "source_start_seconds": 0,
+      "source_end_seconds": 0.52,
+      "output_duration_seconds": 0.52,
+      "gain_multiplier": 1.35,
+      "sample_rate": 48000,
+      "channels": 2,
+      "edge_fade_in_ms": 4,
+      "runtime_fade_out_ms": 70,
+      "quality_passed": true
+    },
+    {
+      "key": "run-victory-applause",
+      "mode": "trim",
+      "source_file": "_source/mossfall-run-victory-applause-source.wav",
+      "file": "run-victory-applause.ogg",
+      "source_start_seconds": 0,
+      "source_end_seconds": 1.65,
+      "output_duration_seconds": 1.65,
+      "padding_ms": 24,
+      "edge_fade_ms": 12,
+      "quality_passed": true
+    },
+    {
+      "key": "run-victory-cheer",
+      "mode": "none",
+      "source_file": "_source/police-jump-sfx-cheer-big-source.mp3",
+      "file": "run-victory-cheer.ogg",
+      "source_start_seconds": 0,
+      "source_end_seconds": 2.35,
+      "output_duration_seconds": 2.35,
+      "gain_multiplier": 1.26,
+      "sample_rate": 48000,
+      "channels": 2,
+      "edge_fade_in_ms": 8,
+      "quality_passed": true
+    },
+    {
+      "key": "run-victory-celebration",
+      "mode": "trim",
+      "source_file": "_source/mossfall-run-victory-celebration-source.wav",
+      "file": "run-victory-celebration.ogg",
+      "source_start_seconds": 0,
+      "source_end_seconds": 1.8,
+      "output_duration_seconds": 1.8,
+      "padding_ms": 24,
+      "edge_fade_ms": 12,
+      "quality_passed": true
+    }
+  ],
+  "failures": []
+}

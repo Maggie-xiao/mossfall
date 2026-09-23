@@ -1,0 +1,88 @@
+{
+  "capturedAt": "2026-09-04T11:18:00.256Z",
+  "viewport": "1280x720",
+  "tiers": [
+    {
+      "stars": 1,
+      "cleared": 2,
+      "time": 11,
+      "drops": 4
+    },
+    {
+      "stars": 2,
+      "cleared": 5,
+      "time": 23,
+      "drops": 2
+    },
+    {
+      "stars": 3,
+      "cleared": 8,
+      "time": 34,
+      "drops": 1
+    },
+    {
+      "stars": 4,
+      "cleared": 8,
+      "time": 52,
+      "drops": 0
+    }
+  ],
+  "shots": [
+    {
+      "file": "star-1-rank.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 657707,
+      "sha256": "8421e6378ba982e13fd086696ae9f3ff132e1b648e554415f2bdf7882266cd78"
+    },
+    {
+      "file": "star-1-result.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 743445,
+      "sha256": "ed18ea4b0be8a72ca7995749e796e0ff7fe14f92eb9319e29e52191b222ccccc"
+    },
+    {
+      "file": "star-2-rank.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 657204,
+      "sha256": "d6a2e63775c8a84e91006c733ffedf49e5024d40d36707bdb2e3b779cdbfa285"
+    },
+    {
+      "file": "star-2-result.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 750174,
+      "sha256": "ccc9f9d6acf57f7b0157d8f6b2a10e5e3c6d1ee2beb8e2518b3ccc8d4d613dfd"
+    },
+    {
+      "file": "star-3-rank.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 656777,
+      "sha256": "7bd2ba395f8a4d78e2a10784b7bafcfc109bc3643bc7bf4b42b704629297ff1e"
+    },
+    {
+      "file": "star-3-result.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 740509,
+      "sha256": "393ff3e4a38cfd9c5be8458a1d411342ee9b7f5a3eaff79b92dcf3d87b96138b"
+    },
+    {
+      "file": "star-4-rank.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 657526,
+      "sha256": "5481a05bc8ba83366de8103b50556c694b57b63f9c58279293e65ecd006fb1b9"
+    },
+    {
+      "file": "star-4-result.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 755386,
+      "sha256": "544dd38e28c5ba35f0e4a955f9d3183894e529ab0dc5b860d63e5ee3257db1d5"
+    }
+  ]
+}

@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MOSSFALL TABLE TILT · UI v2</title>
+<style>
+@font-face{font-family:Bricolage;src:url("./fonts/bricolage-grotesque-400.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:Bricolage;src:url("./fonts/bricolage-grotesque-600.ttf") format("truetype");font-weight:600;font-display:swap}
+@font-face{font-family:Bricolage;src:url("./fonts/bricolage-grotesque-700.ttf") format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:Bricolage;src:url("./fonts/bricolage-grotesque-800.ttf") format("truetype");font-weight:800;font-display:swap}
+@font-face{font-family:SpaceG;src:url("./fonts/space-grotesk-500.ttf") format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:SpaceG;src:url("./fonts/space-grotesk-600.ttf") format("truetype");font-weight:600;font-display:swap}
+@font-face{font-family:SpaceG;src:url("./fonts/space-grotesk-700.ttf") format("truetype");font-weight:700;font-display:swap}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ===== MOSSFALL WET-LEAF TOKENS · 与 styles.css 第二个 :root 一致 ===== */
+:root{
+--accent:#ffd98f; --accent-lt:#ffe9b8; --accent-d:#b97832;
+--ink:#eefce8; --ink-soft:#a9c79b;
+--p1:#1b4935; --p2:#0f3427; --p3:#071d15;
+--hair:rgba(214,244,196,.30);
+--hair-s:rgba(214,244,196,.17);
+--mint:#8fd45a; --mint-lt:#d9f5b8; --mint-d:#4f8c3a;
+--pen:#ff8a6b; --pen-lt:#ffc0ad; --pen-d:#b8412a;
+--gold:#ffd98f;
+--dev:#5d7a63;
+--brown:#6b5140; --brown-d:#3c2c22;
+--total:#7fd8c8; --total-lt:#cdf3ff; --total-d:#2f8f88;
+--lab:#a9f0ea;
+}
+
+body{background:#04100b;font-family:Bricolage,'Trebuchet MS',sans-serif;color:#dcefd6;padding:46px 0 120px}
+.num{font-family:SpaceG,ui-monospace,monospace;font-weight:700;font-variant-numeric:tabular-nums}
+
+.wrap{width:1316px;margin:0 auto}
+.pagehead{width:1316px;margin:0 auto 34px}
+.pagehead .kick{font-size:12px;font-weight:800;letter-spacing:.24em;color:var(--accent);text-transform:uppercase}
+.pagehead h1{font-weight:800;font-size:33px;letter-spacing:.3px;margin-top:8px;color:#fff}
+.pagehead h1 span{color:var(--accent)}
+.pagehead p{margin-top:8px;color:#87a37e;font-size:14.5px;font-weight:600;line-height:1.6;max-width:1080px}
+.pagehead p b{color:#cfe6c5}
+
+.topnav{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:9px;padding:12px 0;margin-bottom:8px;
+background:rgba(4,16,11,.94);backdrop-filter:blur(6px);border-bottom:1px solid #16351f}
+.topnav .brand{font-weight:800;font-size:14px;color:#fff;margin-right:8px}
+.topnav .brand b{color:var(--accent)}
+.topnav a{text-decoration:none;color:#b3ceaa;background:#0e2a1e;border:1px solid #1e4331;border-radius:999px;
+padding:7px 15px;font-weight:700;font-size:12.5px}
+.topnav a:hover{color:#071410;background:var(--accent);border-color:var(--accent)}
+
+.sec{width:1316px;margin:0 auto 58px;scroll-margin-top:70px}
+.lab-row{display:flex;align-items:baseline;gap:14px;margin:0 6px 14px;flex-wrap:wrap}
+.lab-row .no{font-family:SpaceG;font-weight:700;color:var(--accent);font-size:17px}
+.lab-row .nm{font-weight:800;font-size:22px;color:#fff}
+.lab-row .ds{color:#87a37e;font-size:14px;font-weight:600}
+
+.bezel{background:linear-gradient(180deg,#173425,#0a1c13);border-radius:24px;padding:18px;
+box-shadow:0 30px 70px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.07)}
+.gstage{width:100%;overflow:hidden;position:relative;border-radius:12px}
+.screen{width:1280px;height:720px;position:relative;overflow:hidden;border-radius:12px;background:#0b1f16;
+transform-origin:top left;color:var(--ink)}
+.chin{margin-top:11px;text-align:center;font-weight:800;font-size:12px;color:#6d876a}
+.chin b{color:var(--accent)}
+
+hr.major{border:none;height:2px;background:linear-gradient(90deg,transparent,rgba(255,217,143,.5),transparent);
+margin:78px auto 40px;max-width:1316px}
+
+.rack{display:flex;flex-wrap:wrap;gap:18px;align-items:stretch;
+background:radial-gradient(120% 130% at 50% 0%,#122c1f,#0a1b13);
+border:1px solid #1c3d2b;border-radius:20px;padding:24px}
+.rack+.rack{margin-top:14px}
+.rack .rlab{width:100%;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#79936f;margin:-2px 0 0}
+
+.spec{background:linear-gradient(180deg,#0e2418,#0a1a11);border:1px solid #1b3a28;border-radius:15px;
+padding:14px 15px;display:flex;flex-direction:column;gap:12px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.spec .sl{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#87a37e}
+.spec .sl b{color:var(--accent)}
+.spec .sl .rec{color:var(--mint)}
+.spec .stg{display:flex;align-items:center;justify-content:center;flex:1;gap:14px;position:relative}
+.spec .sn{font-size:12px;color:#7e9878;line-height:1.55;max-width:320px}
+.spec .sn b{color:#c8e0bf}
+
+.pal{display:flex;flex-wrap:wrap;gap:10px}
+.pchip{display:flex;align-items:center;gap:9px;background:#0e2418;border:1px solid #1b3a28;border-radius:11px;padding:8px 12px 8px 8px}
+.pchip i{width:26px;height:26px;border-radius:7px;display:block;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.pchip span{font-size:11.5px;font-weight:700;color:#b6cfad}
+.pchip span b{display:block;font-weight:800;color:#fff;font-size:12px}
+.pchip .hx{font-family:SpaceG;font-weight:600;color:#7e9878;font-size:10.5px}
+
+.d3{position:relative;border-radius:12px;overflow:hidden;background:#0b1f16}
+.d3 .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.dim{position:absolute;inset:0;background:rgba(4,18,12,.5)}
+
+.grain::after{content:'';position:absolute;inset:0;z-index:70;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vig::before{content:'';position:absolute;inset:0;z-index:65;pointer-events:none;
+background:radial-gradient(140% 118% at 50% 42%,rgba(0,0,0,0) 48%,rgba(2,12,8,.6) 100%)}
+
+/* 湿叶玻璃面板 —— 全站唯一容器语言 */
+.panel{position:relative;background:linear-gradient(168deg,var(--p1) 0%,var(--p2) 44%,var(--p3) 100%);
+box-shadow:0 2px 3px rgba(2,10,6,.6),0 24px 46px rgba(2,10,6,.55),
+inset 0 0 0 1.5px var(--hair),inset 0 1px 0 rgba(226,255,206,.22)}
+.panel::before{content:'';position:absolute;inset:9px;border-radius:inherit;pointer-events:none;
+border:1.5px solid var(--hair-s)}
+
+/* ---- C2 buttons ---- */
+.btn-p{position:relative;display:inline-flex;align-items:center;justify-content:center;
+font-family:Bricolage,sans-serif;font-weight:800;font-size:19px;color:#071410;letter-spacing:.4px;
+background:linear-gradient(180deg,var(--accent-lt) 0%,var(--accent) 52%,#e1a452 100%);
+padding:15px 46px;border-radius:999px;border:0;cursor:default;
+box-shadow:0 5px 0 var(--accent-d),0 12px 26px rgba(255,217,143,.3)}
+.btn-p.press{transform:translateY(4px);box-shadow:0 1px 0 var(--accent-d),0 5px 12px rgba(255,217,143,.28)}
+.btn-g{display:inline-flex;align-items:center;justify-content:center;font-family:Bricolage,sans-serif;
+font-weight:800;font-size:19px;color:var(--ink);padding:14px 42px;border-radius:999px;border:0;cursor:default;
+background:linear-gradient(180deg,rgba(27,73,53,.94),rgba(9,32,23,.96));
+box-shadow:0 4px 0 rgba(214,244,196,.18),0 12px 24px rgba(0,0,0,.5),inset 0 0 0 1.5px var(--hair)}
+.btn-d{display:inline-flex;align-items:center;justify-content:center;font-family:Bricolage,sans-serif;
+font-weight:800;font-size:17px;color:#fff;padding:13px 36px;border-radius:999px;border:0;cursor:default;
+background:linear-gradient(180deg,var(--pen-lt),var(--pen));
+box-shadow:0 5px 0 var(--pen-d),0 10px 20px rgba(255,138,107,.3)}
+.btn-p.sm,.btn-g.sm{font-size:14.5px;padding:10px 22px}
+.btn-p.big,.btn-g.big{font-size:24px;padding:19px 60px}
+.btn-g.disabled{filter:grayscale(.5) opacity(.45)}
+.btn-p.focus{outline:3px solid var(--ink);outline-offset:4px}
+
+/* ---- K1 ---- */
+.k1 .scrim{position:absolute;left:0;right:0;bottom:0;height:330px;z-index:5;
+background:linear-gradient(180deg,rgba(4,20,13,0) 0%,rgba(4,20,13,.34) 55%,rgba(3,15,10,.7) 100%)}
+.k1 .topbar{position:absolute;right:26px;top:44px;z-index:14;display:flex;align-items:center;gap:14px}
+.k1 .ui{position:absolute;left:0;right:0;bottom:52px;z-index:10;display:flex;flex-direction:column;align-items:center;gap:22px}
+
+/* ---- C3 difficulty · LOCKED GEOMETRY ---- */
+.diffseg{display:inline-flex;padding:6px;gap:5px;border-radius:999px;
+background:linear-gradient(180deg,rgba(27,73,53,.94),rgba(9,32,23,.96));
+box-shadow:0 5px 0 rgba(214,244,196,.16),0 16px 30px rgba(0,0,0,.55),inset 0 0 0 1.5px var(--hair)}
+.diffseg span{padding:12px 34px;border-radius:999px;font-weight:800;font-size:19px;color:var(--ink-soft)}
+.diffseg span.on{color:#071410;background:linear-gradient(180deg,var(--accent-lt),var(--accent));
+box-shadow:0 3px 0 var(--accent-d)}
+
+.startB{display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:26px;color:#071410;
+padding:20px 84px;border-radius:20px;letter-spacing:.08em;border:0;
+background:linear-gradient(180deg,var(--accent-lt),var(--accent) 52%,#e1a452);
+box-shadow:0 6px 0 var(--accent-d),0 16px 32px rgba(255,217,143,.34)}
+
+/* ---- C7 primary metric · 顶中时钟胶囊（照 table-tilt 定稿）---- */
+.tclock{position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:20;
+display:inline-flex;align-items:center;gap:11px;height:70px;padding:0 30px;border-radius:38px;color:var(--ink);
+background:linear-gradient(168deg,rgba(23,63,49,.86),rgba(4,20,15,.94));
+border:1px solid rgba(217,245,184,.28);border-bottom:3px solid var(--gold);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 28px rgba(1,10,6,.44);
+-webkit-backdrop-filter:blur(10px) saturate(1.2);backdrop-filter:blur(10px) saturate(1.2)}
+.tclock .cg{width:30px;height:30px;border:4px solid var(--gold);border-radius:50%;position:relative;flex:none;opacity:.85}
+.tclock .cg::before,.tclock .cg::after{content:"";position:absolute;left:50%;top:50%;width:3px;
+background:var(--gold);transform-origin:top;border-radius:2px}
+.tclock .cg::before{height:9px;transform:translate(-50%,-100%)}
+.tclock .cg::after{height:7px;transform:translate(-50%,-100%) rotate(115deg)}
+.tclock .cn{font-family:SpaceG,monospace;font-weight:700;font-variant-numeric:tabular-nums;
+font-size:46px;line-height:1;color:var(--ink);text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.tclock.low{border-color:rgba(255,192,173,.62);border-bottom-color:var(--pen);
+background:linear-gradient(168deg,rgba(130,44,27,.9),rgba(58,17,12,.96));box-shadow:0 0 30px rgba(255,138,107,.25)}
+.tclock.low .cg{border-color:var(--pen-lt)}
+.tclock.low .cg::before,.tclock.low .cg::after{background:var(--pen-lt)}
+.tclock.low .cn{color:var(--pen-lt)}
+.tclock.fuse{padding-right:9px}
+.tclock .plus{margin-left:10px;font-family:SpaceG;font-weight:800;font-size:22px;padding:8px 16px;
+border-radius:999px;color:#071410;background:linear-gradient(180deg,var(--mint-lt),var(--mint));
+box-shadow:inset 0 -2.5px 0 rgba(40,80,26,.3),inset 0 1.5px 0 rgba(255,255,255,.4)}
+
+/* ---- C8 board feedback · 就是那张会翻的苔桌 ---- */
+.calboard{width:230px;height:150px;border-radius:20px;position:relative;
+background:radial-gradient(120% 120% at 50% 26%,#a8dd74,#4f8c3a 62%,#244a2f);
+border:9px solid var(--brown);box-shadow:0 0 0 3px var(--brown-d),0 6px 0 var(--brown-d),0 14px 26px rgba(2,12,8,.45)}
+.calboard .cross-v{position:absolute;left:50%;top:10px;bottom:10px;width:2px;margin-left:-1px;background:rgba(4,20,12,.28)}
+.calboard .cross-h{position:absolute;top:50%;left:10px;right:10px;height:2px;margin-top:-1px;background:rgba(4,20,12,.28)}
+.calboard .cop{position:absolute;width:22px;height:22px;border-radius:50%;transform:translate(-50%,-50%);z-index:3;
+background:radial-gradient(circle at 36% 30%,#3d2c1c,#100b07);box-shadow:0 2px 6px rgba(0,0,0,.55),0 0 0 3px rgba(255,217,143,.35)}
+.calboard.ok{background:radial-gradient(120% 120% at 50% 26%,#d9f5b8,#8fd45a 62%,#3f7a3a);border-color:#4f8c3a}
+.calboard.ok .cop{box-shadow:0 2px 6px rgba(0,0,0,.5),0 0 0 7px rgba(217,245,184,.4)}
+.calboard.off{filter:grayscale(.75);opacity:.55}
+.hole{position:absolute;border-radius:50%;background:radial-gradient(circle at 50% 36%,#173226,#04100b 72%);
+border:4px solid #3f6b3a;box-shadow:inset 0 5px 8px rgba(0,0,0,.7)}
+.tball{position:absolute;border-radius:50%;
+background:radial-gradient(circle at 36% 30%,#5c4630,#241a12 66%);
+box-shadow:inset -4px -6px 0 rgba(6,16,8,.3),0 6px 8px rgba(2,12,8,.5)}
+.tball::before,.tball::after{content:"";position:absolute;top:32%;width:18%;height:22%;border-radius:50%;background:var(--accent)}
+.tball::before{left:24%}.tball::after{right:24%}
+
+/* ---- C9 secondary metric · LEVEL 胶囊（左上）---- */
+.lvpill{position:absolute;left:26px;top:24px;z-index:20;display:inline-flex;align-items:center;gap:9px;
+min-width:116px;padding:12px 16px;border-radius:10px;color:var(--ink);
+background:linear-gradient(168deg,rgba(23,63,49,.86),rgba(4,20,15,.94));
+border:1px solid rgba(217,245,184,.26);border-bottom:3px solid var(--gold);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 28px rgba(1,10,6,.44)}
+.lvpill .lb{font-size:14px;font-weight:800;color:rgba(217,245,184,.72)}
+.lvpill .nv{font-size:30px;line-height:1;color:#f4ffe9;text-shadow:0 2px 0 rgba(4,16,11,.88),0 0 12px rgba(217,245,184,.28)}
+.lvpill .nv small{font-size:17px;opacity:.8}
+.lvpill.up{border-bottom-color:var(--mint);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 26px rgba(143,212,90,.35)}
+
+/* ---- C10 failure · 只闪不驻留 ---- */
+.misstag{display:inline-flex;padding:5px 13px 6px;border-radius:10px;transform:rotate(-5deg);
+font-family:SpaceG;font-size:15px;font-weight:800;letter-spacing:.12em;color:#fff;
+background:linear-gradient(180deg,var(--pen-lt),var(--pen));box-shadow:0 3px 0 var(--pen-d),0 9px 16px rgba(0,0,0,.4)}
+
+/* ---- C12 announce ---- */
+.announce{text-align:center}
+.announce .n{font-weight:800;font-size:34px;letter-spacing:.06em;color:var(--gold);
+text-shadow:0 2px 0 rgba(2,12,8,.65),0 0 30px rgba(255,217,143,.4)}
+.announce .s{margin-top:4px;font-size:12px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,217,143,.6)}
+
+/* ---- K3 teach-in ---- */
+.tpanel{position:absolute;left:34px;top:132px;z-index:18;width:236px;height:312px;border-radius:26px;
+display:grid;place-items:center}
+.tpanel .ph{text-align:center;color:rgba(255,217,143,.5)}
+.tpanel .ph .ic{width:74px;height:74px;margin:0 auto 12px;border-radius:20px;border:2.5px dashed rgba(255,217,143,.4)}
+.tpanel .ph .t1{font-size:12px;font-weight:800;letter-spacing:.14em}
+.tpanel .ph .t2{font-size:10.5px;font-weight:700;margin-top:3px;opacity:.7}
+.capC{display:inline-block;padding:13px 28px;border-radius:14px;max-width:680px;text-align:center;
+color:#f7ffee;font-weight:800;font-size:21px;line-height:1.34;
+background:rgba(6,26,18,.74);border:2px solid var(--hair);text-shadow:0 1px 4px rgba(2,10,6,.8)}
+.capC b{color:var(--accent)}
+.pdots{display:flex;gap:7px;justify-content:center}
+.pdots i{width:8px;height:8px;border-radius:50%;background:rgba(255,217,143,.4);display:block}
+.pdots i.on{background:var(--accent);width:22px;border-radius:999px}
+
+/* ---- C13 result board ---- */
+.v4 .rope{position:absolute;top:64px;width:3px;height:50px;border-radius:2px;z-index:9;
+background:linear-gradient(180deg,rgba(255,217,143,.3),rgba(255,217,143,.85))}
+.rboard{width:600px;border-radius:26px;position:relative;text-align:center;padding:28px 44px 22px}
+.rboard .screw{position:absolute;width:9px;height:9px;border-radius:50%;
+background:radial-gradient(circle at 35% 30%,rgba(226,255,206,.9),rgba(70,100,60,.9));box-shadow:0 1px 2px rgba(0,0,0,.65)}
+.rboard h2{font-size:42px;font-weight:800;color:#f7ffee;letter-spacing:-.4px;
+text-shadow:0 2px 0 rgba(2,10,6,.55),0 0 26px rgba(255,217,143,.22)}
+.rboard .ttl{margin-top:6px;font-size:12px;font-weight:800;letter-spacing:.4em;text-indent:.4em;color:var(--accent-lt)}
+.rboard .stars{margin-top:11px;display:flex;justify-content:center;gap:9px}
+.rboard .rows{margin-top:14px;padding-top:13px;border-top:1.5px solid var(--hair-s)}
+.rboard .row{display:flex;align-items:baseline;gap:12px;margin-top:8px}
+.rboard .row:first-child{margin-top:0}
+.rboard .row .lb{font-size:12px;font-weight:800;letter-spacing:2.4px;color:rgba(238,252,232,.6);white-space:nowrap}
+.rboard .row .dt{flex:1;border-bottom:2.5px dotted rgba(238,252,232,.22);transform:translateY(-4px)}
+.rboard .row .vl{font-size:22px;color:#f7ffee;white-space:nowrap}
+.rboard .row .vl.bon{color:var(--mint-lt)}
+.rboard .flab{margin-top:14px;font-size:11px;font-weight:800;letter-spacing:3.2px;color:rgba(238,252,232,.55)}
+.rboard .final{font-size:74px;line-height:1;letter-spacing:-3px;margin-top:2px;
+background:linear-gradient(180deg,#fff6d8 0%,var(--accent-lt) 46%,var(--accent) 100%);
+-webkit-background-clip:text;background-clip:text;color:transparent;
+filter:drop-shadow(0 2px 0 rgba(2,10,6,.6)) drop-shadow(0 0 24px rgba(255,217,143,.4))}
+.rboard .rec{position:relative;margin-top:14px;display:flex;align-items:center;gap:13px;text-align:left;
+padding:10px 16px 10px 10px;border-radius:999px;overflow:hidden;
+background:linear-gradient(92deg,var(--mint-lt) 0%,var(--mint) 48%,var(--mint-d) 100%);
+box-shadow:0 2px 3px rgba(12,48,20,.4),0 12px 26px rgba(0,0,0,.4),inset 0 2.5px 1px rgba(255,255,255,.4)}
+.rboard .rec .med{width:44px;height:44px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
+background:conic-gradient(from 210deg,#fff6d8,#ffd98f 30%,#e1a452 55%,#ffe9b8 80%,#fff6d8);
+box-shadow:0 2px 4px rgba(50,34,5,.4),inset 0 2px 1px rgba(255,255,255,.6)}
+.rboard .rec .lb2{font-size:11px;font-weight:800;letter-spacing:2.4px;color:#173f31}
+.rboard .rec .tm{font-size:25px;line-height:1.05;color:#071410}
+.rboard .rec .delta{margin-left:auto;padding:7px 16px;border-radius:999px;text-align:center;
+background:linear-gradient(180deg,#fffaea,#ffefc6);box-shadow:0 2px 4px rgba(12,48,20,.35)}
+.rboard .rec .delta .d1{display:block;font-size:17px;font-weight:700;color:#a76f16;font-family:SpaceG}
+.rboard .rec .delta .d2{display:block;font-size:9px;font-weight:800;letter-spacing:1.6px;color:#957c45}
+.result-action{position:absolute;left:0;right:0;z-index:12;display:flex;justify-content:center;gap:16px;align-items:center}
+
+/* ---- C4 board pill · LOCKED GEOMETRY ---- */
+.bpill{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;
+font-weight:800;font-size:14.5px;color:var(--ink);
+background:linear-gradient(180deg,rgba(27,73,53,.94),rgba(9,32,23,.96));
+box-shadow:0 4px 0 rgba(214,244,196,.16),0 10px 20px rgba(0,0,0,.45),inset 0 0 0 1.5px var(--hair)}
+.bpill .ic{width:26px;height:15px;border-radius:4px;border:2.5px solid var(--mint);position:relative;flex:none;
+background:rgba(10,36,22,.7)}
+.bpill .ic::before{content:"";position:absolute;left:calc(100% + 2px);top:3px;width:2.5px;height:5px;border-radius:2px;background:var(--mint)}
+.bpill .ic::after{content:"";position:absolute;inset:2px;right:7px;border-radius:1.5px;background:linear-gradient(180deg,var(--mint-lt),var(--mint))}
+.bpill .pct{font-family:SpaceG;font-weight:700}
+.bpill.calib{color:var(--accent)}
+.bpill.calib .ic{border-color:var(--accent)}
+.bpill.calib .ic::before{background:var(--accent)}
+.bpill.calib .ic::after{background:linear-gradient(180deg,var(--accent-lt),var(--accent));right:11px}
+.bpill.low{color:var(--pen-lt)}
+.bpill.low .ic{border-color:#e8a02e}
+.bpill.low .ic::before{background:#e8a02e}
+.bpill.low .ic::after{background:#e8a02e;right:16px}
+.bpill.recon{color:#8ea78a}
+.bpill.recon .ic{border-color:var(--dev);border-style:dashed}
+.bpill.recon .ic::before{background:var(--dev)}
+.bpill.recon .ic::after{background:var(--dev);right:11px;opacity:.5}
+.bpill .dotp{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.22}}
+
+/* ---- C5 board setup · LOCKED GEOMETRY ---- */
+.setboard{position:relative;width:248px;height:156px;border-radius:22px;display:grid;place-items:center;
+background:linear-gradient(180deg,rgba(23,63,46,.95),rgba(8,28,20,.97));
+border:10px solid var(--dev);box-shadow:0 0 0 3px rgba(93,122,99,.3),0 7px 0 rgba(93,122,99,.3),0 16px 30px rgba(0,0,0,.5)}
+.setboard .cross-v{position:absolute;left:50%;top:12px;bottom:12px;width:2px;margin-left:-1px;background:rgba(214,244,196,.14)}
+.setboard .cross-h{position:absolute;top:50%;left:12px;right:12px;height:2px;margin-top:-1px;background:rgba(214,244,196,.14)}
+.setboard svg{position:relative;z-index:2}
+.setboard.on{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,217,143,.26),0 7px 0 var(--accent-d),0 16px 30px rgba(0,0,0,.5)}
+.setboard.ok{background:linear-gradient(180deg,rgba(40,88,38,.95),rgba(13,42,20,.97));border-color:var(--mint);
+box-shadow:0 0 0 3px rgba(143,212,90,.24),0 7px 0 var(--mint-d),0 16px 30px rgba(0,0,0,.5)}
+.setboard .cop{position:absolute;width:22px;height:22px;border-radius:50%;transform:translate(-50%,-50%);z-index:3;
+background:radial-gradient(circle at 36% 30%,var(--accent-lt),var(--accent));box-shadow:0 2px 6px rgba(0,0,0,.5),0 0 14px rgba(255,217,143,.5)}
+.setboard.ok .cop{background:radial-gradient(circle at 36% 30%,var(--mint-lt),var(--mint));
+box-shadow:0 2px 5px rgba(0,0,0,.5),0 0 0 6px rgba(143,212,90,.2)}
+.calpanel{width:520px;border-radius:24px;padding:24px 26px 22px;text-align:center}
+.calpanel .cl1{font-weight:800;font-size:25px;color:#f7ffee;line-height:1.3;margin-top:16px}
+.calpanel .cl2{font-size:13.5px;font-weight:600;color:var(--ink-soft);margin-top:7px}
+.fpcard{width:130px;height:118px;border-radius:16px;display:grid;place-items:center;
+background:linear-gradient(180deg,rgba(27,73,53,.94),rgba(9,32,23,.96));
+box-shadow:0 4px 0 rgba(214,244,196,.16),0 10px 20px rgba(0,0,0,.45),inset 0 0 0 1.5px var(--hair)}
+.fpcard.on{box-shadow:0 4px 0 var(--accent-d),0 10px 20px rgba(0,0,0,.45),inset 0 0 0 1.5px rgba(255,217,143,.5)}
+.fpcard.ok{background:linear-gradient(180deg,rgba(40,88,38,.94),rgba(13,42,20,.96));
+box-shadow:0 4px 0 var(--mint-d),0 10px 20px rgba(0,0,0,.45),inset 0 0 0 1.5px rgba(143,212,90,.5)}
+
+/* ---- C6 countdown ---- */
+.cdA{position:relative;text-align:center}
+.cdA .halo{position:absolute;left:50%;top:50%;width:260px;height:220px;transform:translate(-50%,-50%);
+background:radial-gradient(closest-side,rgba(3,16,10,.7),rgba(3,16,10,0))}
+.cdA .n{position:relative;font-weight:800;font-size:120px;line-height:1;color:#f7ffee;
+text-shadow:0 3px 0 rgba(2,12,8,.6),0 0 44px rgba(255,217,143,.55)}
+.goB{width:150px;height:150px;border-radius:34px;display:grid;place-items:center;transform:rotate(-5deg);
+background:linear-gradient(168deg,rgba(23,63,49,.5),rgba(4,20,15,.62));
+border:5px solid var(--accent);
+box-shadow:0 0 36px rgba(255,217,143,.34),inset 0 0 26px rgba(255,217,143,.16);
+-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.goB span{font-weight:800;font-size:58px;color:var(--accent-lt);letter-spacing:.04em;
+text-shadow:0 0 24px rgba(255,217,143,.65),0 2px 0 rgba(2,12,8,.5)}
+
+/* ---- C12 toast ---- */
+.toastA{display:inline-flex;align-items:baseline;gap:10px;padding:12px 26px 13px;border-radius:999px;
+font-weight:800;font-size:20px;color:#fff}
+.toastA.good{background:linear-gradient(180deg,var(--mint-lt),var(--mint));box-shadow:0 4px 0 var(--mint-d),0 12px 22px rgba(0,0,0,.4);color:#071410}
+.toastA.bad{background:linear-gradient(180deg,var(--pen-lt),var(--pen));box-shadow:0 4px 0 var(--pen-d),0 12px 22px rgba(0,0,0,.4)}
+.toastA.goal{background:linear-gradient(180deg,var(--accent-lt),var(--accent));box-shadow:0 4px 0 var(--accent-d),0 12px 22px rgba(0,0,0,.4);color:#071410}
+
+/* ---- C14 pause · LOCKED GEOMETRY ---- */
+.pausebtn{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:6px;
+background:linear-gradient(180deg,rgba(27,73,53,.94),rgba(9,32,23,.96));
+box-shadow:0 5px 0 rgba(214,244,196,.16),0 12px 24px rgba(0,0,0,.5),inset 0 0 0 1.5px var(--hair)}
+.pausebtn i{width:6px;height:21px;border-radius:2px;background:var(--accent);display:block}
+.pmB{width:290px;border-radius:22px;padding:22px;text-align:center;position:relative}
+.pmB .pt{font-weight:800;font-size:23px;color:#f7ffee;letter-spacing:.16em;margin-bottom:14px}
+.pmB .rsn{margin:-8px 0 12px;font-size:12.5px;font-weight:700;color:var(--pen-lt)}
+.pmB .mi{display:block;margin:9px 4px 0;padding:12px;border-radius:999px;font-weight:800;font-size:15px;
+color:var(--ink);background:rgba(238,252,232,.07);box-shadow:inset 0 0 0 1.5px var(--hair)}
+.pmB .mi.primary{color:#071410;background:linear-gradient(180deg,var(--accent-lt),var(--accent));box-shadow:0 3px 0 var(--accent-d)}
+
+/* ---- C15 how to play ---- */
+.howto{width:640px;border-radius:26px;padding:28px 30px 26px;position:relative}
+.howto h3{font-weight:800;font-size:32px;color:#f7ffee;text-align:center;margin-bottom:20px;
+text-shadow:0 2px 0 rgba(2,10,6,.5)}
+.howto .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.howto .cell{border-radius:18px;padding:20px 18px 18px;text-align:center;
+background:rgba(255,217,143,.07);box-shadow:inset 0 0 0 1.5px var(--hair-s)}
+.howto .dgm{height:96px;display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}
+.howto .cl{font-weight:800;font-size:19px;color:#f7ffee}
+.howto .cx{font-size:13.5px;font-weight:700;color:var(--ink-soft);line-height:1.5;margin-top:6px}
+.howto .cx b{color:var(--accent)}
+.howto .foot{display:flex;justify-content:center;margin-top:22px}
+.arw{width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent}
+.arw.l{border-right:13px solid var(--accent)}
+.arw.r{border-left:13px solid var(--accent)}
+
+/* ---- C16 system · LOCKED GEOMETRY ---- */
+.ldots{display:flex;gap:9px;justify-content:center}
+.ldots i{width:12px;height:12px;border-radius:50%;background:linear-gradient(180deg,var(--mint-lt),var(--mint));
+animation:lb 1s infinite ease-in-out}
+.ldots i:nth-child(2){animation-delay:.15s}.ldots i:nth-child(3){animation-delay:.3s}
+@keyframes lb{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-9px);opacity:1}}
+.loadlbl{font-size:10.5px;font-weight:800;letter-spacing:.26em;color:var(--gold);text-transform:uppercase}
+.sysover{width:400px;border-radius:20px;padding:24px 26px;text-align:center}
+.sysover .st1{font-weight:800;font-size:21px;color:#f7ffee}
+.sysover .st2{font-size:13.5px;font-weight:600;color:var(--ink-soft);line-height:1.55;margin-top:7px}
+.sysover .row{display:flex;gap:11px;justify-content:center;align-items:center;margin-top:17px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<!-- ================= shared svg defs ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<linearGradient id="skyM" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#05170f"/><stop offset=".34" stop-color="#0d3327"/>
+<stop offset=".58" stop-color="#1d5a3d"/><stop offset=".74" stop-color="#3c7f45"/>
+<stop offset="1" stop-color="#0a2317"/></linearGradient>
+<radialGradient id="lanG" cx=".5" cy=".5" r=".5">
+<stop offset="0" stop-color="#fff3cf"/><stop offset=".34" stop-color="#ffd98f" stop-opacity=".5"/>
+<stop offset="1" stop-color="#8fd45a" stop-opacity="0"/></radialGradient>
+<linearGradient id="tabT" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#b8ea86"/><stop offset=".52" stop-color="#5f8f42"/><stop offset="1" stop-color="#2b5330"/></linearGradient>
+<linearGradient id="tabR" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#8f7256"/><stop offset="1" stop-color="#3c2c22"/></linearGradient>
+<linearGradient id="stG" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fff1c9"/><stop offset=".42" stop-color="#ffd98f"/><stop offset="1" stop-color="#c78335"/></linearGradient>
+<linearGradient id="wmG" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#f4ffe4"/><stop offset="1" stop-color="#b8ea86"/></linearGradient>
+
+<!-- 苔藓夜林替身（字标画在图里）：真封面到位后整体替换为 <img class="art"> -->
+<g id="mossArt">
+<rect width="1280" height="720" fill="url(#skyM)"/>
+<circle cx="640" cy="300" r="300" fill="url(#lanG)" opacity=".55"/>
+<g fill="#0b2519" opacity=".95">
+<path d="M0 0h150l-22 300 30 240H0z"/><path d="M1280 0h-160l26 320-34 220h168z"/>
+<path d="M212 0h74l-14 268 18 190h-84z" opacity=".7"/><path d="M1010 0h70l-18 250 22 200h-80z" opacity=".7"/></g>
+<g fill="none" stroke="#2f6b46" stroke-width="6" stroke-linecap="round" opacity=".55">
+<path d="M120 96 q120 40 190 132"/><path d="M1170 78 q-130 50 -196 140"/>
+<path d="M60 250 q150 22 210 96"/><path d="M1230 236 q-160 30 -218 100"/></g>
+<g fill="#8fd45a" opacity=".22">
+<ellipse cx="176" cy="150" rx="58" ry="26" transform="rotate(-18 176 150)"/>
+<ellipse cx="1108" cy="136" rx="54" ry="24" transform="rotate(16 1108 136)"/>
+<ellipse cx="96" cy="330" rx="46" ry="20" transform="rotate(-10 96 330)"/>
+<ellipse cx="1196" cy="318" rx="44" ry="19" transform="rotate(12 1196 318)"/></g>
+<!-- 苔桌 -->
+<g transform="translate(640 512)">
+<ellipse cx="0" cy="112" rx="330" ry="52" fill="#02100a" opacity=".6"/>
+<path d="M-320 22 L-286 96 L286 96 L320 22Z" fill="url(#tabR)"/>
+<ellipse cx="0" cy="22" rx="320" ry="98" fill="url(#tabT)"/>
+<ellipse cx="0" cy="14" rx="300" ry="88" fill="none" stroke="#d9f5b8" stroke-width="3" opacity=".28"/>
+<ellipse cx="-118" cy="8" rx="42" ry="16" fill="#04100b"/>
+<ellipse cx="-118" cy="4" rx="42" ry="16" fill="none" stroke="#ffd98f" stroke-width="3.4" opacity=".85"/>
+<ellipse cx="122" cy="42" rx="40" ry="15" fill="#04100b"/>
+<ellipse cx="122" cy="38" rx="40" ry="15" fill="none" stroke="#ffd98f" stroke-width="3.4" opacity=".55"/>
+<g fill="none" stroke="#2b5330" stroke-width="4" opacity=".5">
+<path d="M-250 40 q120 -34 250 -10 q120 22 244 -14"/><path d="M-230 68 q140 -26 236 -4 q110 24 218 -8"/></g>
+<!-- 甲虫 -->
+<g transform="translate(28 -6)">
+<ellipse cx="0" cy="16" rx="30" ry="10" fill="#02100a" opacity=".55"/>
+<ellipse cx="0" cy="0" rx="26" ry="20" fill="#241a12"/>
+<ellipse cx="0" cy="-4" rx="24" ry="16" fill="#3d2c1c"/>
+<path d="M0 -18 v34" stroke="#0f0a06" stroke-width="2.6"/>
+<circle cx="-9" cy="-8" r="4.6" fill="#ffd98f"/><circle cx="9" cy="-8" r="4.6" fill="#ffd98f"/>
+<path d="M-18 -16 q-10 -14 -22 -18 M18 -16 q10 -14 22 -18" stroke="#241a12" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+<g transform="translate(-206 34) scale(.72)">
+<ellipse cx="0" cy="0" rx="26" ry="20" fill="#241a12"/><ellipse cx="0" cy="-4" rx="24" ry="16" fill="#4a3722"/>
+<circle cx="-9" cy="-8" r="4.6" fill="#d9f5b8"/><circle cx="9" cy="-8" r="4.6" fill="#d9f5b8"/></g>
+</g>
+<!-- 孢子 -->
+<g fill="#d9f5b8">
+<circle cx="220" cy="382" r="2.4" opacity=".55"/><circle cx="352" cy="308" r="1.8" opacity=".42"/>
+<circle cx="486" cy="404" r="2.2" opacity=".48"/><circle cx="880" cy="342" r="2" opacity=".44"/>
+<circle cx="1024" cy="292" r="2.4" opacity=".38"/><circle cx="288" cy="486" r="1.8" opacity=".4"/>
+<circle cx="1148" cy="404" r="2.2" opacity=".36"/><circle cx="716" cy="266" r="1.8" opacity=".4"/>
+<circle cx="580" cy="212" r="2" opacity=".3"/><circle cx="940" cy="472" r="1.6" opacity=".34"/></g>
+</g>
+<!-- 字标画在封面图里，页面不排文字；只有 K1 用 #mossCover，局中/结算用不带字标的 #mossArt -->
+<g id="mossCover">
+<use href="#mossArt"/>
+<text x="640" y="252" text-anchor="middle" font-family="Bricolage,'Trebuchet MS',sans-serif" font-weight="800"
+font-size="86" letter-spacing="14" fill="url(#wmG)">MOSSFALL</text>
+<text x="640" y="290" text-anchor="middle" font-family="Bricolage,'Trebuchet MS',sans-serif" font-weight="800"
+font-size="18" letter-spacing="14" fill="#ffd98f" opacity=".7">TABLE TILT</text>
+</g>
+
+<g id="starG"><path d="M12 1.7l3.15 6.4 7.05.95-5.1 4.95 1.2 7-6.3-3.35-6.3 3.35 1.2-7L2.8 9.05l7.05-.95z"
+fill="url(#stG)" stroke="#fff6e0" stroke-width="1"/></g>
+<g id="starD"><path d="M12 1.7l3.15 6.4 7.05.95-5.1 4.95 1.2 7-6.3-3.35-6.3 3.35 1.2-7L2.8 9.05l7.05-.95z"
+fill="rgba(255,255,255,.08)" stroke="rgba(255,217,143,.45)" stroke-width="1.3"/></g>
+
+<!-- 赤足脚印（右脚 42x78）· 同系列平移 -->
+<linearGradient id="fpIdle" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6f8a72"/><stop offset="1" stop-color="#455c4b"/></linearGradient>
+<linearGradient id="fpStep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9b8"/><stop offset="1" stop-color="#ffd98f"/></linearGradient>
+<linearGradient id="fpReady" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f5b8"/><stop offset="1" stop-color="#8fd45a"/></linearGradient>
+<g id="bareR">
+<path d="M20 18c9 0 14.6 6 14.4 15-.2 6.5-2.2 11-2.8 16.5-.6 5.5-.2 8-.2 12 0 9.5-4.6 16.5-11.4 16.5S8.5 71.5 8.5 62c0-4 .4-6.5-.2-12C7.7 44.5 5.7 40 5.6 33.5 5.4 24.5 11 18 20 18z"/>
+<circle cx="9" cy="9.5" r="5.6"/><circle cx="20.5" cy="5.6" r="4.4"/><circle cx="29.8" cy="6.4" r="3.8"/>
+<circle cx="36.6" cy="10" r="3.2"/><circle cx="41" cy="15.4" r="2.7"/>
+</g>
+</defs>
+</svg>
+
+<div class="wrap topnav">
+<span class="brand">MOSSFALL <b>TABLE TILT</b> · UI v2</span>
+<a href="#k1">Title</a><a href="#k2">HUD</a><a href="#k3">Teach-in</a><a href="#k4">Result</a><a href="#lib">Components</a>
+</div>
+
+<div class="pagehead">
+<div class="kick">Kiwii Balance · Mossfall Table Tilt</div>
+<h1>MOSSFALL TABLE TILT <span>·</span> UI v2</h1>
+<p>骨架照 <b>create-ui-skill-v2</b> 与 <b>DUNESONG SLALOM</b> 范本：<b>Title / HUD / Teach-in / Result</b> 四张关键页 + <b>C1–C16</b> 完整组件库。
+配色走 <b>Mossfall 湿叶玻璃</b>：深林绿玻璃面板 + 苔绿描边 + 暖金主色，和 <b>styles.css</b> 里那套 Mossfall override token 一一对应，页面上不留散 hex。
+硬件是 <b>Kiwii Balance Board</b>（横板 · CoM 点），<b>全程没有摄像头</b>：倾身即倾桌，甲虫顺着桌面滚。
+文案按"一个组件只说一件事"收：标题页不解释规则，暂停不写诗，掉落只闪一次不留计数器。
+局中 HUD 是<b>纯 overlay</b>——只有 LEVEL 左上和 TIME 顶中两件。
+背景是内嵌手绘替身（字标画在图里），<b>真封面到位后一行替换</b>。</p>
+</div>
+
+<!-- ============================================================ K1 · TITLE ============================================================ -->
+<div class="sec" id="k1">
+<div class="lab-row"><span class="no">K1</span><span class="nm">Title / Cover</span>
+<span class="ds">— 全幅封面图 + 底部难度胶囊 + START；右上工具条 = How to play + 硬件 pill。无设置入口、无成绩、无返回箭头</span></div>
+<div class="bezel"><div class="gstage"><div class="screen k1 grain vig">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossCover"/></svg>
+<div class="scrim"></div>
+<div class="topbar">
+<span class="btn-g sm">How to play</span>
+<span class="bpill" style="font-size:13px;padding:9px 15px"><span class="ic"></span>Kiwii Balance Board</span>
+</div>
+<div class="ui">
+<div class="diffseg"><span class="on">Beginner</span><span>Advanced</span></div>
+<span class="startB">START</span>
+</div>
+</div></div></div>
+<div class="chin">kiw<b>ii</b> · 字标画在封面生成图里，页面不排文字；封面淡入停 <b>1.2s</b> 后 START 到场</div>
+</div>
+
+<!-- ============================================================ K2 · HUD ============================================================ -->
+<div class="sec" id="k2">
+<div class="lab-row"><span class="no">K2</span><span class="nm">HUD · in-play</span>
+<span class="ds">— 纯 overlay：<b>只剩 LEVEL 左上 + TIME 顶中</b>。掉球 / 加时只闪不驻留，没有常驻计数器、进度条、倾斜小板，也没有局中的 How-to 入口</span></div>
+<div class="bezel"><div class="gstage"><div class="screen k2 grain vig">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div class="lvpill"><span class="lb">LEVEL</span><span class="nv num">3<small>/8</small></span></div>
+<div class="tclock"><span class="cg"></span><span class="cn">29</span></div>
+</div></div></div>
+<div class="chin">kiw<b>ii</b> · 局中常驻只有这三件；<b>In the hole! / Off the table! / +20s</b> 都是 1.4s 内闪完就走，不留计数</div>
+</div>
+
+<!-- ============================================================ K3 · TEACH-IN ============================================================ -->
+<div class="sec" id="k3">
+<div class="lab-row"><span class="no">K3</span><span class="nm">Teach-in · pre-run</span>
+<span class="ds">— 不是全屏：左侧模型框(美术建模占位) + 底部字幕；三页轮换，走完直接进 C6 倒计时</span></div>
+<div class="bezel"><div class="gstage"><div class="screen k3 grain vig">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;background:rgba(4,18,12,.42)"></div>
+<div class="tpanel panel"><div class="ph"><div class="ic"></div><div class="t1">BEETLE FIGURE</div><div class="t2">3D model · art</div></div></div>
+<div style="position:absolute;left:50%;bottom:38px;transform:translateX(-50%);z-index:20;text-align:center">
+<div class="capC">Guide beetles into holes by shifting <b>left, right, forward, and backward.</b></div>
+<div class="pdots" style="margin-top:11px"><i class="on"></i><i></i><i></i></div>
+</div>
+<div style="position:absolute;right:38px;bottom:38px;z-index:20"><span class="btn-p" style="font-size:17px;padding:13px 34px">Next</span></div>
+</div></div></div>
+<div class="chin">kiw<b>ii</b> · 字幕一句话说完<b>四个方向</b>（不是只有左右）：“Guide beetles into holes by shifting left, right, forward, and backward.” · 照 Wii 原版那句平移，名词换成甲虫</div>
+</div>
+
+<!-- ============================================================ K4 · RESULT ============================================================ -->
+<div class="sec" id="k4">
+<div class="lab-row"><span class="no">K4</span><span class="nm">Result</span>
+<span class="ds">— 深板一屏出完；板底 y=590，按钮顶 y=631，中间留 41px，<b>不和结论撞</b></span></div>
+<div class="bezel"><div class="gstage"><div class="screen k4 grain vig v4">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"
+style="filter:blur(8px) brightness(.55) saturate(.9);transform:scale(1.06)"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 34%,rgba(4,18,12,.26),rgba(2,12,8,.72))"></div>
+<span class="rope" style="left:470px"></span><span class="rope" style="left:810px"></span>
+<div style="position:absolute;left:50%;top:112px;transform:translateX(-50%);z-index:11">
+<div class="rboard panel">
+<div class="screw" style="left:15px;top:15px"></div><div class="screw" style="right:15px;top:15px"></div>
+<div class="screw" style="left:15px;bottom:15px"></div><div class="screw" style="right:15px;bottom:15px"></div>
+<h2>You did it!</h2>
+<div class="ttl">GROVE GUIDE</div>
+<div class="stars">
+<svg width="30" height="30" viewBox="0 0 24 24"><use href="#starG"/></svg>
+<svg width="30" height="30" viewBox="0 0 24 24"><use href="#starG"/></svg>
+<svg width="30" height="30" viewBox="0 0 24 24"><use href="#starG"/></svg>
+<svg width="30" height="30" viewBox="0 0 24 24"><use href="#starD"/></svg>
+</div>
+<div class="rows">
+<div class="row"><span class="lb">LEVELS CLEARED</span><span class="dt"></span><span class="vl num">8 / 8</span></div>
+<div class="row"><span class="lb">LEVEL POINTS</span><span class="dt"></span><span class="vl num">8 &times; 10 = 80</span></div>
+<div class="row"><span class="lb">TIME LEFT</span><span class="dt"></span><span class="vl num bon">+37</span></div>
+</div>
+<div class="flab">FINAL SCORE</div>
+<div class="final num">117</div>
+<div class="rec">
+<div class="med"><svg width="21" height="21" viewBox="0 0 24 24"><path d="M12 1.7l3.15 6.4 7.05.95-5.1 4.95 1.2 7-6.3-3.35-6.3 3.35 1.2-7L2.8 9.05l7.05-.95z" fill="#fff" opacity=".95"/></svg></div>
+<div><div class="lb2">PERSONAL BEST</div><div class="tm num">109</div></div>
+<div class="delta"><span class="d1">+8</span><span class="d2">BEST</span></div>
+</div>
+</div>
+</div>
+<div class="result-action" style="bottom:26px">
+<span class="btn-p big" style="min-width:280px">PLAY AGAIN</span>
+<span class="btn-g big">Quit</span>
+</div>
+</div></div></div>
+<div class="chin">kiw<b>ii</b> · 分阶段揭示（0/180/360/540/1200/1500ms）；<b>没掉过就不出 DROPS 行</b>，板子自然变短</div>
+</div>
+
+<hr class="major" id="lib">
+
+<div class="pagehead">
+<div class="kick">Component Library v2</div>
+<h1>组件库 <span>·</span> 湿叶玻璃 · 颜色全走 :root</h1>
+<p>带 <b style="color:#8fd45a">✓ 定稿</b> 的是直接落地的那一版。产品线级组件（硬件 pill / 校准 / How-to / Pause / 倒计时 / 系统兜底）照 <b>dunesong-ui-v2</b> 已发布实现平移，几何一格不动，只换色值和名词。</p>
+</div>
+
+<!-- C1 PALETTE -->
+<div class="sec">
+<div class="lab-row"><span class="no">C1</span><span class="nm">Palette · Mossfall Wet Leaf</span><span class="ds">— 八槽，和 :root 一一对应</span></div>
+<div class="rack"><div class="pal">
+<span class="pchip"><i style="background:#ffd98f"></i><span><b>accent</b><span class="hx">#ffd98f</span></span></span>
+<span class="pchip"><i style="background:#eefce8"></i><span><b>ink</b><span class="hx">#eefce8</span></span></span>
+<span class="pchip"><i style="background:linear-gradient(180deg,#1b4935,#071d15)"></i><span><b>panel</b><span class="hx">#1b4935→#071d15</span></span></span>
+<span class="pchip"><i style="background:rgba(214,244,196,.30);box-shadow:inset 0 0 0 1.5px #d6f4c4"></i><span><b>hair</b><span class="hx">214,244,196 / .30</span></span></span>
+<span class="pchip"><i style="background:#8fd45a"></i><span><b>mint · success</b><span class="hx">#8fd45a</span></span></span>
+<span class="pchip"><i style="background:#ff8a6b"></i><span><b>pen · danger</b><span class="hx">#ff8a6b</span></span></span>
+<span class="pchip"><i style="background:#ffd98f"></i><span><b>gold · achievement</b><span class="hx">#ffd98f</span></span></span>
+<span class="pchip"><i style="background:#5d7a63"></i><span><b>dev · inactive</b><span class="hx">#5d7a63</span></span></span>
+</div></div>
+</div>
+
+<!-- C2 BUTTONS -->
+<div class="sec">
+<div class="lab-row"><span class="no">C2</span><span class="nm">Buttons</span><span class="ds">— 暖金主行动 / 深绿玻璃次级 / pen danger。全实色去毛玻璃，坐在 3D 上要站得住</span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">Primary</div><div class="stg"><span class="btn-p">START</span></div></div>
+<div class="spec"><div class="sl">Primary · pressed</div><div class="stg"><span class="btn-p press">START</span></div></div>
+<div class="spec"><div class="sl">Primary · big（Title）</div><div class="stg"><span class="startB" style="font-size:20px;padding:15px 50px">START</span></div></div>
+<div class="spec"><div class="sl">Secondary</div><div class="stg"><span class="btn-g">Quit</span></div></div>
+<div class="spec"><div class="sl">Small（工具条）</div><div class="stg"><span class="btn-g sm">How to play</span></div></div>
+<div class="spec"><div class="sl">Danger</div><div class="stg"><span class="btn-d">Quit run</span></div></div>
+<div class="spec"><div class="sl">Disabled</div><div class="stg"><span class="btn-g disabled">Next</span></div></div>
+<div class="spec"><div class="sl">Focus ring</div><div class="stg"><span class="btn-p focus">Resume</span></div></div>
+</div>
+</div>
+
+<!-- C3 DIFFICULTY -->
+<div class="sec">
+<div class="lab-row"><span class="no">C3</span><span class="nm">Difficulty selector</span>
+<span class="ds">— Beginner / Advanced，只写名字。差异在关卡里体现（每关加时 20s vs 30s），标题页不解释</span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">胶囊分段 <span class="rec">✓ 定稿</span></div><div class="stg"><div class="diffseg"><span class="on">Beginner</span><span>Advanced</span></div></div></div>
+<div class="spec"><div class="sl">Advanced 选中</div><div class="stg"><div class="diffseg"><span>Beginner</span><span class="on">Advanced</span></div></div></div>
+</div>
+</div>
+
+<!-- C4 BOARD STATUS PILL -->
+<div class="sec">
+<div class="lab-row"><span class="no">C4</span><span class="nm">Board status pill</span>
+<span class="ds">— 产品线级：板连接 + 电量，一个组件承载全部硬件状态；只在 Title / 校准 / 断连时出现</span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">Connected <span class="rec">✓ 定稿</span></div><div class="stg"><span class="bpill"><span class="ic"></span>Kiwii Balance Board</span></div></div>
+<div class="spec"><div class="sl">Calibrating</div><div class="stg"><span class="bpill calib"><span class="ic"></span>Detecting Balance Board<span class="dotp"></span></span></div></div>
+<div class="spec"><div class="sl">Low battery</div><div class="stg"><span class="bpill low"><span class="ic"></span>Board low · <span class="pct">12%</span></span></div></div>
+<div class="spec"><div class="sl">No board / reconnecting</div><div class="stg"><span class="bpill recon"><span class="ic"></span>No Balance Board<span class="dotp"></span></span></div></div>
+</div>
+</div>
+
+<!-- C5 BOARD SETUP -->
+<div class="sec">
+<div class="lab-row"><span class="no">C5</span><span class="nm">Board setup · calibration</span>
+<span class="ds">— 产品线级：520px 面板 + 248×156 横板 + 十字准线 + <b>赤足脚印</b>；三态由硬件读数驱动，不由计时驱动</span></div>
+<div class="rack">
+<div class="spec"><div class="sl">① Starting up · 别上板</div><div class="stg"><div class="setboard"><div class="cross-v"></div><div class="cross-h"></div>
+<svg width="128" height="100" viewBox="0 0 128 100"><use href="#bareR" transform="translate(71 8)" fill="url(#fpIdle)"/><use href="#bareR" transform="translate(57 8) scale(-1 1)" fill="url(#fpIdle)"/></svg></div></div>
+<div class="sn">板面失活苔灰，脚印 <b>fpIdle</b>，药丸 <b>calib</b> 且闪点在跳。文案：<b>Checking the board… Keep it empty.</b></div></div>
+<div class="spec"><div class="sl">② 踩上（force &gt; 10）</div><div class="stg"><div class="setboard on"><div class="cross-v"></div><div class="cross-h"></div>
+<div class="cop" style="left:41%;top:60%"></div>
+<svg width="128" height="100" viewBox="0 0 128 100"><use href="#bareR" transform="translate(71 8)" fill="url(#fpStep)"/><use href="#bareR" transform="translate(57 8) scale(-1 1)" fill="url(#fpStep)"/></svg></div></div>
+<div class="sn">脚印转暖金，实心 CoP 点显示当前重心。文案：<b>Step on and stand naturally.</b></div></div>
+<div class="spec"><div class="sl">③ 完成 ✓ <span class="rec">✓ 定稿</span></div><div class="stg"><div class="setboard ok"><div class="cross-v"></div><div class="cross-h"></div>
+<div class="cop" style="left:50%;top:50%"></div>
+<svg width="128" height="100" viewBox="0 0 128 100"><use href="#bareR" transform="translate(71 8)" fill="url(#fpReady)"/><use href="#bareR" transform="translate(57 8) scale(-1 1)" fill="url(#fpReady)"/></svg></div></div>
+<div class="sn">整块板转苔绿，和局中「甲虫到位」是同一句话。文案：<b>Balance confirmed. Ready to go.</b></div></div>
+<div class="spec"><div class="sl">④ 无板回退</div><div class="stg"><div class="setboard" style="opacity:.7"><div class="cross-v"></div><div class="cross-h"></div>
+<svg width="128" height="100" viewBox="0 0 128 100"><use href="#bareR" transform="translate(71 8)" fill="url(#fpIdle)"/><use href="#bareR" transform="translate(57 8) scale(-1 1)" fill="url(#fpIdle)"/></svg></div></div>
+<div class="sn">药丸 <b>recon</b>，<b>板面故意保持失活苔灰</b> —— 苔绿的含义是「这块板已校准」，没有板时不能这么说。</div></div>
+</div>
+<div class="rack">
+<div class="rlab">完整校准屏 · 520px 面板（药丸停靠 right 26 / top 22）</div>
+<div class="spec" style="width:100%"><div class="sl">Panel</div><div class="stg">
+<div class="d3" style="width:760px;height:420px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg><div class="dim"></div>
+<div style="position:absolute;right:26px;top:22px;z-index:3"><span class="bpill calib" style="font-size:13px;padding:9px 15px"><span class="ic"></span>Detecting Balance Board<span class="dotp"></span></span></div>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="calpanel panel">
+<div style="display:flex;justify-content:center"><div class="setboard"><div class="cross-v"></div><div class="cross-h"></div>
+<svg width="128" height="100" viewBox="0 0 128 100"><use href="#bareR" transform="translate(71 8)" fill="url(#fpIdle)"/><use href="#bareR" transform="translate(57 8) scale(-1 1)" fill="url(#fpIdle)"/></svg></div></div>
+<div class="cl1">Checking the board…<br>Keep it empty.</div>
+<div class="cl2">Keep both feet off the board while it settles.</div>
+</div></div>
+</div></div></div>
+</div>
+<div class="rack">
+<div class="rlab">脚印卡 · 三态（失活苔灰 / 踩上暖金 / 完成苔绿）</div>
+<div class="spec"><div class="sl">idle</div><div class="stg"><div class="fpcard"><svg width="102" height="82" viewBox="0 0 104 84"><use href="#bareR" transform="translate(57 1)" fill="url(#fpIdle)"/><use href="#bareR" transform="translate(47 1) scale(-1 1)" fill="url(#fpIdle)"/></svg></div></div></div>
+<div class="spec"><div class="sl">stepped</div><div class="stg"><div class="fpcard on"><svg width="102" height="82" viewBox="0 0 104 84"><use href="#bareR" transform="translate(57 1)" fill="url(#fpStep)"/><use href="#bareR" transform="translate(47 1) scale(-1 1)" fill="url(#fpStep)"/></svg></div></div></div>
+<div class="spec"><div class="sl">ready ✓</div><div class="stg"><div class="fpcard ok"><svg width="102" height="82" viewBox="0 0 104 84"><use href="#bareR" transform="translate(57 1)" fill="url(#fpReady)"/><use href="#bareR" transform="translate(47 1) scale(-1 1)" fill="url(#fpReady)"/></svg></div></div></div>
+</div>
+</div>
+
+<!-- C6 COUNTDOWN -->
+<div class="sec">
+<div class="lab-row"><span class="no">C6</span><span class="nm">Pre-run countdown</span>
+<span class="ds">— 3·2·1 裸字 + 暗晕（林夜要压暗背景托亮字）；GO 帧定稿 <b>GO-B · 实心金牌</b></span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">3</div><div class="stg"><div class="d3" style="width:230px;height:200px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="cdA"><div class="halo"></div><div class="num n">3</div></div></div></div></div></div>
+<div class="spec"><div class="sl">2</div><div class="stg"><div class="d3" style="width:230px;height:200px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="cdA"><div class="halo"></div><div class="num n">2</div></div></div></div></div></div>
+<div class="spec"><div class="sl">1</div><div class="stg"><div class="d3" style="width:230px;height:200px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="cdA"><div class="halo"></div><div class="num n">1</div></div></div></div></div></div>
+<div class="spec" style="flex:1"><div class="sl">节拍</div><div class="stg"><div class="sn" style="max-width:none">
+3 / 2 / 1 各 <b>600ms</b>，字从 1.18 倍缩回 1.0；GO 停 <b>420ms</b> 后缩小淡出，<b>同帧起算时间</b>。</div></div></div>
+</div>
+<div class="rack" style="align-items:center">
+<div class="rlab">GO 帧 · 唯一定稿 = GO-B 实心金牌</div>
+<div class="spec"><div class="sl">GO-B · 实心金牌 <span class="rec">✓ 定稿</span></div><div class="stg"><div class="d3" style="width:238px;height:196px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="goB"><span>GO</span></div></div></div>
+</div>
+<div class="sn" style="max-width:238px">和 START 同一块金，实心不透背景；歪 5° 有速度感。</div></div>
+</div>
+</div>
+
+<!-- C7 TIMER -->
+<div class="sec">
+<div class="lab-row"><span class="no">C7</span><span class="nm">Timer · 主指标</span>
+<span class="ds">— 顶中时钟胶囊，照 table-tilt 已发布实现平移；加时 <b>+20s 长在胶囊里</b>（定稿 = 同体胶囊），不另起飘字</span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">In-run <span class="rec">✓ 定稿</span></div><div class="stg"><div class="d3" style="width:330px;height:170px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="tclock" style="position:relative;left:auto;top:auto;transform:none">
+<span class="cg"></span><span class="cn">29</span></div></div></div></div></div>
+<div class="spec"><div class="sl">Low · 最后 10s</div><div class="stg"><div class="d3" style="width:330px;height:170px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="tclock low" style="position:relative;left:auto;top:auto;transform:none">
+<span class="cg"></span><span class="cn">08</span></div></div></div>
+</div>
+<div class="sn">≤10s 转 pen 并每秒轻搏一次，<b>不加任何文案</b>。</div></div>
+<div class="spec"><div class="sl">Time added · 同体胶囊</div><div class="stg"><div class="d3" style="width:380px;height:170px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="tclock fuse" style="position:relative;left:auto;top:auto;transform:none">
+<span class="cg"></span><span class="cn">49</span><span class="plus">+20s</span></div></div></div>
+</div>
+<div class="sn">清关瞬间 <b>+20s</b>（Advanced +30s）从胶囊右端弹出，停 1.7s 滑走；上限 <b>99</b>。</div></div>
+</div>
+</div>
+
+<!-- C8 BOARD FEEDBACK -->
+<div class="sec">
+<div class="lab-row"><span class="no">C8</span><span class="nm">Board mapping</span>
+<span class="ds">— 板的反馈<b>就是那张会翻的苔桌</b>：局中不挂任何倾斜小板、不做左右分区高亮。三态图走 <b>C5 校准板</b>那一套，How-to 里也是同一张</span></div>
+</div>
+
+<!-- C9 LEVEL -->
+<div class="sec">
+<div class="lab-row"><span class="no">C9</span><span class="nm">Level readout · 次指标</span>
+<span class="ds">— 左上 x / 8 胶囊，照 table-tilt 已发布实现平移；清关瞬间底边转苔绿弹一下，其余时间安静</span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">In-run <span class="rec">✓ 定稿</span></div><div class="stg"><div class="d3" style="width:300px;height:150px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="lvpill" style="position:relative;left:auto;top:auto">
+<span class="lb">LEVEL</span><span class="nv num">3<small>/8</small></span></div></div></div></div></div>
+<div class="spec"><div class="sl">Cleared · 进位</div><div class="stg"><div class="d3" style="width:300px;height:150px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="lvpill up" style="position:relative;left:auto;top:auto">
+<span class="lb">LEVEL</span><span class="nv num">4<small>/8</small></span></div></div></div>
+</div>
+<div class="sn">数字只在进位那一帧动，<b>不做常驻进度条</b>。</div></div>
+</div>
+</div>
+
+<!-- C10 DROPS -->
+<div class="sec">
+<div class="lab-row"><span class="no">C10</span><span class="nm">Off the table · 掉落</span>
+<span class="ds">— 掉落<b style="color:#ffd98f">不留任何常驻计数器</b>：只有一次 toast + 世界内标签，代价是重开本关那 2.25s，结算才汇总</span></div>
+<div class="rack">
+<div class="spec"><div class="sl">Zero · 什么都不加</div><div class="stg"><div class="d3" style="width:250px;height:170px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;left:14px;top:12px;width:150px;height:112px;border:2.5px dashed rgba(255,217,143,.5);border-radius:14px"></div>
+<div style="position:absolute;left:28px;top:58px;font-size:11px;font-weight:800;letter-spacing:.1em;color:rgba(255,217,143,.9)">NOT RENDERED</div></div></div>
+<div class="sn">没掉过 = HUD 一个字都不多。</div></div>
+<div class="spec"><div class="sl">Dropped · 一次 toast <span class="rec">✓ 定稿</span></div><div class="stg"><div class="d3" style="width:290px;height:170px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><span class="toastA bad" style="transform:rotate(2deg)">Off the table!</span></div></div>
+</div>
+<div class="sn">1.4s 闪完消失，<b>不写秒数、不累加次数</b>。</div></div>
+<div class="spec"><div class="sl">Drop tag（3D 内）</div><div class="stg"><span class="misstag">OFF TABLE</span></div>
+<div class="sn">甲虫翻出桌沿时贴在坠落点，和 toast <b>二选一出现</b>，不重复说。</div></div>
+</div>
+</div>
+
+<!-- C11 HOLE -->
+<div class="sec">
+<div class="lab-row"><span class="no">C11</span><span class="nm">The hole · 目标</span>
+<span class="ds">— 每关目标是桌面上那个发光的洞；进洞=金色收束脉冲，翻下桌=红叉 + OFF TABLE 签</span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">Upcoming</div><div class="stg"><div class="d3" style="width:210px;height:170px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center">
+<svg width="128" height="128" viewBox="0 0 130 130">
+<ellipse cx="65" cy="70" rx="46" ry="30" fill="#04100b"/>
+<ellipse cx="65" cy="66" rx="46" ry="30" fill="none" stroke="#ffd98f" stroke-width="5" opacity=".8"/></svg></div></div></div></div>
+<div class="spec"><div class="sl">In the hole · pulse</div><div class="stg"><div class="d3" style="width:210px;height:170px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center">
+<svg width="128" height="128" viewBox="0 0 130 130">
+<ellipse cx="65" cy="66" rx="56" ry="38" fill="none" stroke="#fff1c9" stroke-width="2" opacity=".45"/>
+<ellipse cx="65" cy="70" rx="46" ry="30" fill="#04100b"/>
+<ellipse cx="65" cy="66" rx="46" ry="30" fill="none" stroke="#fff1c9" stroke-width="7"/>
+<ellipse cx="65" cy="66" rx="46" ry="30" fill="#fff1c9" opacity=".16"/></svg></div></div>
+</div>
+<div class="sn">进洞是金色脉冲 + <b>Level clear!</b>，加分在结算算，局中不弹分。</div></div>
+<div class="spec"><div class="sl">Off the table</div><div class="stg"><div class="d3" style="width:210px;height:170px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center">
+<svg width="128" height="128" viewBox="0 0 130 130">
+<ellipse cx="65" cy="66" rx="46" ry="30" fill="none" stroke="#6f8a72" stroke-width="5" opacity=".7"/>
+<g stroke-linecap="round"><line x1="38" y1="42" x2="92" y2="90" stroke="#ff8a6b" stroke-width="7"/>
+<line x1="92" y1="42" x2="38" y2="90" stroke="#ff8a6b" stroke-width="7"/></g></svg></div>
+<span class="misstag" style="position:absolute;right:8px;top:12px">OFF TABLE</span></div></div></div>
+</div>
+</div>
+
+<!-- C12 TOASTS + ANNOUNCE -->
+<div class="sec">
+<div class="lab-row"><span class="no">C12</span><span class="nm">Toasts &amp; level announce</span>
+<span class="ds">— toast 只在真的发生了什么时出现；关卡名进场是裸字，不套卡</span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">Toasts</div><div class="stg" style="flex-direction:column;gap:12px">
+<span class="toastA good">In the hole!</span><span class="toastA bad">Off the table!</span><span class="toastA goal">Time's up!</span></div></div>
+<div class="spec"><div class="sl">Level announce <span class="rec">✓ 定稿</span></div><div class="stg"><div class="d3" style="width:400px;height:200px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="announce">
+<div class="n">Lantern Deep</div><div class="s">level 3 of 8</div></div></div></div>
+</div>
+<div class="sn">8 个关卡名各进场 1.6s，是全局唯一的"叙事"文案，别处一律砍。</div></div>
+</div>
+</div>
+
+<!-- C13 RESULT BOARD -->
+<div class="sec">
+<div class="lab-row"><span class="no">C13</span><span class="nm">Result board</span>
+<span class="ds">— 四档标题 Canopy Keeper / Grove Guide / Moss Walker / Sprout；headline 两档（走完 8 关 / 时间到）</span></div>
+<div class="rack">
+<div class="spec"><div class="sl">4★ Canopy Keeper · 全清零掉落</div><div class="stg">
+<div class="rboard panel" style="width:400px;padding:22px 28px 18px">
+<h2 style="font-size:30px">You did it!</h2><div class="ttl">CANOPY KEEPER</div>
+<div class="stars"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#starG"/></svg><svg width="24" height="24" viewBox="0 0 24 24"><use href="#starG"/></svg><svg width="24" height="24" viewBox="0 0 24 24"><use href="#starG"/></svg><svg width="24" height="24" viewBox="0 0 24 24"><use href="#starG"/></svg></div>
+<div class="rows">
+<div class="row"><span class="lb">LEVELS CLEARED</span><span class="dt"></span><span class="vl num" style="font-size:18px">8 / 8</span></div>
+<div class="row"><span class="lb">LEVEL POINTS</span><span class="dt"></span><span class="vl num" style="font-size:18px">8 &times; 10 = 80</span></div>
+<div class="row"><span class="lb">TIME LEFT</span><span class="dt"></span><span class="vl num bon" style="font-size:18px">+58</span></div></div>
+<div class="flab">FINAL SCORE</div><div class="final num" style="font-size:52px">138</div>
+</div></div>
+<div class="sn">零掉落时 <b>DROPS 行整行不出现</b>。</div></div>
+<div class="spec"><div class="sl">1★ Sprout</div><div class="stg">
+<div class="rboard panel" style="width:400px;padding:22px 28px 18px">
+<h2 style="font-size:30px">Time's up!</h2><div class="ttl">SPROUT</div>
+<div class="stars"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#starG"/></svg><svg width="24" height="24" viewBox="0 0 24 24"><use href="#starD"/></svg><svg width="24" height="24" viewBox="0 0 24 24"><use href="#starD"/></svg><svg width="24" height="24" viewBox="0 0 24 24"><use href="#starD"/></svg></div>
+<div class="rows">
+<div class="row"><span class="lb">LEVELS CLEARED</span><span class="dt"></span><span class="vl num" style="font-size:18px">2 / 8</span></div>
+<div class="row"><span class="lb">LEVEL POINTS</span><span class="dt"></span><span class="vl num" style="font-size:18px">2 &times; 10 = 20</span></div>
+<div class="row"><span class="lb">DROPS</span><span class="dt"></span><span class="vl num" style="font-size:18px;color:var(--pen-lt)">7</span></div></div>
+<div class="flab">FINAL SCORE</div><div class="final num" style="font-size:52px">20</div>
+</div></div>
+<div class="sn">最低档叫 <b>Sprout</b>（刚发芽），不骂人；时间到时 TIME LEFT 为 0，整行不出现。</div></div>
+<div class="spec"><div class="sl">Personal best 条 · 三态</div><div class="stg" style="flex-direction:column;gap:12px;padding:6px 0">
+<div class="rboard" style="width:340px;padding:0;background:none;box-shadow:none">
+<div class="rec" style="margin-top:0"><div class="med"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 1.7l3.15 6.4 7.05.95-5.1 4.95 1.2 7-6.3-3.35-6.3 3.35 1.2-7L2.8 9.05l7.05-.95z" fill="#fff"/></svg></div>
+<div><div class="lb2">PERSONAL BEST</div><div class="tm num" style="font-size:22px">138</div></div>
+<div class="delta"><span class="d1">NEW</span><span class="d2">RECORD</span></div></div></div>
+<div class="rboard" style="width:340px;padding:0;background:none;box-shadow:none">
+<div class="rec" style="margin-top:0"><div class="med"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 1.7l3.15 6.4 7.05.95-5.1 4.95 1.2 7-6.3-3.35-6.3 3.35 1.2-7L2.8 9.05l7.05-.95z" fill="#fff"/></svg></div>
+<div><div class="lb2">PERSONAL BEST</div><div class="tm num" style="font-size:22px">117</div></div>
+<div class="delta"><span class="d1">+8</span><span class="d2">BEST</span></div></div></div>
+<div class="rboard" style="width:340px;padding:0;background:none;box-shadow:none">
+<div class="rec" style="margin-top:0"><div class="med"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 1.7l3.15 6.4 7.05.95-5.1 4.95 1.2 7-6.3-3.35-6.3 3.35 1.2-7L2.8 9.05l7.05-.95z" fill="#fff"/></svg></div>
+<div><div class="lb2">PERSONAL BEST</div><div class="tm num" style="font-size:22px">117</div></div>
+<div class="delta"><span class="d1">&minus;12</span><span class="d2">TODAY</span></div></div></div>
+</div></div>
+</div>
+</div>
+
+<!-- C14 PAUSE -->
+<div class="sec">
+<div class="lab-row"><span class="no">C14</span><span class="nm">Pause</span><span class="ds">— 三个动词，没有第四个；不写"The moss waits."</span></div>
+<div class="rack" style="align-items:center">
+<div class="spec"><div class="sl">Button</div><div class="stg"><div class="pausebtn"><i></i><i></i></div></div></div>
+<div class="spec"><div class="sl">Menu <span class="rec">✓ 定稿</span></div><div class="stg"><div class="pmB panel">
+<div class="pt">PAUSED</div><span class="mi primary">Resume</span><span class="mi">Restart</span><span class="mi">Quit</span></div></div></div>
+<div class="spec"><div class="sl">Auto-paused · 板断连</div><div class="stg"><div class="pmB panel">
+<div class="pt">PAUSED</div><div class="rsn">Board signal lost</div>
+<span class="mi primary">Resume</span><span class="mi">Restart</span><span class="mi">Quit</span></div></div>
+<div class="sn">唯一允许多一行的暂停态：得说清为什么自己停了。</div></div>
+<div class="spec"><div class="sl">In place</div><div class="stg"><div class="d3" style="width:380px;height:214px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div class="dim" style="background:rgba(4,18,12,.66)"></div>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="pmB panel" style="transform:scale(.68);transform-origin:center">
+<div class="pt">PAUSED</div><span class="mi primary">Resume</span><span class="mi">Restart</span><span class="mi">Quit</span></div></div></div></div></div>
+</div>
+</div>
+
+<!-- C15 HOW TO PLAY -->
+<div class="sec">
+<div class="lab-row"><span class="no">C15</span><span class="nm">How to play</span>
+<span class="ds">— 2×2 图示卡 + 单个 Got it，一格一句话；全篇无键鼠说明——这是板上玩的游戏</span></div>
+<div class="rack">
+<div class="spec" style="width:100%"><div class="sl">Modal</div><div class="stg"><div class="d3" style="width:880px;height:600px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div class="dim" style="background:rgba(4,18,12,.62)"></div>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="howto panel">
+<h3>How to Play</h3>
+<div class="grid">
+<div class="cell">
+<div class="dgm"><div class="calboard" style="width:126px;height:80px;border-width:6px;border-radius:14px">
+<div class="cross-v"></div><div class="cross-h"></div>
+<div class="cop" style="left:36%;top:62%;width:16px;height:16px"></div></div></div>
+<div class="cl">Shift</div><div class="cx">Lean <b>left / right / forward / back</b> to tilt the table.</div></div>
+<div class="cell">
+<div class="dgm"><div style="position:relative;width:120px;height:80px">
+<span class="hole" style="left:64%;top:44%;transform:translate(-50%,-50%);width:38px;height:38px"></span>
+<span class="tball" style="left:16%;top:38%;width:28px;height:28px"></span></div></div>
+<div class="cl">Roll home</div><div class="cx">Guide every beetle into a <b>hole</b>.</div></div>
+<div class="cell">
+<div class="dgm"><span class="tclock" style="position:static;transform:none;height:54px;padding:0 20px">
+<span class="cg" style="width:20px;height:20px;border-width:3px"></span><span class="cn" style="font-size:30px">29</span></span></div>
+<div class="cl">Beat the clock</div><div class="cx">Clear the level before <b>time runs out</b>.</div></div>
+<div class="cell">
+<div class="dgm"><span class="tclock fuse" style="position:static;transform:none;height:54px;padding:0 9px 0 20px">
+<span class="cg" style="width:20px;height:20px;border-width:3px"></span><span class="cn" style="font-size:30px">49</span>
+<span class="plus" style="font-size:18px;padding:7px 13px">+20s</span></span></div>
+<div class="cl">Earn time</div><div class="cx">Each level cleared adds <b>+20s</b> (Advanced +30s).</div></div>
+</div>
+<div class="foot"><span class="btn-p" style="font-size:20px;padding:15px 52px">Got it</span></div>
+</div></div></div>
+</div>
+<div class="sn" style="max-width:none">四格结构照 <b>table-tilt-ui-v2</b>：Shift / Roll home / Beat the clock / Earn time，一句话一格，收尾只有 <b>Got it</b>。入口只在标题页，局中不再放 <b>?</b>。</div></div>
+</div>
+</div>
+
+<!-- C16 SYSTEM -->
+<div class="sec">
+<div class="lab-row"><span class="no">C16</span><span class="nm">System · loading &amp; recovery</span><span class="ds">— 兜底态，同一套湿叶玻璃语言</span></div>
+<div class="rack">
+<div class="spec"><div class="sl">Loading</div><div class="stg"><div class="d3" style="width:300px;height:180px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg><div class="dim"></div>
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+<div class="ldots"><i></i><i></i><i></i></div><div class="loadlbl">Waking the moss table</div></div></div></div>
+<div class="sn">和 <b>index.html</b> 的 <b>#boot-fallback</b> 是同一句，加载态不换词。</div></div>
+<div class="spec"><div class="sl">Board lost mid-run</div><div class="stg"><div class="d3" style="width:470px;height:290px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div class="dim" style="background:rgba(4,18,12,.66)"></div>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="sysover panel">
+<div style="display:flex;justify-content:center;margin-bottom:12px"><div class="calboard off" style="width:112px;height:70px;border-width:6px;border-radius:13px">
+<div class="cross-v"></div><div class="cross-h"></div></div></div>
+<div class="st1">Board signal lost</div>
+<div class="st2">Step off the board, then step back on.</div>
+<div class="row"><span class="bpill recon" style="font-size:13px;padding:8px 15px"><span class="ic"></span>Reconnecting<span class="dotp"></span></span></div>
+</div></div></div></div></div>
+<div class="spec"><div class="sl">Confirm quit</div><div class="stg"><div class="d3" style="width:470px;height:290px">
+<svg class="art" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice"><use href="#mossArt"/></svg>
+<div class="dim" style="background:rgba(4,18,12,.66)"></div>
+<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="sysover panel" style="width:360px">
+<div class="st1">Quit this run?</div><div class="st2">Your score won't be saved.</div>
+<div class="row"><span class="btn-g" style="font-size:16px;padding:12px 26px">Keep playing</span><span class="btn-d">Quit</span></div></div></div></div></div></div>
+</div>
+</div>
+
+<script>
+function fit(){
+document.querySelectorAll('.gstage').forEach(function(st){
+var sc=st.querySelector('.screen');if(!sc)return;
+var s=st.clientWidth/1280;
+sc.style.transform='scale('+s+')';
+st.style.height=(720*s)+'px';
+});
+}
+window.addEventListener('resize',fit);
+window.addEventListener('load',fit);
+document.addEventListener('DOMContentLoaded',fit);
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+fit();
+</script>
+</body>
+</html>

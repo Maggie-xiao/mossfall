@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moss Tilt · Balance Board 连接流程提案</title>
+<style>
+@font-face{font-family:"Bricolage Grotesque";src:url("fonts/bricolage-grotesque-400.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Bricolage Grotesque";src:url("fonts/bricolage-grotesque-700.ttf") format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"Bricolage Grotesque";src:url("fonts/bricolage-grotesque-800.ttf") format("truetype");font-weight:800;font-display:swap}
+@font-face{font-family:"Space Grotesk";src:url("fonts/space-grotesk-500.ttf") format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:"Space Grotesk";src:url("fonts/space-grotesk-700.ttf") format("truetype");font-weight:700;font-display:swap}
+
+:root{
+  --ink-d:#071410;
+  --ink:#eefce8;
+  --ink-soft:#a9c79b;
+  --accent:#ffd98f;
+  --accent-lt:#ffe9b8;
+  --accent-d:#b97832;
+  --mint:#35d97a;
+  --mint-lt:#7bf0ac;
+  --pen:#ff6a4a;
+  --hair:rgba(214,244,196,.30);
+  --ui:"Bricolage Grotesque",system-ui,sans-serif;
+  --num:"Space Grotesk",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:radial-gradient(120% 90% at 50% 0%,#12261b 0%,var(--ink-d) 62%) fixed,var(--ink-d);
+  color:var(--ink);font-family:var(--ui);line-height:1.55;
+  padding:56px 24px 96px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto}
+
+header.top{margin-bottom:44px;border-bottom:1px solid var(--hair);padding-bottom:28px}
+.kicker{font-family:var(--num);font-weight:700;font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent-d)}
+h1{font-size:clamp(28px,4vw,42px);font-weight:800;margin:.25em 0 .3em;letter-spacing:-.02em}
+.lede{color:var(--ink-soft);max-width:64ch;font-size:16px;margin:0}
+
+h2{font-size:20px;font-weight:800;margin:56px 0 18px;letter-spacing:-.01em}
+h2 .n{font-family:var(--num);color:var(--accent-d);margin-right:.5em}
+
+.diag{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));padding:0;margin:0}
+.diag li{list-style:none;background:rgba(255,255,255,.035);border:1px solid var(--hair);
+  border-left:3px solid var(--pen);border-radius:12px;padding:14px 16px}
+.diag b{display:block;font-size:14px;margin-bottom:4px}
+.diag span{font-size:13.5px;color:var(--ink-soft)}
+.diag code{font-family:var(--num);font-size:12.5px;color:var(--accent);
+  background:rgba(255,217,143,.10);padding:1px 5px;border-radius:4px}
+
+.step{display:grid;grid-template-columns:340px 1fr;gap:32px;align-items:start;
+  padding:28px 0;border-top:1px solid var(--hair)}
+@media(max-width:860px){.step{grid-template-columns:1fr}}
+
+/* ── the card: same shape as before, material instead of ornament ── */
+.mock{
+  position:relative;border-radius:24px;padding:30px 26px 26px;text-align:center;
+  /* three stops, not a flat fill: the panel catches light at the top and sinks at the base */
+  background:linear-gradient(177deg,#1d3a2a 0%,#112418 54%,#0a1a12 100%);
+  border:1px solid rgba(214,244,196,.22);
+  box-shadow:
+    0 1px 0 rgba(238,252,232,.13) inset,     /* top bevel */
+    0 -22px 46px rgba(0,0,0,.34) inset,      /* base sink */
+    0 22px 52px rgba(0,0,0,.5);              /* cast */
+}
+/* fine grain, so the surface is a material and not a swatch — no pattern, no motif */
+.mock::after{content:"";position:absolute;inset:0;border-radius:24px;pointer-events:none;
+  opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>")}
+
+.dots{display:flex;gap:7px;justify-content:center;margin-bottom:20px;position:relative;z-index:1}
+.dots i{width:22px;height:4px;border-radius:2px;background:rgba(238,252,232,.14);
+  box-shadow:0 1px 0 rgba(238,252,232,.06)}
+.dots i.on{background:var(--accent);box-shadow:0 0 8px rgba(255,217,143,.45)}
+.dots i.done{background:var(--mint)}
+
+/* ── the board ───────────────────────────────────────────
+   Geometry lifted from emberdunes' .setboard: 248×156 (≈1.59:1, the real
+   device's ratio — the old 2.76:1 slab was the thing that looked wrong),
+   22px radius, a 10px bezel, and thickness as a hard `0 7px 0` offset
+   shadow rather than a second shape. Recoloured to this game's palette. */
+.board{position:relative;width:248px;height:170px;margin:2px auto 22px;z-index:1}
+.board::before{content:"";position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+  width:290px;height:180px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,217,143,.14),transparent 72%)}
+
+.setboard{position:relative;width:248px;height:156px;border-radius:22px;
+  display:grid;place-items:center;
+  /* A foot stepping off has to leave at the board's edge, not float over the
+     bezel — without this the swing-out draws right across the device frame. */
+  overflow:hidden;
+  background:radial-gradient(120% 120% at 50% 30%,#f1f6e4,#d6e3c2 72%);
+  border:10px solid #6d7a5d;
+  box-shadow:0 0 0 3px rgba(24,44,30,.45),0 7px 0 rgba(24,44,30,.5),0 16px 28px rgba(0,0,0,.45)}
+.setboard .cross-v{position:absolute;left:50%;top:12px;bottom:12px;width:2px;margin-left:-1px;
+  background:rgba(48,70,44,.16)}
+.setboard .cross-h{position:absolute;top:50%;left:12px;right:12px;height:2px;margin-top:-1px;
+  background:rgba(48,70,44,.16)}
+.setboard svg{position:relative;z-index:2}
+.setboard .setfoot{fill:#adbf94}
+
+/* stepped on */
+.setboard.on{background:radial-gradient(120% 120% at 50% 30%,#fff6e2,#ffe7b6 72%);
+  border-color:var(--accent-d);
+  box-shadow:0 0 0 3px rgba(185,120,50,.35),0 7px 0 #8a5626,0 16px 28px rgba(255,217,143,.22)}
+.setboard.on .setfoot{fill:var(--accent-d)}
+/* centred */
+.setboard.ok{background:radial-gradient(120% 120% at 50% 30%,#eefbf1,#dcf6e4 72%);
+  border-color:var(--mint);
+  box-shadow:0 0 0 3px rgba(53,217,122,.3),0 7px 0 #12a552,0 16px 28px rgba(53,217,122,.24)}
+.setboard.ok .setfoot{fill:#12a552}
+
+/* CoP read-out. dune drives it ±88px × ±54px inside the same 248×156 box. */
+.cop{position:absolute;left:50%;top:50%;width:22px;height:22px;border-radius:50%;z-index:3;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 36% 30%,var(--mint-lt),var(--mint));
+  box-shadow:0 2px 5px rgba(18,165,82,.5),0 0 0 6px rgba(53,217,122,.22)}
+
+.msg{font-size:23px;font-weight:800;letter-spacing:-.02em;margin:0 0 7px;position:relative;z-index:1}
+.sub{font-size:14px;color:var(--ink-soft);margin:0 auto;max-width:29ch;position:relative;z-index:1}
+
+.bar{position:relative;z-index:1;margin-top:18px;height:6px;border-radius:3px;
+  background:rgba(0,0,0,.32);overflow:hidden;
+  box-shadow:0 1px 0 rgba(238,252,232,.07),0 1px 3px rgba(0,0,0,.4) inset}
+.bar i{display:block;height:100%;border-radius:3px;
+  background:linear-gradient(90deg,var(--accent-d),var(--accent));
+  box-shadow:0 0 10px rgba(255,217,143,.45)}
+.bar.ok i{background:linear-gradient(90deg,#12a552,var(--mint-lt));
+  box-shadow:0 0 10px rgba(123,240,172,.45)}
+.barlab{position:relative;z-index:1;font-family:var(--num);font-weight:500;font-size:11.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px}
+
+/* ── motion ──────────────────────────────────────────────
+   One loop per step, each showing the action the copy asks for.
+   SVG user units == CSS px here (viewBox 216×140 at 216×140), so a
+   translate in px lands exactly where it was authored.            */
+
+/* Nobody steps onto a board with both feet at once — one foot goes, the other
+   follows. Moving the pair together is what made this read as floating rather
+   than stepping, so every keyframe below is per-foot and the two are staggered
+   by `animation-delay`. Feet also pivot about the heel, not their centre. */
+.foot{transform-box:fill-box;transform-origin:52% 88%}
+
+/* 1 · step off — back off the near edge, one foot then the other.
+   This is a plan view of the board and the player stands at the bottom of it,
+   so feet enter and leave through the *near* edge. Swinging them diagonally to
+   the top corner read as sliding off the far side, which is not how anyone
+   gets off a balance board. */
+@keyframes stepOffR{
+  0%,10%   {transform:translate(0,0) rotate(0deg);opacity:1}
+  26%      {transform:translate(3px,14px) rotate(3deg);opacity:1}
+  50%      {transform:translate(9px,70px) rotate(6deg);opacity:0}
+  100%     {transform:translate(9px,70px) rotate(6deg);opacity:0}
+}
+@keyframes stepOffL{
+  0%,10%   {transform:translate(0,0) rotate(0deg);opacity:1}
+  26%      {transform:translate(-3px,14px) rotate(-3deg);opacity:1}
+  50%      {transform:translate(-9px,70px) rotate(-6deg);opacity:0}
+  100%     {transform:translate(-9px,70px) rotate(-6deg);opacity:0}
+}
+/* Unweighting is not instant either: the board comes back up in two stages,
+   one per foot that leaves. */
+@keyframes boardRelief{
+  0%,10%  {transform:translateY(2.5px)}
+  30%     {transform:translateY(1.2px)}
+  58%,100%{transform:translateY(0)}
+}
+.a-off-r{animation:stepOffR 3.4s cubic-bezier(.4,.05,.25,1) infinite}
+.a-off-l{animation:stepOffL 3.4s cubic-bezier(.4,.05,.25,1) infinite;animation-delay:.42s}
+.a-relief{animation:boardRelief 3.4s ease-out infinite}
+
+/* 2 · step on — swing in and plant, one foot then the other */
+@keyframes stepOnL{
+  0%,6%   {transform:translate(-9px,70px) rotate(-6deg);opacity:0}
+  14%     {transform:translate(-9px,70px) rotate(-6deg);opacity:1}
+  32%     {transform:translate(0,0) rotate(0deg);opacity:1}
+  100%    {transform:translate(0,0) rotate(0deg);opacity:1}
+}
+@keyframes stepOnR{
+  0%,6%   {transform:translate(9px,70px) rotate(6deg);opacity:0}
+  14%     {transform:translate(9px,70px) rotate(6deg);opacity:1}
+  32%     {transform:translate(0,0) rotate(0deg);opacity:1}
+  100%    {transform:translate(0,0) rotate(0deg);opacity:1}
+}
+/* Two plants, so two dips — the second is the deeper one, because that is when
+   the board is finally carrying all of it. */
+@keyframes boardDip{
+  0%,26%  {transform:translateY(0)}
+  32%     {transform:translateY(2px)}
+  40%     {transform:translateY(0)}
+  50%     {transform:translateY(0)}
+  56%     {transform:translateY(3.5px)}
+  66%     {transform:translateY(0)}
+  100%    {transform:translateY(0)}
+}
+.a-on-l{animation:stepOnL 3.4s cubic-bezier(.34,.02,.2,1) infinite}
+.a-on-r{animation:stepOnR 3.4s cubic-bezier(.34,.02,.2,1) infinite;animation-delay:.42s}
+.a-dip{animation:boardDip 3.4s ease-out infinite}
+
+/* 3 · hold steady — a held CoP is never perfectly still, it just stays in.
+   The drift has to keep the -50%,-50% centring or the dot jumps corner-first. */
+@keyframes wander{
+  0%  {transform:translate(calc(-50% + 7px),calc(-50% - 5px))}
+  25% {transform:translate(calc(-50% - 6px),calc(-50% + 4px))}
+  50% {transform:translate(calc(-50% + 4px),calc(-50% + 7px))}
+  75% {transform:translate(calc(-50% - 7px),calc(-50% - 3px))}
+  100%{transform:translate(calc(-50% + 7px),calc(-50% - 5px))}
+}
+@keyframes breathe{
+  0%,100%{box-shadow:0 0 0 0 rgba(53,217,122,.22);opacity:.9}
+  50%    {box-shadow:0 0 0 7px rgba(53,217,122,.10);opacity:1}
+}
+.cop{animation:wander 5.2s ease-in-out infinite}
+.ring.hit{animation:breathe 2.4s ease-in-out infinite}
+
+@media(prefers-reduced-motion:reduce){
+  .a-off-l,.a-off-r,.a-on-l,.a-on-r,.a-relief,.a-dip,.cop,.ring.hit{animation:none}
+}
+
+/* the hold target, centred on the board face */
+.ring{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;
+  border-radius:50%;border:2px dashed rgba(90,120,80,.45);z-index:2}
+.ring.hit{border-style:solid;border-color:var(--mint)}
+
+.copy{display:grid;gap:14px}
+.row{display:grid;grid-template-columns:74px 1fr;gap:14px;align-items:baseline}
+.tag{font-family:var(--num);font-weight:700;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;padding-top:3px}
+.tag.old{color:#8b7f72}
+.tag.new{color:var(--mint)}
+.old-txt{color:#8b7f72;text-decoration:line-through;
+  text-decoration-color:rgba(255,106,74,.55);font-size:15px}
+.new-txt{font-size:16px;font-weight:700}
+.new-txt em{display:block;font-style:normal;font-weight:400;font-size:14px;
+  color:var(--ink-soft);margin-top:3px}
+.why{grid-column:1/-1;font-size:13.5px;color:var(--ink-soft);
+  border-left:2px solid var(--accent-d);padding-left:12px;margin-top:2px}
+.why b{color:var(--accent-lt);font-weight:700}
+
+footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--hair);
+  color:var(--ink-soft);font-size:14px}
+footer ul{padding-left:18px;margin:10px 0 0}
+footer li{margin-bottom:7px}
+footer b{color:var(--ink)}
+
+/* ?bare — cards only, for eyeballing the panel material on its own */
+.bare header.top,.bare h2,.bare .diag,.bare .copy,.bare footer{display:none}
+.bare .wrap{display:flex;gap:22px;align-items:flex-start;max-width:none}
+.bare .step{display:block;border:0;padding:0;width:340px}
+</style>
+</head>
+<body>
+<script>if(location.search.includes("bare"))document.documentElement.classList.add("bare")</script>
+<!-- Footprint glyph, lifted verbatim from emberdunes (viewBox 0 0 46 80). -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!--
+    Right footprint, 46×80. Started from emberdunes' `bareR`, redrawn:
+    that one is a symmetric blob with five near-equal toe circles, which reads
+    as a mitten. A footprint is only legible from three things — a wide ball, a
+    pinched arch on the big-toe side, and toes that fall away in size from big
+    to little. All three are in here.
+  -->
+  <g id="bareR">
+    <path d="M15 22C27 18 40 23 40 34c0 9-6.5 13.5-8.6 19-2 5.2-1 9 -1 15 0 8-5.4 12.6-11.4 12.6S8 76 8 68c0-6.6 3.4-10 4.6-15 1-4.4-4.8-8-4.8-16.4C7.8 28.4 9 24.6 15 22z"/>
+    <ellipse cx="12.2" cy="10.6" rx="6.3" ry="5.5"/>
+    <circle cx="23.2" cy="6.6" r="4.6"/>
+    <circle cx="31.6" cy="7.6" r="4"/>
+    <circle cx="38.2" cy="10.8" r="3.4"/>
+    <circle cx="43" cy="15.8" r="2.7"/>
+  </g>
+  <g id="fpToe"><use href="#bareR" transform="translate(1 1)"/></g>
+</defs></svg>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">Moss Tilt · Board Setup</div>
+  <h1>连接流程的文案与 UI 提案</h1>
+  <p class="lede">现在的三步是三条互不相关的命令句，玩家不知道自己在几步、在等什么、为什么要先下来。
+  下面每一步给出「现在 → 建议」和一个可直接对照的 UI mock。</p>
+</header>
+
+<h2><span class="n">A</span>现在的问题</h2>
+<ul class="diag">
+  <li><b>开场就叫人下来</b><span>第一句是 <code>Step off the Balance Board.</code>——玩家还没站上去过，"下来"没有起点，也没说为什么。</span></li>
+  <li><b>工程词泄漏</b><span><code>Zeroing</code> / <code>Calibrating 42%</code> 是研发语言。玩家只想知道"还要等多久"。</span></li>
+  <li><b>没有进度感</b><span>三屏之间没有 1/2/3。每屏都像最后一屏，等待就显得没有尽头。</span></li>
+  <li><b>"center" 指代不清</b><span><code>Move to the center.</code>——板子的中心还是屏幕上那个圈？玩家会低头找板子。</span></li>
+  <li><b>句子太长太重复</b><span>"the Balance Board" 出现在几乎每一句里，读起来像说明书而不是引导。</span></li>
+  <li><b>面板是个平色块</b><span>纯色填充 + 单描边，没有受光、没有厚度。缺的是材质，不是装饰。</span></li>
+</ul>
+
+<h2><span class="n">B</span>统一的句式规则</h2>
+<ul class="diag" style="--pen:var(--mint)">
+  <li><b>大字 = 动作</b><span>祈使句，2–4 个词，只说现在要做什么。</span></li>
+  <li><b>小字 = 为什么 / 怎么做</b><span>一句话，给动作一个理由，消除"我在等什么"。</span></li>
+  <li><b>进度条标签 = 系统状态</b><span>机器在说话的地方，只放机器的状态，不放指令。</span></li>
+</ul>
+
+<!-- STEP 1 -->
+<h2><span class="n">1</span>空板归零</h2>
+<div class="step" id="s">
+  <div class="mock">
+    <div class="dots"><i class="on"></i><i></i><i></i></div>
+    <div class="board">
+      <div class="setboard a-relief">
+        <span class="cross-v"></span><span class="cross-h"></span>
+        <!-- viewBox matches the board's 228×136 content box, so px == user unit.
+             scale(1.15) puts a 46×80 glyph at 53×92 — two thirds of the board's
+             depth, which is what a foot actually covers. The old .62 was a third.
+
+             The placement lives on the inner <use> and the animation on the
+             outer <g>, and they must stay on separate elements: a CSS transform
+             REPLACES the SVG transform attribute, so animating the same node
+             drops it to the viewBox origin at scale 1 — the feet pile up in the
+             top-left corner the moment they start moving. -->
+        <svg viewBox="0 0 228 136" width="228" height="136">
+          <g class="foot a-off-r"><use class="setfoot" href="#fpToe" transform="translate(118 22) scale(1.15)"/></g>
+          <g class="foot a-off-l"><use class="setfoot" href="#fpToe" transform="translate(110 22) scale(-1.15 1.15)"/></g>
+        </svg>
+      </div>
+    </div>
+    <p class="msg">Step off the board</p>
+    <p class="sub">Reading its resting weight — just a moment.</p>
+    <div class="bar"><i style="width:62%"></i></div>
+    <div class="barlab">Board empty · 62%</div>
+  </div>
+  <div class="copy">
+    <div class="row"><div class="tag old">现在</div><div class="old-txt">Step off the Balance Board.<br>Keep the board empty while it zeros.<br><span style="font-family:var(--num);font-size:13px">Calibrating 62%</span></div></div>
+    <div class="row"><div class="tag new">建议</div><div class="new-txt">Step off the board<em>Reading its resting weight — just a moment.</em><em style="font-family:var(--num);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase">Board empty · 62%</em></div></div>
+    <div class="why"><b>为什么：</b>把 "zeros / calibrating" 换成 <b>reading its resting weight</b>，玩家立刻知道机器在干嘛、为什么必须空着。进度条标签从"校准中"改成 <b>Board empty</b>，它同时变成一个<b>状态确认</b>——玩家一眼看出自己做对了。</div>
+    <div class="why"><b>报错态：</b><code style="font-family:var(--num);color:var(--pen)">Step off the Balance Board so zeroing can finish.</code> → <b>Something's still on the board</b>（标题变橙，副文案不变）。错误信息不该重复整条指令，只说哪里不对。</div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<h2><span class="n">2</span>站上去</h2>
+<div class="step">
+  <div class="mock">
+    <div class="dots"><i class="done"></i><i class="on"></i><i></i></div>
+    <div class="board">
+      <div class="setboard on a-dip">
+        <span class="cross-v"></span><span class="cross-h"></span>
+        <svg viewBox="0 0 228 136" width="228" height="136">
+          <g class="foot a-on-r"><use class="setfoot" href="#fpToe" transform="translate(118 22) scale(1.15)"/></g>
+          <g class="foot a-on-l"><use class="setfoot" href="#fpToe" transform="translate(110 22) scale(-1.15 1.15)"/></g>
+        </svg>
+      </div>
+    </div>
+    <p class="msg">Now step on</p>
+    <p class="sub">Both feet. Stand however feels natural.</p>
+    <div class="bar ok"><i style="width:100%"></i></div>
+    <div class="barlab">Board ready</div>
+  </div>
+  <div class="copy">
+    <div class="row"><div class="tag old">现在</div><div class="old-txt">Zeroing complete.<br>Step onto the Balance Board.<br>Stand naturally to continue.</div></div>
+    <div class="row"><div class="tag new">建议</div><div class="new-txt">Now step on<em>Both feet. Stand however feels natural.</em></div></div>
+    <div class="why"><b>为什么：</b>"Zeroing complete" 是给上一步收尾的，不该占用这一屏的大字位——<b>大字永远只说当下的动作</b>。上一步完成用步进点变绿 + 进度条转绿来表达，比一行字快得多。</div>
+    <div class="why"><b>"Now" 这个词值钱：</b>它把两步缝成一个连续动作，而不是两条独立命令。玩家刚被叫下来又被叫上去，没有 "now" 就会觉得系统在耍他。</div>
+    <div class="why"><b>"Stand naturally" → "however feels natural"：</b>前者听起来像还有个"标准站姿"，后者明确告诉玩家怎么都行——这一步不是考试。</div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<h2><span class="n">3</span>找中心并保持</h2>
+<div class="step">
+  <div class="mock">
+    <div class="dots"><i class="done"></i><i class="done"></i><i class="on"></i></div>
+    <div class="board">
+      <div class="setboard ok">
+        <span class="cross-v"></span><span class="cross-h"></span>
+        <svg viewBox="0 0 228 136" width="228" height="136">
+          <use class="setfoot" href="#fpToe" transform="translate(118 22) scale(1.15)"/>
+          <use class="setfoot" href="#fpToe" transform="translate(110 22) scale(-1.15 1.15)"/>
+        </svg>
+        <span class="ring hit"></span>
+        <span class="cop"></span>
+      </div>
+    </div>
+    <p class="msg">Hold steady</p>
+    <p class="sub">Keep the dot inside the ring.</p>
+    <div class="bar ok"><i style="width:55%"></i></div>
+    <div class="barlab">Holding · 0.8s of 1.5s</div>
+  </div>
+  <div class="copy">
+    <div class="row"><div class="tag old">现在</div><div class="old-txt">Move to the center.<br>Hold center: 0.8 / 1.5 seconds.</div></div>
+    <div class="row"><div class="tag new">建议</div><div class="new-txt">Find your center<em>Shift your weight until the dot sits in the ring.</em>
+      <em style="color:var(--mint-lt);margin-top:8px">命中后切换 →</em>
+      <em style="font-weight:700;color:var(--ink);font-size:16px">Hold steady<span style="display:block;font-weight:400;font-size:14px;color:var(--ink-soft)">Keep the dot inside the ring.</span></em></div></div>
+    <div class="why"><b>为什么两句：</b>这一步有两个真实状态——<b>还没进圈</b>和<b>进圈了要稳住</b>。现在两个状态共用 "Move to the center"，进圈之后玩家还在往中间挪，反而把点挪出去了。分成两句，指令跟着状态走。</div>
+    <div class="why"><b>消歧义：</b><code style="font-family:var(--num);color:var(--accent)">the center</code> → <b>the dot / the ring</b>。直接指屏幕上看得见的两个东西，玩家不会再低头找板子的中心。</div>
+    <div class="why"><b>计时格式：</b><code style="font-family:var(--num);color:var(--accent)">Hold center: 0.8 / 1.5 seconds.</code> 是一行读数，放在大字位太吵。挪进进度条标签，写成 <b>Holding · 0.8s of 1.5s</b>，让进度条自己讲进度。</div>
+  </div>
+</div>
+
+<footer>
+  <b>质感这一层加了什么（只有四条，都不是新元素）</b>
+  <ul>
+    <li><b>面板改三段渐变</b>：顶部受光、中段本色、底部下沉。纯色填充永远读作贴纸，三段就有体积了。</li>
+    <li><b>顶边 1px 高光 + 底部内投影</b>：这两条 inset shadow 是"厚度"的全部来源，比任何描边都便宜。</li>
+    <li><b>5% 的 fractal noise 叠加</b>：无图案、无母题，纯粹让表面变成材质而不是色板。近看才有，远看只觉得"不假"。</li>
+    <li><b>进度条挖深</b>：槽是内凹的（inset 暗影），填充是发光的。凹槽 + 发光比纯色条更像一个实体读数。</li>
+  </ul>
+  <b style="display:block;margin-top:18px">另外三个非文案建议</b>
+  <ul>
+    <li><b>步进点（1/2/3）</b>是这套改动里性价比最高的一件：三个 4px 的小条，把"无尽的等待"变成"还剩两步"。完成的变绿、当前的是金色。</li>
+    <li><b>上一步的完成不要用文字宣布</b>——用步进点变绿 + 进度条一次性走满转绿。视觉比一行 "Zeroing complete" 快，而且不占大字位。</li>
+    <li><b>错误态只改标题不改副文案</b>。副文案是"为什么"，在报错时依然成立；把它一起换掉会让整屏跳动，玩家会以为自己走错流程了。</li>
+  </ul>
+</footer>
+
+</div>
+</body>
+</html>

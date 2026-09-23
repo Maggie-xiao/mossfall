@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "target_html": "../../../index.html",
+  "audio_dir": "..",
+  "source": "Suno web",
+  "credit_budget": null,
+  "units": [
+    {
+      "id": "mossfall-level-clear-encouragement-20260810",
+      "cue_keys": [
+        "level-clear"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Single isolated level-clear sound for a colorful family console platform game. A tightly synchronized small crowd of many friendly voices gives one short jubilant wordless cheer together, followed by a tiny bright resolved sparkle. Clean, punchy, uplifting and polished.",
+      "negative_prompt": "solo voice, featured singer, one person, dialogue, sentence, chant, stadium roar, applause-only, ambience, nature sounds, song, music loop, scream, shrill voice, long tail, repeated variations, second ending, clipping",
+      "expected_duration_seconds": [
+        0.8,
+        1.2
+      ],
+      "attempt_limit": 3,
+      "status": "integrated",
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-10T12:06:02.354Z",
+          "prompt": "Isolated short game SFX for passing a small level in Moss Tilt, a cozy magical moss-forest balance game. Immediate soft leafy pop and rounded seed-pod tap, then two quick ascending dewdrop sparkles and a tiny warm wordless encouragement swell. Cheerful, satisfying, tactile, organic, clean centered dry mix, one compact arc, resolved in 0.8-1.2 s. No music, melody, speech, scream, crowd, applause, brass, drums, boom, arcade jingle, piercing highs, buzz, birds, rain, long tail or second ending.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "The current UI did not expose a stable per-submission price. The session counter briefly rose from 52 to 62 while pending, then settled at 54 after reload.",
+          "visible_rights_evidence": "The visible account UI shows paid creation access and marks WAV download as a completed Pro feature. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "rejected",
+          "candidates": [
+            {
+              "id": "6696dd61-c915-48c5-92d2-834b85ebc7d0",
+              "url": "https://suno.com/song/6696dd61-c915-48c5-92d2-834b85ebc7d0",
+              "duration_seconds": 10,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-level-clear-encouragement-20260810-attempt-1-candidate-1.wav",
+              "preview_file": "review-20260810/previews/level-clear-A.wav",
+              "source_sha256": "a00a74d26a6049a35868addce2b630c77b92765c53128086e64fad51320794c4",
+              "preview_sha256": "0333fda0150b2617f8764700fd4f1a2f336665a9f33648f6895b15f4ddd65851",
+              "selection_reason": null,
+              "rejection_reason": "User rejected the direction: too organic and magical, without the requested short, clean, uplifting console-game character cheer."
+            },
+            {
+              "id": "ab8300e6-b888-4ef1-aabc-282531aa5022",
+              "url": "https://suno.com/song/ab8300e6-b888-4ef1-aabc-282531aa5022",
+              "duration_seconds": 6,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-level-clear-encouragement-20260810-attempt-1-candidate-2.wav",
+              "preview_file": "review-20260810/previews/level-clear-B.wav",
+              "source_sha256": "2b87686f705bc3b706a444dedf99e3c779fe97bb27bbf4a01b33fb8084cbdce9",
+              "preview_sha256": "8f23f14cfabccd8e97cf27a42517f6aa88e313ee464c659f284bf138077dfa74",
+              "selection_reason": null,
+              "rejection_reason": "User rejected the direction: too organic and magical, without the requested short, clean, uplifting console-game character cheer."
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "submitted_at_utc": "2026-08-10T12:37:35.064Z",
+          "prompt": "Single isolated level-clear SFX for a colorful family console platform game. One tiny jubilant mascot voice gives a crisp wordless Woo! burst immediately, followed by a compact two-note rising major-key chime and one clean sparkle stop. Short, bright, punchy, uplifting and playful, dry mix, fully finished in 0.55-0.9 s. No ambience, nature, footsteps, whoosh, dialogue, sentence, song, music loop, crowd, applause, scream, shrill child voice, long tail, repeated versions or second ending.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "The visible session counter increased from 56 to 66 after this submission. Suno still does not expose a separate per-submission price label.",
+          "visible_rights_evidence": "The visible account UI shows paid creation access and Pro WAV download. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "rejected",
+          "candidates": [
+            {
+              "id": "cac2aa07-23d5-4c26-89bb-13e08c4dbeea",
+              "url": "https://suno.com/song/cac2aa07-23d5-4c26-89bb-13e08c4dbeea",
+              "duration_seconds": 2,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-level-clear-encouragement-20260810-attempt-2-candidate-1.wav",
+              "preview_file": "review-20260810/previews/level-clear-v2-A.wav",
+              "source_sha256": "d6bd754f35cdab777d3c44704950eec29814d91f6d42c313f9d0649d80a53674",
+              "preview_sha256": "e76edb0a23c0036b6046e0e40c0b1ff74b18d227a90c21a6a6018d8e82de6690",
+              "selection_reason": null,
+              "rejection_reason": "User rejected the cue because it sounds like one person cheering; the level-clear needs a clearly multi-person cheer."
+            },
+            {
+              "id": "5dca0cbf-0c55-4f57-865d-299afe94962b",
+              "url": "https://suno.com/song/5dca0cbf-0c55-4f57-865d-299afe94962b",
+              "duration_seconds": 2,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-level-clear-encouragement-20260810-attempt-2-candidate-2.wav",
+              "preview_file": "review-20260810/previews/level-clear-v2-B.wav",
+              "source_sha256": "cabd377a2dbdfd3bec4b8e8aab95d2e14a7781396cd02c132e9fe26b5c6156ba",
+              "preview_sha256": "7962b87684f8ea1957cd053fb95043d06b9a21d9e065a03754ce2d36d1daa852",
+              "selection_reason": null,
+              "rejection_reason": "User rejected the cue because it sounds like one person cheering; the level-clear needs a clearly multi-person cheer."
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "submitted_at_utc": "2026-08-10T13:02:31.437Z",
+          "prompt": "Single isolated level-clear SFX for a colorful family console platform game. A tightly synchronized small crowd of 8-12 friendly adult voices gives one short jubilant wordless Woo! and Yeah! burst together, clearly many people, no featured solo voice. Add only a tiny bright resolved sparkle at the end. Compact, clean, punchy, uplifting, dry mix, 0.7-1.1 s. No one-person cheer, singer, dialogue, chant, stadium roar, applause-only, song, scream, shrill voice, long tail, repeats or second ending.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "The visible session counter increased from 60 to 70 after this submission. Suno does not expose a separate per-submission price label.",
+          "visible_rights_evidence": "The visible account UI shows paid creation access and Pro WAV download. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "selected",
+          "candidates": [
+            {
+              "id": "0eb7b7c5-1a79-48ae-879e-a0ebb98b65ea",
+              "url": "https://suno.com/song/0eb7b7c5-1a79-48ae-879e-a0ebb98b65ea",
+              "duration_seconds": 2,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-level-clear-encouragement-20260810-attempt-3-candidate-1.wav",
+              "preview_file": "review-20260810/previews/level-clear-v3-A.wav",
+              "source_sha256": "bcd2c899743958c61d5f0ba074eb4d497b82a02480b8e7da891bc7dc401afdcc",
+              "preview_sha256": "db57f33ab4baef3e216c96a61db92ac7d207bb01062c53f396d43ae6f1bf89b3",
+              "selection_reason": null,
+              "rejection_reason": "The user selected revision 3 candidate B for integration."
+            },
+            {
+              "id": "47754a28-3d12-472d-a4ef-6e81f2f0ac0e",
+              "url": "https://suno.com/song/47754a28-3d12-472d-a4ef-6e81f2f0ac0e",
+              "duration_seconds": 2,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-level-clear-encouragement-20260810-attempt-3-candidate-2.wav",
+              "preview_file": "review-20260810/previews/level-clear-v3-B.wav",
+              "source_sha256": "1da522335ab513ed418d90dd13cc8616f9d8064b34c8a574e4d6309da9812768",
+              "preview_sha256": "28d927346ac4da99d7a315e3b246a5a387a542c466f8c84afab5d85337b8002a",
+              "selection_reason": "The user explicitly selected level-clear-v3-B for small-level completion and it was temporarily integrated.",
+              "rejection_reason": "The user later replaced it with the familiar catch 'yeah' from the earlier h5-police-jump game."
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "47754a28-3d12-472d-a4ef-6e81f2f0ac0e",
+      "source_file": "_source/suno/review-20260810/mossfall-level-clear-encouragement-20260810-attempt-3-candidate-2.wav",
+      "production_file": "level-clear.ogg",
+      "processing": {
+        "mode": "none",
+        "runtime_fade_out_ms": 70
+      },
+      "integration_targets": [
+        {
+          "file": "../../../audio.js",
+          "event": "Non-final LEVEL_CLEAR entry",
+          "symbol": "GameAudio.clear"
+        }
+      ],
+      "notes": "Revision 3 candidate B was temporarily integrated for levels 1-7 and is now retired as _source/retired-level-clear-crowd-v4-20260810.ogg. The active cue is the first 0.52 seconds of h5-police-jump bounty_assets/people-shout-oo2.mp3, the exact sample called by its x2 multiplier."
+    },
+    {
+      "id": "mossfall-level-clear-mixed-choir-20260810",
+      "cue_keys": [
+        "level-clear"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Single isolated small-level-clear SFX for a colorful family console platform game. A medium-large mixed-gender crowd of 16-24 friendly adult voices gives one short jubilant wordless cheer in bright blended harmony, with female and male voices equally present and no individual voice standing out. Add a compact three-note rising major-key game-success chime and one clean sparkle stop. Punchy, polished, playful and unmistakably game-like.",
+      "negative_prompt": "dominant male voice, baritone lead, bass lead, solo voice, featured singer, one person, male-only crowd, female-only crowd, dialogue, sentence, chant, stadium roar, applause-only, choir song, music loop, scream, shrill children, long tail, repeated variations, second ending, clipping",
+      "expected_duration_seconds": [
+        0.8,
+        1.3
+      ],
+      "attempt_limit": 2,
+      "status": "rejected",
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-10T13:57:28.474Z",
+          "prompt": "Isolated small-level-clear SFX for a colorful family console game. A crowd of 16-24 friendly women and men gives one short jubilant wordless cheer in bright blended harmony; female and male voices equally present, no lead voice. Add a compact three-note rising major-key game-success chime and clean sparkle stop. Punchy, playful, polished, 0.8-1.3 s. No dominant male/baritone/bass, solo, dialogue, chant, stadium roar, applause-only, song, scream, children, long tail, repeats, second ending.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "The current Sounds UI shows 64 credits used this session but no separate per-submission price.",
+          "visible_rights_evidence": "The visible account UI shows paid creation access and states that WAV audio is available exclusively to Pro users. Release rights remain subject to the generating account's current Suno plan and terms.",
+          "status": "downloaded",
+          "candidates": [
+            {
+              "id": "7fc7fa6e-bd23-4673-af43-8668aa5e8c41",
+              "url": "https://suno.com/song/7fc7fa6e-bd23-4673-af43-8668aa5e8c41",
+              "duration_seconds": 6.24,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-level-clear-mixed-choir-20260810-attempt-1-candidate-1.wav",
+              "preview_file": "review-20260810/previews/level-clear-v4-A.wav",
+              "source_sha256": "00eaea4b237f0d2b29bff41f82f738fdebb56282950091e4f46cb5bd9dd9f1eb",
+              "preview_sha256": "b1ddb5229f46522b77603902753759d2bfe054615c7a5a381b55a847aef81ca4",
+              "selection_reason": null,
+              "rejection_reason": "The user rejected the revision and requested the familiar catch 'yeah' from h5-police-jump instead."
+            },
+            {
+              "id": "e8aa3ba7-1b94-454b-af31-b1d91e98f2e3",
+              "url": "https://suno.com/song/e8aa3ba7-1b94-454b-af31-b1d91e98f2e3",
+              "duration_seconds": 2.68,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-level-clear-mixed-choir-20260810-attempt-1-candidate-2.wav",
+              "preview_file": "review-20260810/previews/level-clear-v4-B.wav",
+              "source_sha256": "5c7e6e4b7ba511137eb2c24e39b67673a577346dfd47f35c210efbb928848adc",
+              "preview_sha256": "f992929e73d3e8a6ede0de428e80caff05400901dc814f98e05ef3c103813015",
+              "selection_reason": null,
+              "rejection_reason": "The user rejected the revision and requested the familiar catch 'yeah' from h5-police-jump instead."
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": null,
+      "source_file": "_source/suno/review-20260810/mossfall-level-clear-mixed-choir-20260810-source.wav",
+      "production_file": "level-clear-mixed-choir-review-selected.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 18,
+        "edge_fade_ms": 10
+      },
+      "integration_targets": [
+        {
+          "file": "../../../audio.js",
+          "event": "Non-final LEVEL_CLEAR entry after explicit user selection",
+          "symbol": "GameAudio.clear"
+        }
+      ],
+      "notes": "Revision 4 was rejected. The user selected the short people-shout-oo2.mp3 vocal called by the h5-police-jump x2 multiplier as the production level-clear cue."
+    },
+    {
+      "id": "mossfall-final-cheer-win-20260810",
+      "cue_keys": [
+        "run-victory-cheer",
+        "run-victory-celebration"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Single isolated final-victory sound for a colorful family console platform game. Begin with a soft rounded mellow victory horn, then a strong joyful multi-person wordless cheer, ascending chimes and one resolved sparkling finish. Energetic and polished, about two seconds.",
+      "negative_prompt": "hard brass attack, sharp trumpet blast, piercing horn, harsh highs, stadium roar, applause-only, solo voice, chant, dialogue, song, music loop, scream, cinematic boom, long reverb, repeated variations, second ending, clipping",
+      "expected_duration_seconds": [
+        1.6,
+        2.3
+      ],
+      "attempt_limit": 3,
+      "status": "rejected",
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-10T12:11:43.373Z",
+          "prompt": "Final victory SFX for Moss Tilt. Natural small-group wordless cheer from 3-5 friendly adult voices starts immediately, warm low-mid, never shrill. Under it, a clear magical win stinger: rounded wood pulse, rising dewdrop triad, leaf shimmer, confident resolved sparkle. One energetic peak, intimate forest celebration, polished stereo mix, clean ending in 1.6-2.3 s. No words, child/solo/falsetto voice, scream, sustained yell, stadium, chant, brass, drums, song, boom, long reverb or second ending.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "The current UI does not show a stable per-submission price; its session counter changed inconsistently while results were pending.",
+          "visible_rights_evidence": "The visible account UI shows paid creation access and marks WAV download as a completed Pro feature. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "rejected",
+          "candidates": [
+            {
+              "id": "ccabcda4-df49-4f89-882c-7725d3cafa89",
+              "url": "https://suno.com/song/ccabcda4-df49-4f89-882c-7725d3cafa89",
+              "duration_seconds": 10,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-final-cheer-win-20260810-attempt-1-candidate-1.wav",
+              "preview_file": "review-20260810/previews/final-cheer-win-A.wav",
+              "source_sha256": "58e2f7d2418e770e7071274e0a105ca4c6c8cc4fbdea9e52c45b6b67b4839c54",
+              "preview_sha256": "a751b7a5ca03af15fceb8ae242b6fe082b3fa58aa28124fca337adc6e3ea6b91",
+              "selection_reason": null,
+              "rejection_reason": "User rejected the direction: it did not read as a strong, clean family-console victory cheer and win cue."
+            },
+            {
+              "id": "16c1f4e8-e380-4986-9aa7-3acb79413e29",
+              "url": "https://suno.com/song/16c1f4e8-e380-4986-9aa7-3acb79413e29",
+              "duration_seconds": 9,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-final-cheer-win-20260810-attempt-1-candidate-2.wav",
+              "preview_file": "review-20260810/previews/final-cheer-win-B.wav",
+              "source_sha256": "85baec7a463a255f5602a6268b05783c80ad23e19d944ec00f96f31dffd505e1",
+              "preview_sha256": "e960ddc504633f2c5b85961421c59332750bd057a83a6bb927d647b018aef120",
+              "selection_reason": null,
+              "rejection_reason": "User rejected the direction: it did not read as a strong, clean family-console victory cheer and win cue."
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "submitted_at_utc": "2026-08-10T12:38:37.409Z",
+          "prompt": "Single isolated final-victory SFX for a colorful family console platform game. A strong joyful mascot group gives one energetic wordless Woo-hoo! cheer immediately over a bold major-key win stinger: punchy opening hit, fast ascending chimes, firmly resolved sparkle. Bigger than the level-clear cue, heroic, uplifting, polished, complete in 1.8-2.2 s. No stadium, applause-only, chant, dialogue, song, music loop, scream, shriek, harsh highs, long reverb, repeats or second ending.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "The visible session counter increased from 66 to 76 after this submission. Suno still does not expose a separate per-submission price label.",
+          "visible_rights_evidence": "The visible account UI shows paid creation access and Pro WAV download. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "rejected",
+          "candidates": [
+            {
+              "id": "f5c450ca-0b31-42e0-a669-c67273c6cbaf",
+              "url": "https://suno.com/song/f5c450ca-0b31-42e0-a669-c67273c6cbaf",
+              "duration_seconds": 6.48,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-final-cheer-win-20260810-attempt-2-candidate-1.wav",
+              "preview_file": "review-20260810/previews/final-cheer-win-v2-A.wav",
+              "source_sha256": "5d4c82d1f7e0c01c9f5b52829330714f55a0cbaf09ab39300edb83f67f0e714f",
+              "preview_sha256": "b752b2be24a78efafe8a1624dc78838cfe4811e5fa4ced4b437535733fd89f40",
+              "selection_reason": null,
+              "rejection_reason": "The overall direction is acceptable, but the user requested a softer, rounder opening horn."
+            },
+            {
+              "id": "6beb2365-41a1-4dc2-88e5-f4c2e915e35b",
+              "url": "https://suno.com/song/6beb2365-41a1-4dc2-88e5-f4c2e915e35b",
+              "duration_seconds": 5.56,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-final-cheer-win-20260810-attempt-2-candidate-2.wav",
+              "preview_file": "review-20260810/previews/final-cheer-win-v2-B.wav",
+              "source_sha256": "c4f0abd5e9296c37b9f063622a564f0071ecfa9187e2268976576dd56916709e",
+              "preview_sha256": "b9b214e532e4d1aff3017d4973320df0e0f9adedfef655cfd4946e9e3f5de948",
+              "selection_reason": null,
+              "rejection_reason": "The overall direction is acceptable, but the user requested a softer, rounder opening horn."
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "submitted_at_utc": "2026-08-10T13:03:25.194Z",
+          "prompt": "Single isolated final-victory SFX for a colorful family console platform game. Begin with a gentle rounded mellow horn chord, soft attack like warm flugelhorn, never sharp. Layer a joyful 8-12 person wordless Woo-hoo! cheer, fast ascending chimes and one resolved sparkle. Stronger than level-clear, uplifting, polished, complete in 1.9-2.2 s. No hard trumpet blast, sharp brass, piercing horn, solo voice, stadium roar, applause-only, chant, song, scream, long reverb, repeats or second ending.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "The visible session counter increased from 70 to 80 after this submission. Suno does not expose a separate per-submission price label.",
+          "visible_rights_evidence": "The visible account UI shows paid creation access and Pro WAV download. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "rejected",
+          "candidates": [
+            {
+              "id": "bdc044af-e55f-4b27-bc96-4880b4f2322b",
+              "url": "https://suno.com/song/bdc044af-e55f-4b27-bc96-4880b4f2322b",
+              "duration_seconds": 4.96,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-final-cheer-win-20260810-attempt-3-candidate-1.wav",
+              "preview_file": "review-20260810/previews/final-cheer-win-v3-A.wav",
+              "source_sha256": "d59bb2efdb164175870b9b450071c39c9fc2f63f963985648fa501065eeb22e5",
+              "preview_sha256": "b7fd44d2aab4540c4abb09969b8d52843d17167f7e780b4e024f56e5b22f8902",
+              "selection_reason": null,
+              "rejection_reason": "The user rejected the revision 3 final-victory direction and preferred the first version overall."
+            },
+            {
+              "id": "938f51c4-e522-4279-9368-b8f65b623508",
+              "url": "https://suno.com/song/938f51c4-e522-4279-9368-b8f65b623508",
+              "duration_seconds": 3.04,
+              "status": "rejected",
+              "source_file": "_source/suno/review-20260810/mossfall-final-cheer-win-20260810-attempt-3-candidate-2.wav",
+              "preview_file": "review-20260810/previews/final-cheer-win-v3-B.wav",
+              "source_sha256": "378b56b62bbe5dbe0a0efce80e9997c0877958baa07c2ef8336f32c63affa5de",
+              "preview_sha256": "3fb994f1e9fd92039e55e56bc683bb4ca778c55df1d0dc7d0878893aafaf09f7",
+              "selection_reason": null,
+              "rejection_reason": "The user rejected the revision 3 final-victory direction and preferred the first version overall."
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": null,
+      "source_file": "_source/suno/review-20260810/mossfall-final-cheer-win-source.wav",
+      "production_file": "run-victory-cheer-win-review-selected.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 28,
+        "edge_fade_ms": 16
+      },
+      "integration_targets": [
+        {
+          "file": "../../../audio.js",
+          "event": "Successful full-run RESULT_CALC entry",
+          "symbol": "GameAudio.victory"
+        }
+      ],
+      "notes": "Revision 3 was rejected as weaker than the first version. Final victory now uses the first 2.35 seconds of h5-police-jump bounty_assets/sfx/sfx_cheer_big.mp3 as run-victory-cheer.ogg, layered with the existing run-victory-celebration.ogg after 0.25 seconds."
+    }
+  ]
+}

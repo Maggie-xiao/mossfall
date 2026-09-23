@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "target_html": "../../index.html",
+  "procedural_scan_complete": true,
+  "bgm_baseline": [
+    {
+      "key": "bgm-balance-beam",
+      "reference": "./audio/bgm/balance-beam-loop.ogg",
+      "file": "audio/bgm/balance-beam-loop.ogg",
+      "sha256": "b163059ca23e7fe47b9a2d0490dfadd81e259c154574fa529ab893ee6f3707f9",
+      "license_status": "User-provided local file; distribution rights were not supplied and must be confirmed by the project owner."
+    },
+    {
+      "key": "bgm-precision-puzzle",
+      "reference": "./audio/bgm/precision-puzzle-loop.ogg",
+      "file": "audio/bgm/precision-puzzle-loop.ogg",
+      "sha256": "71ffc52dd9af845eba25e334eb3f9d8e461fb815593a0122613e8dcdd3d0cd16",
+      "license_status": "User-provided local file; distribution rights were not supplied and must be confirmed by the project owner."
+    }
+  ],
+  "cues": [
+    {
+      "key": "bgm-balance-beam",
+      "category": "bgm",
+      "origin": "existing-file",
+      "decision": "preserve",
+      "event": "Beginner gameplay, recoverable falls, and non-final level transitions; stops immediately at final completion",
+      "existing_ref": "./audio/bgm/balance-beam-loop.ogg",
+      "license_status": "User-provided local file; distribution rights were not supplied and must be confirmed by the project owner.",
+      "decision_reason": "Existing BGM remains byte-identical; only its final-completion stop timing changes so the exact Dune finish cue is unobscured."
+    },
+    {
+      "key": "bgm-precision-puzzle",
+      "category": "bgm",
+      "origin": "existing-file",
+      "decision": "preserve",
+      "event": "Advanced gameplay, recoverable falls, and non-final level transitions; stops immediately at final completion",
+      "existing_ref": "./audio/bgm/precision-puzzle-loop.ogg",
+      "license_status": "User-provided local file; distribution rights were not supplied and must be confirmed by the project owner.",
+      "decision_reason": "Existing BGM remains byte-identical; only its final-completion stop timing changes so the exact Dune finish cue is unobscured."
+    },
+    {
+      "key": "ui-move",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "event": "Mode changes, menu navigation, pause opening, modal navigation, and teach-page changes",
+      "implementation_ref": "GameAudio.move()",
+      "trigger_event": "Controller navigation events",
+      "timing": "Immediate on navigation state change",
+      "repetition_pattern": "Frequent short one-shot",
+      "license_status": "not-applicable-procedural",
+      "existing_score": {
+        "semantic_fit": 2,
+        "timing": 4,
+        "repetition_tolerance": 3,
+        "mix_clarity": 3,
+        "style_consistency": 2
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "ui-move",
+      "fallback_policy": "load-failure-only",
+      "decision_reason": "A compact physical selection sample gives repeated navigation clearer identity while retaining the tone only for load or decode failure."
+    },
+    {
+      "key": "ui-confirm",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "event": "Start, resume, retry, quit confirmation, and modal close actions",
+      "implementation_ref": "GameAudio.confirm()",
+      "trigger_event": "Confirmed UI command",
+      "timing": "Immediate on accepted command",
+      "repetition_pattern": "Occasional short one-shot",
+      "license_status": "not-applicable-procedural",
+      "existing_score": {
+        "semantic_fit": 2,
+        "timing": 4,
+        "repetition_tolerance": 3,
+        "mix_clarity": 3,
+        "style_consistency": 2
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "ui-confirm",
+      "fallback_policy": "load-failure-only",
+      "decision_reason": "The dedicated confirmation sample communicates accepted actions more clearly than the generic rising oscillator."
+    },
+    {
+      "key": "countdown-beat",
+      "category": "sfx",
+      "origin": "missing",
+      "decision": "add",
+      "event": "The 3, 2, and 1 countdown marks appear",
+      "trigger_event": "LEVEL_INTRO countdown visual beat",
+      "timing": "On each countdown label reveal",
+      "repetition_pattern": "Three evenly spaced one-shots per run",
+      "license_status": "missing-before-integration",
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "countdown-beat",
+      "decision_reason": "A dedicated clock-like tick separates countdown timing from generic menu navigation."
+    },
+    {
+      "key": "countdown-go",
+      "category": "sfx",
+      "origin": "missing",
+      "decision": "add",
+      "event": "The GO label appears and gameplay is about to start",
+      "trigger_event": "LEVEL_INTRO GO visual beat",
+      "timing": "On GO label reveal",
+      "repetition_pattern": "Once per run",
+      "license_status": "missing-before-integration",
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "countdown-go",
+      "decision_reason": "A dedicated positive cue creates a stronger start signal than reusing the generic confirm sound."
+    },
+    {
+      "key": "ball-impact",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "event": "A marble collides with the board, wall, obstacle, or another marble",
+      "implementation_ref": "GameAudio.hit(intensity)",
+      "trigger_event": "Scene collision event",
+      "timing": "On the physics collision event with a 60 ms retrigger guard",
+      "repetition_pattern": "Frequent overlapping one-shots during gameplay",
+      "license_status": "not-applicable-procedural",
+      "existing_score": {
+        "semantic_fit": 2,
+        "timing": 4,
+        "repetition_tolerance": 1,
+        "mix_clarity": 2,
+        "style_consistency": 2
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "ball-impact",
+      "fallback_policy": "load-failure-only",
+      "decision_reason": "A light plate impact gives the marbles a believable hard-surface transient and tolerates bounded pitch and gain variation."
+    },
+    {
+      "key": "ball-capture",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "layer",
+      "event": "A marble settles into a target hole",
+      "implementation_ref": "GameAudio.capture()",
+      "trigger_event": "Scene ballCaptured event",
+      "timing": "On capture confirmation",
+      "repetition_pattern": "One-shot for each captured marble",
+      "license_status": "not-applicable-procedural",
+      "existing_score": {
+        "semantic_fit": 3,
+        "timing": 4,
+        "repetition_tolerance": 3,
+        "mix_clarity": 3,
+        "style_consistency": 3
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "ball-capture",
+      "decision_reason": "The physical drop sample supplies the missing material cue while the short rising tone remains useful as precise reward feedback."
+    },
+    {
+      "key": "ball-fall",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "event": "A marble leaves the table and triggers the reset beat",
+      "implementation_ref": "GameAudio.fall()",
+      "trigger_event": "Scene ballFell event",
+      "timing": "On fall confirmation before the failure spin",
+      "repetition_pattern": "Occasional one-shot",
+      "license_status": "not-applicable-procedural",
+      "existing_score": {
+        "semantic_fit": 3,
+        "timing": 4,
+        "repetition_tolerance": 2,
+        "mix_clarity": 3,
+        "style_consistency": 3
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "ball-fall",
+      "fallback_policy": "load-failure-only",
+      "decision_reason": "A friendly error sample reads as failure immediately without becoming harsh or injury-like."
+    },
+    {
+      "key": "level-clear",
+      "category": "sfx",
+      "origin": "existing-file",
+      "decision": "replace",
+      "event": "All beetles are captured on a non-final level; the leaf bows, the camera pulses, beetles glow, and the time bonus appears",
+      "existing_ref": "./audio/sfx/level-clear.ogg",
+      "implementation_ref": "GameAudio.clear()",
+      "trigger_event": "LEVEL_CLEAR state entry for levels 1-7",
+      "timing": "Immediate on the win presentation; the 0.52-second multiplier shout ends with a 70-millisecond runtime fade",
+      "repetition_pattern": "Up to seven one-shots per run",
+      "license_status": "User-directed reuse from the Kiwii-AI h5-police-jump repository at commit 21e1c8e. Internal provenance is recorded, but the legacy asset has no separate upstream license record.",
+      "existing_score": {
+        "semantic_fit": 1,
+        "timing": 4,
+        "repetition_tolerance": 2,
+        "mix_clarity": 3,
+        "style_consistency": 1
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "level-clear",
+      "fallback_policy": "load-failure-only",
+      "decision_reason": "The user clarified that the desired cue is the very short 'yeah' heard on an x2 multiplier. The exact h5-police-jump chain is x2 multiplier -> sfxMult() -> sfxShout() -> people-shout-oo2.mp3."
+    },
+    {
+      "key": "finish-crowd",
+      "category": "sfx",
+      "origin": "existing-file",
+      "decision": "replace",
+      "event": "The eighth board completes and the Dune crowd cheer starts at the finish crossing",
+      "existing_ref": "./audio/sfx/finish-crowd.mp3",
+      "implementation_ref": "GameAudio.victory()",
+      "trigger_event": "Final LEVEL_CLEAR state entry when levelClear.isFinal is true",
+      "timing": "Immediate, zero delay, simultaneous with well-done, definition gain 0.72 multiplied by Dune runtime gain 1.05",
+      "repetition_pattern": "Exactly once per successfully completed eight-level run",
+      "license_status": "Byte-identical Dune production asset with recorded Pixabay Content License provenance.",
+      "existing_score": {
+        "semantic_fit": 3,
+        "timing": 3,
+        "repetition_tolerance": 3,
+        "mix_clarity": 3,
+        "style_consistency": 3
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "finish-crowd",
+      "fallback_policy": "none; exact asset required",
+      "decision_reason": "The user requested the current Dune completion sound exactly, so Mossfall uses the identical file, trigger boundary, one-shot behavior, and gain."
+    },
+    {
+      "key": "well-done",
+      "category": "sfx",
+      "origin": "existing-file",
+      "decision": "replace",
+      "event": "The eighth board completes and the Dune four-note Well Done cue starts with the crowd cheer",
+      "existing_ref": "./audio/sfx/well_done.wav",
+      "implementation_ref": "GameAudio.victory()",
+      "trigger_event": "Final LEVEL_CLEAR state entry when levelClear.isFinal is true",
+      "timing": "Immediate, zero delay, simultaneous with finish-crowd, Dune runtime gain 0.98",
+      "repetition_pattern": "Exactly once per successfully completed eight-level run",
+      "license_status": "User-directed byte-identical reuse from current h5-balance-dunesong-slalom; no separate upstream source is recorded.",
+      "existing_score": {
+        "semantic_fit": 3,
+        "timing": 3,
+        "repetition_tolerance": 3,
+        "mix_clarity": 3,
+        "style_consistency": 3
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "well-done",
+      "fallback_policy": "none; exact asset required",
+      "decision_reason": "The user requested the current Dune completion sound exactly, so Mossfall uses the identical generated WAV, trigger boundary, one-shot behavior, and gain."
+    },
+    {
+      "key": "result-count",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "event": "Result score rows count upward",
+      "implementation_ref": "GameAudio.resultTick()",
+      "trigger_event": "Result onTick count callback",
+      "timing": "On each visible score increment beat",
+      "repetition_pattern": "Rapid repeated one-shots during result calculation",
+      "license_status": "not-applicable-procedural",
+      "existing_score": {
+        "semantic_fit": 3,
+        "timing": 4,
+        "repetition_tolerance": 2,
+        "mix_clarity": 3,
+        "style_consistency": 3
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "result-count",
+      "fallback_policy": "load-failure-only",
+      "decision_reason": "A tiny tick sample remains clear under rapid repetition and avoids oscillator fatigue."
+    },
+    {
+      "key": "result-rank",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "event": "A result star or new personal record is revealed",
+      "implementation_ref": "GameAudio.rank()",
+      "trigger_event": "Result onTick star or record callback",
+      "timing": "On the star or record reveal animation",
+      "repetition_pattern": "One to four reward one-shots per result",
+      "license_status": "not-applicable-procedural",
+      "existing_score": {
+        "semantic_fit": 3,
+        "timing": 4,
+        "repetition_tolerance": 3,
+        "mix_clarity": 3,
+        "style_consistency": 3
+      },
+      "candidate_score": {
+        "semantic_fit": 4,
+        "timing": 4,
+        "repetition_tolerance": 4,
+        "mix_clarity": 4,
+        "style_consistency": 4
+      },
+      "replacement_key": "result-rank",
+      "fallback_policy": "load-failure-only",
+      "decision_reason": "A bright expanding UI sample distinguishes star and record reveals from ordinary confirms."
+    }
+  ],
+  "generated_on": "2026-08-04",
+  "updated_on": "2026-08-11",
+  "update_scope": "Replace the retired three-layer Mossfall final-victory cue with the current Dune Carve finish event exactly: stop BGM at final LEVEL_CLEAR entry, then start byte-identical finish-crowd.mp3 and well_done.wav simultaneously at Dune gains 1.05 and 0.98 without looping or procedural fallback."
+}

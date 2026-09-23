@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-04T05:17:02.935478+00:00",
+  "target_html": "D:\\KiwiiGit\\Kiwii-AI\\h5-balance-table-tilt\\game\\src\\index.html",
+  "manifest": "D:\\KiwiiGit\\Kiwii-AI\\h5-balance-table-tilt\\game\\src\\audio\\bgm\\bgm-sources.json",
+  "audit": "D:\\KiwiiGit\\Kiwii-AI\\h5-balance-table-tilt\\game\\src\\audio\\bgm\\bgm-audit.json",
+  "records": [
+    {
+      "key": "bgm-table-tilt",
+      "category": "bgm",
+      "origin": "existing-file",
+      "decision": "replace",
+      "role": "existing",
+      "file": "audio/bgm/table-tilt-loop.ogg",
+      "metrics": {
+        "sha256": "3556469b940281a89436edbe6ca88c3e5bddb1dfc498c61052fce3711939f2e8",
+        "bytes": 1444546,
+        "duration_seconds": 92.404083,
+        "sample_rate": 48000,
+        "channels": 2,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "peak_dbfs": -0.212,
+        "rms_dbfs": -13.612,
+        "crest_factor_db": 13.4,
+        "dc_offset": -0.00037733,
+        "clipped_sample_ratio": 0.0,
+        "leading_silence_ms": 0.0,
+        "trailing_silence_ms": 0.0,
+        "transient_peak_ms": 49256.479,
+        "spectral_centroid_hz": 2803.966
+      }
+    },
+    {
+      "key": "bgm-balance-beam",
+      "category": "bgm",
+      "origin": "user-provided",
+      "decision": "replace",
+      "role": "source",
+      "file": "audio/bgm/_source/Balance Beam.wav",
+      "metrics": {
+        "sha256": "11dad8abb2c76acf31d24158988598e2ac8b2d974e1b7a64e8dd104fefe3bb1f",
+        "bytes": 29606572,
+        "duration_seconds": 154.2,
+        "sample_rate": 48000,
+        "channels": 2,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "peak_dbfs": -3.885,
+        "rms_dbfs": -16.204,
+        "crest_factor_db": 12.319,
+        "dc_offset": 0.00013457,
+        "clipped_sample_ratio": 0.0,
+        "leading_silence_ms": 0.0,
+        "trailing_silence_ms": 0.0,
+        "transient_peak_ms": 58211.375,
+        "spectral_centroid_hz": 2721.511
+      }
+    },
+    {
+      "key": "bgm-balance-beam",
+      "category": "bgm",
+      "origin": "user-provided",
+      "decision": "replace",
+      "role": "production",
+      "file": "audio/bgm/balance-beam-loop.ogg",
+      "metrics": {
+        "sha256": "b163059ca23e7fe47b9a2d0490dfadd81e259c154574fa529ab893ee6f3707f9",
+        "bytes": 2995258,
+        "duration_seconds": 149.2,
+        "sample_rate": 48000,
+        "channels": 2,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "peak_dbfs": -3.767,
+        "rms_dbfs": -16.128,
+        "crest_factor_db": 12.361,
+        "dc_offset": 7.874e-05,
+        "clipped_sample_ratio": 0.0,
+        "leading_silence_ms": 0.0,
+        "trailing_silence_ms": 0.0,
+        "transient_peak_ms": 57673.812,
+        "spectral_centroid_hz": 2665.739
+      }
+    }
+  ],
+  "failures": []
+}

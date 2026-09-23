@@ -1,0 +1,164 @@
+diff --git a/src/mossfall/render/world.js b/src/mossfall/render/world.js
+index 73069d0..4090f6f 100644
+--- a/src/mossfall/render/world.js
++++ b/src/mossfall/render/world.js
+@@ -91,6 +91,71 @@ const BOUGH_MAX_R = WATER_AXIS_GAP - 1;
+  * still 10.4 m. Do not lower either number without redoing that arithmetic.
+  */
+ const PLACE_MIN_A = 1.25;
++
++/**
++ * Half the trunk lathe's arc. `_buildTrunk` builds 3.9 rad centred on the leaf
++ * direction, so past ±1.95 there is no trunk surface at all — anything anchored
++ * *to* the trunk beyond it hangs in the void just outside the silhouette, which
++ * is exactly what a bracket fungus floating beside the trunk is.
++ */
++const TRUNK_ARC = 1.95;
++
++/**
++ * The hollows carved into each trunk tile. Hoisted out of `_buildTrunk` so
++ * set-dressing can avoid them; deterministic, so both sides agree without
++ * sharing any state.
++ */
++let _hollowCache = null;
++function trunkHollows() {
++  if (_hollowCache) return _hollowCache;
++  _hollowCache = [];
++  for (let i = 0; i < 4; i++) {
++    _hollowCache.push({
++      // Kept well inside PLACE_MIN_A: a hollow reaches `r / TRUNK_R` (up to
++      // 0.5 rad) either side of its centre, and if they were free to sit out
++      // at ±1.7 a pair of them could swallow the whole band of angles that
++      // trunk dressing is allowed to use, leaving `trunkAzimuth` nowhere to go.
++      th: (hash01(i * 91 + 3) - 0.5) * 1.4,
++      y: (hash01(i * 91 + 11) - 0.5) * (TRUNK_H - 22),
++      r: 1.6 + hash01(i * 91 + 19) * 1.9,
++      d: 0.7 + hash01(i * 91 + 23) * 0.7,
++    });
++  }
++  return _hollowCache;
++}
++
++/**
++ * An azimuth for something that sits **on** the trunk: inside the lathe's arc,
++ * and clear of every hollow.
++ *
++ * A band is baked once and then re-dressed to a new `yOff` on every wrap, so at
++ * bake time a prop cannot know what height it will end up at — which is why
++ * this cannot test the hollows in y. It does not need to: azimuth is fixed for
++ * the life of the prop, so an angle that misses every hollow misses them at
++ * every height.
++ *
++ * @param {number} sign    -1 or 1, which flank
++ * @param {number} u       0..1 from the caller's hash
++ * @param {number} margin  the prop's own angular half-width, in radians
++ */
++function trunkAzimuth(sign, u, margin) {
++  const lo = PLACE_MIN_A;
++  const hi = Math.max(lo + 0.02, TRUNK_ARC - margin);
++  const span = hi - lo;
++  const holes = trunkHollows();
++  for (let k = 0; k < 12; k++) {
++    const a = sign * (lo + ((u + k / 12) % 1) * span);
++    let clear = true;
++    for (let i = 0; i < holes.length; i++) {
++      if (Math.abs(a - holes[i].th) < holes[i].r / TRUNK_R + margin) {
++        clear = false;
++        break;
++      }
++    }
++    if (clear) return a;
++  }
++  return sign * (lo + u * span);   // fully blocked: take the nominal angle
++}
+ const BAND_SPIN = 0.28;
+ 
+ const TIERS = { low: 0, medium: 1, high: 2 };
+@@ -685,15 +750,8 @@ export class World {
+     const g = new THREE.LatheGeometry(prof, radial, -1.95, 3.9);
+ 
+     // Four hollows per tile, kept clear of the seam so the wrap cannot smear one.
+-    const holes = [];
+-    for (let i = 0; i < 4; i++) {
+-      holes.push({
+-        th: (hash01(i * 91 + 3) - 0.5) * 3.4,
+-        y: (hash01(i * 91 + 11) - 0.5) * (TRUNK_H - 22),
+-        r: 1.6 + hash01(i * 91 + 19) * 1.9,
+-        d: 0.7 + hash01(i * 91 + 23) * 0.7,
+-      });
+-    }
++    // Shared with the set-dressing so props can steer around them.
++    const holes = trunkHollows();
+ 
+     const pos = g.attributes.position;
+     const colors = new Float32Array(pos.count * 3);
+@@ -837,10 +895,16 @@ export class World {
+ 
+     /* --- shelf fungi and knots on the trunk face ----------------------- */
+     for (let i = 0; i < [2, 3, 4][t]; i++) {
+-      const a = (S(i * 53 + 1) > 0.5 ? 1 : -1) * (PLACE_MIN_A + S(i * 53 + 2) * 0.9);
+-      const y = (S(i * 53 + 3) - 0.5) * BAND_H * 0.86;
+       const w = 0.9 + S(i * 53 + 4) * 1.5;
+-      polar(a, TRUNK_R - 0.3, y, _v);
++      const a = trunkAzimuth(S(i * 53 + 1) > 0.5 ? 1 : -1, S(i * 53 + 2), 0.22);
++      const y = (S(i * 53 + 3) - 0.5) * BAND_H * 0.86;
++      // Anchor below the lathe profile's *minimum*, not at the nominal radius.
++      // The trunk swells and narrows by ±0.63 over TRUNK_H, and a band is baked
++      // once but re-dressed to a new yOff on every wrap, so at bake time this
++      // prop cannot know the trunk radius where it will end up. TRUNK_R - 0.3
++      // hangs clear wherever the profile is thin; TRUNK_R - 0.8 is inside the
++      // thinnest section, so the prop can only ever be buried, never airborne.
++      polar(a, TRUNK_R - 0.8, y, _v);
+       _q.setFromAxisAngle(UP, a);
+       _sc.set(w, w, w);
+       _m4.compose(_v, _q, _sc);
+@@ -848,9 +912,9 @@ export class World {
+       solid.add(protos.gill, _m4, PAL.mushroomStem, { keep: true });
+     }
+     for (let i = 0; i < 3; i++) {
+-      const a = (S(i * 71 + 1) > 0.5 ? 1 : -1) * (PLACE_MIN_A + S(i * 71 + 2) * 1.1);
++      const a = trunkAzimuth(S(i * 71 + 1) > 0.5 ? 1 : -1, S(i * 71 + 2), 0.12);
+       const y = (S(i * 71 + 3) - 0.5) * BAND_H * 0.9;
+-      polar(a, TRUNK_R - 0.25, y, _v);
++      polar(a, TRUNK_R - 0.75, y, _v);   // same reasoning as the shelf fungi
+       _q.setFromEuler(new THREE.Euler(S(i * 71 + 4) * 3, a, S(i * 71 + 5) * 3));
+       _sc.set(0.6 + S(i * 71 + 6) * 0.9, 0.5, 0.7 + S(i * 71 + 7) * 0.6);
+       solid.add(protos.knot, _m4.compose(_v, _q, _sc), PAL.barkDark, { keep: true });
+@@ -878,7 +942,9 @@ export class World {
+ 
+     /* --- oversized flowers and tufts, hugging the trunk ---------------- */
+     for (let i = 0; i < [3, 5, 7][t]; i++) {
+-      const a = (S(i * 113 + 1) > 0.5 ? 1 : -1) * (PLACE_MIN_A + S(i * 113 + 2) * 1.2);
++      // These start at the bark and lean out, so the near ones are trunk-bound
++      // and need the arc; the far ones are free-standing either way.
++      const a = trunkAzimuth(S(i * 113 + 1) > 0.5 ? 1 : -1, S(i * 113 + 2), 0.15);
+       const r = TRUNK_R + 0.1 + S(i * 113 + 3) * 3.5;
+       const y = (S(i * 113 + 4) - 0.5) * BAND_H * 0.9;
+       const sz = 0.55 + S(i * 113 + 5) * 0.7;
+@@ -896,9 +962,9 @@ export class World {
+         { keep: true, sway: 0.16 });
+     }
+     for (let i = 0; i < [4, 7, 10][t]; i++) {
+-      const a = (S(i * 137 + 1) > 0.5 ? 1 : -1) * (PLACE_MIN_A + S(i * 137 + 2) * 1.3);
++      const a = trunkAzimuth(S(i * 137 + 1) > 0.5 ? 1 : -1, S(i * 137 + 2), 0.12);
+       const y = (S(i * 137 + 3) - 0.5) * BAND_H * 0.92;
+-      polar(a, TRUNK_R - 0.15, y, _v);
++      polar(a, TRUNK_R - 0.7, y, _v);    // tufts sit on the trunk, same rule
+       for (let k = 0; k < 3; k++) {
+         _q.setFromEuler(new THREE.Euler(1.15, a + k * 1.05, 0, 'YXZ'));
+         _sc.set(1, 0.7 + S(i * 137 + 4 + k) * 0.9, 1);
+@@ -1009,7 +1075,13 @@ export class World {
+ 
+     const count = this.tier === 0 ? 3 : 4;
+     const R = [34, 54, 80, 116];
+-    const H = [78, 104, 142, 186];
++    // Tall enough that the open cylinder's bottom rim never rises into frame.
++    // The shells ride the camera, so the near shell's rim sat a fixed 39 m below
++    // it at a radius of 34 — only 49° down. Pitch the camera into a descent and
++    // that circle cuts across the picture as a long arc, canopy on one side and
++    // bare fog on the other. Doubling the height puts every rim past 70° down,
++    // outside any pose the director uses.
++    const H = [170, 220, 300, 380];
+     const REP = [5, 4, 3.2, 2.6];
+     // How much of the camera's descent each shell inherits. Near shells keep
+     // little and therefore stream past; far shells keep most and barely move.

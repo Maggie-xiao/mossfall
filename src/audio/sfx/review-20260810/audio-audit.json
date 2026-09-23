@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "target_html": "../../../index.html",
+  "baseline_audit": "../audio-audit.json",
+  "scanner_evidence": "suno-audio-surface.json",
+  "procedural_scan_complete": true,
+  "all_existing_cues_covered_by_baseline": true,
+  "bgm_baseline": [
+    {
+      "key": "bgm-balance-beam",
+      "reference": "./audio/bgm/balance-beam-loop.ogg",
+      "file": "../../bgm/balance-beam-loop.ogg",
+      "sha256": "b163059ca23e7fe47b9a2d0490dfadd81e259c154574fa529ab893ee6f3707f9",
+      "decision": "preserve"
+    },
+    {
+      "key": "bgm-precision-puzzle",
+      "reference": "./audio/bgm/precision-puzzle-loop.ogg",
+      "file": "../../bgm/precision-puzzle-loop.ogg",
+      "sha256": "71ffc52dd9af845eba25e334eb3f9d8e461fb815593a0122613e8dcdd3d0cd16",
+      "decision": "preserve"
+    }
+  ],
+  "review_cues": [
+    {
+      "key": "level-clear",
+      "category": "sfx",
+      "origin": "existing-file",
+      "decision": "replace-after-user-selection",
+      "event": "Non-final LEVEL_CLEAR entry",
+      "implementation_ref": "GameAudio.clear()",
+      "existing_ref": "../level-clear.ogg",
+      "existing_sha256": "84cd9ffd5aa6195ff8030b20a938f06939e05dc3eb26098cd530cb65f7dc4abe",
+      "reason": "The current short dewdrop cue is compact but prior review found the level-clear family insufficiently encouraging and satisfying."
+    },
+    {
+      "key": "run-victory-cheer-win",
+      "category": "sfx",
+      "origin": "existing-layered-files",
+      "decision": "replace-after-user-selection",
+      "event": "Successful full-run RESULT_CALC entry",
+      "implementation_ref": "GameAudio.victory()",
+      "existing_refs": [
+        "../run-victory-cheer.ogg",
+        "../run-victory-celebration.ogg"
+      ],
+      "existing_sha256": [
+        "6bd95afe8f7c50f92629cba88c44dcd522759b02f0f41907df23407a7a8a866a",
+        "6e637f6a120d8cca212f5f3164658b87dbd80d362987197e99d461c03a90e667"
+      ],
+      "reason": "The user selected the longer Rooftop Pursuit group celebration as the main final-victory layer; the existing celebration accent remains layered after it."
+    }
+  ],
+  "generated_on": "2026-08-10",
+  "integration_gate": "Closed on 2026-08-10. Small-level completion uses the exact short people-shout-oo2.mp3 sample called by the h5-police-jump x2 multiplier. Final victory uses the longer sfx_cheer_big.mp3 group celebration plus the existing delayed celebration accent."
+}

@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mossfall 结尾音效候选</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #eef1ed;
+      --surface: #ffffff;
+      --surface-soft: #f7f8f5;
+      --ink: #18201c;
+      --muted: #667069;
+      --line: #d7ddd7;
+      --moss: #2f6a4b;
+      --moss-soft: #e5f0e9;
+      --amber: #a7651c;
+      --amber-soft: #fff1dc;
+      --blue: #315f78;
+      --blue-soft: #e3eef4;
+      --danger: #8a3c3c;
+      --shadow: 0 8px 24px rgba(31, 48, 38, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--page);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    textarea,
+    input {
+      font: inherit;
+    }
+
+    button,
+    a,
+    input[type="radio"] {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid rgba(215, 221, 215, 0.92);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner,
+    .page-header,
+    main,
+    footer {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar-inner {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 12px;
+      height: 28px;
+      flex: 0 0 auto;
+      border-radius: 3px;
+      background: var(--moss);
+      box-shadow: 7px 0 0 var(--amber);
+    }
+
+    .brand span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .progress {
+      min-width: 60px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .command {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    .command:hover {
+      border-color: #9da89f;
+      background: var(--surface-soft);
+    }
+
+    .command.primary {
+      border-color: var(--moss);
+      background: var(--moss);
+      color: white;
+    }
+
+    .page-header {
+      padding: 54px 0 34px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--amber);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin: 0;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .summary strong {
+      color: var(--ink);
+    }
+
+    main {
+      padding-bottom: 56px;
+    }
+
+    .cue-section {
+      padding: 34px 0 46px;
+      border-top: 1px solid var(--line);
+    }
+
+    .cue-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .cue-index {
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .cue-event {
+      max-width: 650px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cue-state {
+      min-width: 96px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      padding: 8px 10px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .cue-state.done {
+      border-color: #99bba7;
+      background: var(--moss-soft);
+      color: var(--moss);
+      font-weight: 700;
+    }
+
+    .candidate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .candidate {
+      position: relative;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 1px 0 rgba(31, 48, 38, 0.03);
+      padding: 16px;
+      transition: border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    }
+
+    .candidate:hover {
+      border-color: #aab4ac;
+      box-shadow: var(--shadow);
+    }
+
+    .candidate.selected {
+      border-color: var(--moss);
+      background: #fbfdfb;
+      box-shadow: 0 0 0 2px rgba(47, 106, 75, 0.12);
+    }
+
+    .candidate.playing {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 2px rgba(167, 101, 28, 0.12);
+    }
+
+    .candidate-top {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 10px;
+    }
+
+    .candidate input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      margin: 3px 0 0;
+      accent-color: var(--moss);
+      cursor: pointer;
+    }
+
+    .candidate-title {
+      display: block;
+      min-width: 0;
+      font-size: 15px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+
+    .source-badge {
+      min-width: 64px;
+      border-radius: 4px;
+      padding: 3px 7px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .source-badge.suno {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .source-badge.pixabay {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .meta {
+      min-height: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      margin: 9px 0 12px 34px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .meta a {
+      color: var(--blue);
+      text-underline-offset: 3px;
+    }
+
+    audio {
+      display: block;
+      width: 100%;
+      height: 38px;
+    }
+
+    .notes {
+      margin-top: 16px;
+    }
+
+    .notes label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 78px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 11px 12px;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: var(--moss);
+      box-shadow: 0 0 0 2px rgba(47, 106, 75, 0.1);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 44px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer p {
+      max-width: 900px;
+      margin: 0 0 8px;
+    }
+
+    footer a {
+      color: var(--blue);
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 20;
+      right: 18px;
+      bottom: 18px;
+      max-width: min(360px, calc(100% - 36px));
+      border-radius: 6px;
+      background: #17231c;
+      color: white;
+      padding: 10px 14px;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 780px) {
+      .topbar-inner,
+      .page-header,
+      main,
+      footer {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 11px 0;
+      }
+
+      .toolbar {
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+      }
+
+      .progress {
+        margin-left: auto;
+      }
+
+      .page-header {
+        padding-top: 38px;
+      }
+
+      .cue-heading {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .cue-state {
+        width: fit-content;
+      }
+
+      .candidate-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .command {
+        min-width: max-content;
+        padding-inline: 10px;
+      }
+
+      .candidate {
+        padding: 13px;
+      }
+
+      .candidate-top {
+        grid-template-columns: 22px minmax(0, 1fr);
+      }
+
+      .source-badge {
+        grid-column: 2;
+        width: fit-content;
+      }
+
+      .meta {
+        margin-left: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Mossfall 结尾音效候选</span>
+      </div>
+      <div class="toolbar">
+        <button class="command" id="stopAll" type="button">停止播放</button>
+        <button class="command" id="clearAll" type="button">清空选择</button>
+        <button class="command primary" id="exportSelection" type="button">导出选择</button>
+        <span class="progress" id="progress">0 / 3</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="page-header">
+    <p class="eyebrow">H5 BALANCE / MOSSFALL</p>
+    <h1>结尾三处音效试听与选择</h1>
+    <div class="summary">
+      <span><strong>3</strong> 个事件</span>
+      <span><strong>15</strong> 个 Suno 候选</span>
+      <span><strong>15</strong> 个 Pixabay 候选</span>
+      <span><strong>30</strong> 个本地音频文件</span>
+    </div>
+  </header>
+
+  <main id="review"></main>
+
+  <footer>
+    <p>Suno 候选由当前已登录账号通过 Sounds v5.5 One-Shot 生成，最终使用权以生成账号当时的 Suno 方案与条款为准。</p>
+    <p>Pixabay 候选保留原始详情页与本地文件。许可摘要允许免费使用、无需强制署名和改编，但禁止将素材作为独立文件原样分发。<a href="https://pixabay.com/service/license-summary/" target="_blank" rel="noreferrer">查看 Pixabay Content License</a></p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const cues = [
+      {
+        id: "ending-paper-bonk",
+        title: "砸纸团",
+        event: "皱纸团落到结尾甲虫头部的接触帧。",
+        candidates: [
+          { id: "suno-bonk-a1c1", source: "Suno", title: "纸张轻拍与软质落点", duration: 4, creator: "Sounds v5.5 / 尝试 1-1", file: "_source/suno/ending-paper-bonk-attempt-1-candidate-1.mp3", detail: "https://suno.com/song/040c9d35-a759-4ad4-88cc-8de4785cb589" },
+          { id: "suno-bonk-a2c1", source: "Suno", title: "蓬松纸团与圆润轻砸", duration: 2, creator: "Sounds v5.5 / 尝试 2-1", file: "_source/suno/ending-paper-bonk-attempt-2-candidate-1.mp3", detail: "https://suno.com/song/f2bbc889-98b7-4d4f-a389-7d74a14929ec" },
+          { id: "suno-bonk-a2c2", source: "Suno", title: "短促纸响与缓冲碰撞", duration: 2, creator: "Sounds v5.5 / 尝试 2-2", file: "_source/suno/ending-paper-bonk-attempt-2-candidate-2.mp3", detail: "https://suno.com/song/1581c07c-34cb-4961-bb45-82fe70301e2d" },
+          { id: "suno-bonk-a3c1", source: "Suno", title: "羊皮纸飘落与空心轻碰", duration: 2, creator: "Sounds v5.5 / 尝试 3-1", file: "_source/suno/ending-paper-bonk-attempt-3-candidate-1.mp3", detail: "https://suno.com/song/6fcc298f-f856-4ada-ab3b-d50791c4f511" },
+          { id: "suno-bonk-a3c2", source: "Suno", title: "轻薄纸团与木林喜剧感", duration: 2, creator: "Sounds v5.5 / 尝试 3-2", file: "_source/suno/ending-paper-bonk-attempt-3-candidate-2.mp3", detail: "https://suno.com/song/c5d1502e-f895-4eb3-8829-09f048225fc9" },
+          { id: "pixabay-bonk-01", source: "Pixabay", title: "Paper Crumple", duration: 4.885, creator: "freesound_community", file: "_source/pixabay/ending-paper-bonk-pixabay-01-paper-crumple.mp3", detail: "https://pixabay.com/sound-effects/household-paper-crumple-105187/" },
+          { id: "pixabay-bonk-02", source: "Pixabay", title: "Crumpling paper", duration: 3.096, creator: "freesound_community", file: "_source/pixabay/ending-paper-bonk-pixabay-02-crumpling-paper.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-crumpling-paper-98357/" },
+          { id: "pixabay-bonk-03", source: "Pixabay", title: "crumpling paper / short", duration: 2.28, creator: "freesound_community", file: "_source/pixabay/ending-paper-bonk-pixabay-03-crumpling-paper-short.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-crumpling-paper-47579/" },
+          { id: "pixabay-bonk-04", source: "Pixabay", title: "Paper Bin Toss 1", duration: 1.176, creator: "freesound_community", file: "_source/pixabay/ending-paper-bonk-pixabay-04-paper-bin-toss.mp3", detail: "https://pixabay.com/sound-effects/household-paper-bin-toss-1-83125/" },
+          { id: "pixabay-bonk-05", source: "Pixabay", title: "PaperCrumple_01", duration: 3.504, creator: "freesound_community", file: "_source/pixabay/ending-paper-bonk-pixabay-05-papercrumple-01.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-papercrumple-01-81083/" }
+        ]
+      },
+      {
+        id: "ending-fortune-appear",
+        title: "签语出现",
+        event: "展开的纸面开始显出第一行签语文字。",
+        candidates: [
+          { id: "suno-appear-a1c1", source: "Suno", title: "纸面展开与萤火微光", duration: 8, creator: "Sounds v5.5 / 尝试 1-1", file: "_source/suno/ending-fortune-appear-attempt-1-candidate-1.mp3", detail: "https://suno.com/song/0617f002-5efd-4cb0-b4ac-020ac343c72d" },
+          { id: "suno-appear-a1c2", source: "Suno", title: "纤维轻响与温暖显字", duration: 5, creator: "Sounds v5.5 / 尝试 1-2", file: "_source/suno/ending-fortune-appear-attempt-1-candidate-2.mp3", detail: "https://suno.com/song/869bea80-d1cc-4f71-99e4-3dccb2836ff9" },
+          { id: "suno-appear-a2c2", source: "Suno", title: "旧纸舒展与琥珀光点", duration: 10, creator: "Sounds v5.5 / 尝试 2-2", file: "_source/suno/ending-fortune-appear-attempt-2-candidate-2.mp3", detail: "https://suno.com/song/529603df-7ce4-4604-bda5-9eabce973081" },
+          { id: "suno-appear-a3c1", source: "Suno", title: "手工纸刷过与墨光浮现", duration: 9, creator: "Sounds v5.5 / 尝试 3-1", file: "_source/suno/ending-fortune-appear-attempt-3-candidate-1.mp3", detail: "https://suno.com/song/4e293b60-8fe1-4a39-bb75-06c3c4bd22ad" },
+          { id: "suno-appear-a3c2", source: "Suno", title: "静谧签文揭示与暖色微粒", duration: 7, creator: "Sounds v5.5 / 尝试 3-2", file: "_source/suno/ending-fortune-appear-attempt-3-candidate-2.mp3", detail: "https://suno.com/song/f3420775-605d-4fe4-b860-2fe1cb2be237" },
+          { id: "pixabay-appear-01", source: "Pixabay", title: "Magic Spell 02", duration: 3.072, creator: "Universfield", file: "_source/pixabay/ending-fortune-appear-pixabay-01-magic-spell-02.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-magic-spell-02-250240/" },
+          { id: "pixabay-appear-02", source: "Pixabay", title: "Magic Spell 03", duration: 3.696, creator: "Universfield", file: "_source/pixabay/ending-fortune-appear-pixabay-02-magic-spell-03.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-magic-spell-03-242245/" },
+          { id: "pixabay-appear-03", source: "Pixabay", title: "Magic glitter wand 5", duration: 5.46, creator: "FxProSound", file: "_source/pixabay/ending-fortune-appear-pixabay-03-magic-glitter-wand-5.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-magic-glitter-wand-5-248607/" },
+          { id: "pixabay-appear-04", source: "Pixabay", title: "Fairy Dust Shimmer 1", duration: 6.528, creator: "floraphonic", file: "_source/pixabay/ending-fortune-appear-pixabay-04-fairy-dust-shimmer-1.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-fairy-dust-shimmer-1-175611/" },
+          { id: "pixabay-appear-05", source: "Pixabay", title: "Power Up Sparkle 1", duration: 2.592, creator: "floraphonic", file: "_source/pixabay/ending-fortune-appear-pixabay-05-power-up-sparkle-1.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-power-up-sparkle-1-177983/" }
+        ]
+      },
+      {
+        id: "ending-fortune-vanish",
+        title: "签纸消失",
+        event: "读签停留结束后，纸张从边缘溶解成发光微粒。",
+        candidates: [
+          { id: "suno-vanish-a1c1", source: "Suno", title: "纸纤维散开与萤火上升", duration: 10, creator: "Sounds v5.5 / 尝试 1-1", file: "_source/suno/ending-fortune-vanish-attempt-1-candidate-1.mp3", detail: "https://suno.com/song/22574644-55fc-42fd-91ee-363a1abddfcf" },
+          { id: "suno-vanish-a1c2", source: "Suno", title: "干燥纸尘与温柔魔法释放", duration: 11, creator: "Sounds v5.5 / 尝试 1-2", file: "_source/suno/ending-fortune-vanish-attempt-1-candidate-2.mp3", detail: "https://suno.com/song/15a19240-77f7-4dca-9dda-17988fbaa96a" },
+          { id: "suno-vanish-a2c2", source: "Suno", title: "羊皮纸颗粒与金色上浮轨迹", duration: 8, creator: "Sounds v5.5 / 尝试 2-2", file: "_source/suno/ending-fortune-vanish-attempt-2-candidate-2.mp3", detail: "https://suno.com/song/f168d3ef-f06c-4b89-9a87-1b1ea35250d6" },
+          { id: "suno-vanish-a3c1", source: "Suno", title: "细纸低语与柔光孢子", duration: 8, creator: "Sounds v5.5 / 尝试 3-1", file: "_source/suno/ending-fortune-vanish-attempt-3-candidate-1.mp3", detail: "https://suno.com/song/eccd45ec-ed4e-4fbc-a910-bb204d2c029a" },
+          { id: "suno-vanish-a3c2", source: "Suno", title: "克制尘光与干净消散尾部", duration: 7, creator: "Sounds v5.5 / 尝试 3-2", file: "_source/suno/ending-fortune-vanish-attempt-3-candidate-2.mp3", detail: "https://suno.com/song/434b1cb6-abc5-4ff2-956a-6ce9364a0450" },
+          { id: "pixabay-vanish-01", source: "Pixabay", title: "swoosh1", duration: 5.952, creator: "freesound_community", file: "_source/pixabay/ending-fortune-vanish-pixabay-01-swoosh1.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-swoosh1-98317/" },
+          { id: "pixabay-vanish-02", source: "Pixabay", title: "Vanishing-SFX", duration: 0.528, creator: "freesound_community", file: "_source/pixabay/ending-fortune-vanish-pixabay-02-vanishing-sfx.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-vanishing-sfx-37098/" },
+          { id: "pixabay-vanish-03", source: "Pixabay", title: "Poof", duration: 1.224, creator: "freesound_community", file: "_source/pixabay/ending-fortune-vanish-pixabay-03-poof.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-poof-80161/" },
+          { id: "pixabay-vanish-04", source: "Pixabay", title: "PuffOfSmoke", duration: 0.984, creator: "freesound_community", file: "_source/pixabay/ending-fortune-vanish-pixabay-04-puff-of-smoke.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-puffofsmoke-47176/" },
+          { id: "pixabay-vanish-05", source: "Pixabay", title: "subtle transition", duration: 2.116, creator: "KoiRoylers", file: "_source/pixabay/ending-fortune-vanish-pixabay-05-subtle-transition.mp3", detail: "https://pixabay.com/sound-effects/film-special-effects-subtle-transition-356008/" }
+        ]
+      }
+    ];
+
+    const storageKey = "mossfall-ending-sfx-review-v4";
+    const reviewRoot = document.getElementById("review");
+    const progress = document.getElementById("progress");
+    const toast = document.getElementById("toast");
+    const defaultSelections = {
+      "ending-paper-bonk": "suno-bonk-a2c2",
+      "ending-fortune-appear": "pixabay-appear-01",
+      "ending-fortune-vanish": "suno-vanish-a3c2"
+    };
+    let saved = loadSaved();
+    let toastTimer = 0;
+
+    function loadSaved() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey)) || {
+          selections: { ...defaultSelections },
+          notes: {}
+        };
+      } catch {
+        return { selections: { ...defaultSelections }, notes: {} };
+      }
+    }
+
+    function persist() {
+      localStorage.setItem(storageKey, JSON.stringify(saved));
+      refreshState();
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    function formatDuration(value) {
+      return value < 10 ? `${value.toFixed(value % 1 ? 1 : 0)} 秒` : `${Math.round(value)} 秒`;
+    }
+
+    function render() {
+      reviewRoot.innerHTML = cues.map((cue, cueIndex) => `
+        <section class="cue-section" data-cue="${cue.id}">
+          <div class="cue-heading">
+            <div>
+              <p class="cue-index">事件 ${String(cueIndex + 1).padStart(2, "0")}</p>
+              <h2>${cue.title}</h2>
+              <p class="cue-event">${cue.event}</p>
+            </div>
+            <div class="cue-state" id="state-${cue.id}">未选择</div>
+          </div>
+          <div class="candidate-grid">
+            ${cue.candidates.map((candidate, candidateIndex) => `
+              <article class="candidate" data-candidate="${candidate.id}">
+                <div class="candidate-top">
+                  <input
+                    id="${candidate.id}"
+                    type="radio"
+                    name="${cue.id}"
+                    value="${candidate.id}"
+                    ${saved.selections[cue.id] === candidate.id ? "checked" : ""}
+                  >
+                  <label class="candidate-title" for="${candidate.id}">
+                    ${String(candidateIndex + 1).padStart(2, "0")} / ${candidate.title}
+                  </label>
+                  <span class="source-badge ${candidate.source.toLowerCase()}">${candidate.source}</span>
+                </div>
+                <div class="meta">
+                  <span>${formatDuration(candidate.duration)}</span>
+                  <span>${candidate.creator}</span>
+                  <a href="${candidate.detail}" target="_blank" rel="noreferrer">来源页</a>
+                </div>
+                <audio controls preload="metadata" src="${candidate.file}"></audio>
+              </article>
+            `).join("")}
+          </div>
+          <div class="notes">
+            <label for="notes-${cue.id}">评审备注</label>
+            <textarea id="notes-${cue.id}" data-notes="${cue.id}">${saved.notes[cue.id] || ""}</textarea>
+          </div>
+        </section>
+      `).join("");
+
+      bindEvents();
+      refreshState();
+    }
+
+    function bindEvents() {
+      document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+        radio.addEventListener("change", () => {
+          saved.selections[radio.name] = radio.value;
+          persist();
+        });
+      });
+
+      document.querySelectorAll("textarea[data-notes]").forEach((field) => {
+        field.addEventListener("input", () => {
+          saved.notes[field.dataset.notes] = field.value;
+          persist();
+        });
+      });
+
+      document.querySelectorAll("audio").forEach((audio) => {
+        audio.addEventListener("play", () => {
+          document.querySelectorAll("audio").forEach((other) => {
+            if (other !== audio) {
+              other.pause();
+              other.currentTime = 0;
+            }
+          });
+          document.querySelectorAll(".candidate").forEach((card) => card.classList.remove("playing"));
+          audio.closest(".candidate").classList.add("playing");
+        });
+        audio.addEventListener("pause", () => {
+          audio.closest(".candidate").classList.remove("playing");
+        });
+        audio.addEventListener("ended", () => {
+          audio.closest(".candidate").classList.remove("playing");
+        });
+      });
+    }
+
+    function refreshState() {
+      let count = 0;
+      cues.forEach((cue) => {
+        const selectedId = saved.selections[cue.id];
+        const state = document.getElementById(`state-${cue.id}`);
+        document.querySelectorAll(`[data-cue="${cue.id}"] .candidate`).forEach((card) => {
+          card.classList.toggle("selected", card.dataset.candidate === selectedId);
+        });
+        if (selectedId) {
+          count += 1;
+          state.textContent = "已选择";
+          state.classList.add("done");
+        } else {
+          state.textContent = "未选择";
+          state.classList.remove("done");
+        }
+      });
+      progress.textContent = `${count} / ${cues.length}`;
+    }
+
+    function stopAll() {
+      document.querySelectorAll("audio").forEach((audio) => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+    }
+
+    function exportSelection() {
+      const payload = {
+        project: "h5-balance-mossfall",
+        review: "ending-sfx-20260816",
+        exported_at: new Date().toISOString(),
+        selections: cues.map((cue) => {
+          const selected = cue.candidates.find((candidate) => candidate.id === saved.selections[cue.id]);
+          return {
+            cue: cue.id,
+            title: cue.title,
+            selected: selected || null,
+            notes: saved.notes[cue.id] || ""
+          };
+        })
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "mossfall-ending-sfx-selection.json";
+      anchor.click();
+      URL.revokeObjectURL(url);
+      showToast("选择结果已导出");
+    }
+
+    document.getElementById("stopAll").addEventListener("click", stopAll);
+    document.getElementById("clearAll").addEventListener("click", () => {
+      stopAll();
+      saved = { selections: { ...defaultSelections }, notes: {} };
+      localStorage.setItem(storageKey, JSON.stringify(saved));
+      render();
+      showToast("已恢复确认选择");
+    });
+    document.getElementById("exportSelection").addEventListener("click", exportSelection);
+
+    render();
+  </script>
+</body>
+</html>

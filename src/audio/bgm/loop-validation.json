@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-04T05:15:55.815078+00:00",
+  "target_html": "D:\\KiwiiGit\\Kiwii-AI\\h5-balance-table-tilt\\game\\src\\index.html",
+  "manifest": "D:\\KiwiiGit\\Kiwii-AI\\h5-balance-table-tilt\\game\\src\\audio\\bgm\\bgm-sources.json",
+  "results": [
+    {
+      "key": "bgm-balance-beam",
+      "mode": "seamless-loop",
+      "source_file": "_source/Balance Beam.wav",
+      "file": "balance-beam-loop.ogg",
+      "source_start_seconds": 0,
+      "source_end_seconds": 154.2,
+      "output_duration_seconds": 149.2,
+      "crossfade_ms": 5000.0,
+      "boundary_jump_dbfs": -28.663,
+      "boundary_jump_ratio": 0.864399,
+      "rms_delta_db": 0.848,
+      "spectral_distance": 0.214723,
+      "validation_cycles": 4,
+      "quality_passed": true,
+      "preview_file": "_validation/bgm-balance-beam-loop-preview.ogg",
+      "preview_sha256": "0a10e434bd985005abe05af61952ace4a5aac9dd450a7cfec86438612012415a"
+    }
+  ],
+  "failures": []
+}

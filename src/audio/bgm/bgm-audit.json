@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "procedural_scan_complete": true,
+  "bgm_baseline": [
+    {
+      "key": "bgm-table-tilt",
+      "reference": "./audio/bgm/table-tilt-loop.ogg",
+      "file": "audio/bgm/table-tilt-loop.ogg",
+      "sha256": "3556469b940281a89436edbe6ca88c3e5bddb1dfc498c61052fce3711939f2e8",
+      "license_status": "Generated through the user-requested Suno API workflow on 2026-07-30. Distribution rights require confirmation against the generating Suno account's plan and terms."
+    }
+  ],
+  "cues": [
+    {
+      "key": "bgm-table-tilt",
+      "category": "bgm",
+      "origin": "existing-file",
+      "decision": "replace",
+      "event": "All eight puzzle levels, level transitions, recoverable ball falls, and run completion",
+      "existing_ref": "./audio/bgm/table-tilt-loop.ogg",
+      "trigger_event": "GameAudio phase synchronization",
+      "timing": "Starts on active gameplay phases, pauses in overlays, and resets outside the run",
+      "repetition_pattern": "Continuous loop during an active run",
+      "license_status": "Existing Suno-generated BGM retained as a rollback asset; replacement file rights must be confirmed by the project owner.",
+      "replacement_key": "bgm-balance-beam",
+      "decision_reason": "The project owner explicitly requested Download/Balance Beam.wav as the Table Tilt BGM on 2026-08-04. The previous production file remains unchanged for rollback."
+    }
+  ],
+  "generated_on": "2026-08-04"
+}

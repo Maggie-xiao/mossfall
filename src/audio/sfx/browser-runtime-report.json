@@ -1,0 +1,409 @@
+{
+  "page_url": "http://127.0.0.1:4317/index.html?qa=1&realtime=1&final=dune-audio-validator",
+  "capture_method": "QA-only GameAudio tour using production files and final LEVEL_CLEAR entry",
+  "requested_audio_files": [
+    {
+      "key": "ui-move",
+      "url": "http://127.0.0.1:4317/audio/sfx/ui-move.ogg?v=1cf8588f",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "countdown-beat",
+      "url": "http://127.0.0.1:4317/audio/sfx/countdown-beat.ogg?v=9d057b91",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "ball-capture",
+      "url": "http://127.0.0.1:4317/audio/sfx/ball-capture.ogg?v=d21d0f0b",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "ui-confirm",
+      "url": "http://127.0.0.1:4317/audio/sfx/ui-confirm.ogg?v=33b17a9a",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "result-count",
+      "url": "http://127.0.0.1:4317/audio/sfx/result-count.ogg?v=869442f5",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "ball-impact",
+      "url": "http://127.0.0.1:4317/audio/sfx/ball-impact.ogg?v=6e797cf8",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "countdown-go",
+      "url": "http://127.0.0.1:4317/audio/sfx/countdown-go.ogg?v=3091bf0b",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "result-rank",
+      "url": "http://127.0.0.1:4317/audio/sfx/result-rank.ogg?v=57c074e6",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "ball-fall",
+      "url": "http://127.0.0.1:4317/audio/sfx/ball-fall.ogg?v=0b574cea",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "well-done",
+      "url": "http://127.0.0.1:4317/audio/sfx/well_done.wav?v=df8b96bc",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/wav"
+    },
+    {
+      "key": "level-clear",
+      "url": "http://127.0.0.1:4317/audio/sfx/level-clear.ogg?v=6f952e25",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "finish-crowd",
+      "url": "http://127.0.0.1:4317/audio/sfx/finish-crowd.mp3?v=50fa4e07",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/mpeg"
+    }
+  ],
+  "javascript_errors": [],
+  "flow_evidence": {
+    "mode-select": {
+      "state": "MODE_SELECT",
+      "timestamp_ms": 2270.2
+    },
+    "teach-in": {
+      "state": "TEACH_IN guided How to Play",
+      "timestamp_ms": 2393.8
+    },
+    "start-line": {
+      "state": "START_LINE centered hold",
+      "timestamp_ms": 2457.1
+    },
+    "countdown": {
+      "state": "LEVEL_INTRO 3-2-1-GO",
+      "timestamp_ms": 2747.7
+    },
+    "gameplay-collision": {
+      "state": "GAMEPLAY",
+      "timestamp_ms": 2748
+    },
+    "ball-capture": {
+      "state": "GAMEPLAY",
+      "timestamp_ms": 2808.8
+    },
+    "ball-fall": {
+      "state": "BALL_FALL_DROP",
+      "timestamp_ms": 2868.7
+    },
+    "level-clear": {
+      "state": "LEVEL_CLEAR",
+      "timestamp_ms": 2930.5
+    },
+    "pause-resume": {
+      "state": "PAUSE_MENU -> GAMEPLAY",
+      "timestamp_ms": 3048.4
+    },
+    "finish-crowd": {
+      "state": "final LEVEL_CLEAR entry",
+      "timestamp_ms": 3167.3
+    },
+    "well-done": {
+      "state": "final LEVEL_CLEAR entry",
+      "timestamp_ms": 3167.3
+    },
+    "result": {
+      "state": "RESULT_CALC count and rank reveal",
+      "timestamp_ms": 3167.4
+    }
+  },
+  "audio_play_history": [
+    {
+      "key": "ui-move",
+      "timestamp_ms": 1167.7,
+      "phase": "MODE_SELECT",
+      "source": "audio-manager",
+      "implementation": "procedural",
+      "decision": "replace",
+      "fallback": true,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "ui-move",
+      "timestamp_ms": 2264.4,
+      "phase": "MODE_SELECT",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "bgm-balance-beam",
+      "timestamp_ms": 2393.9,
+      "phase": "TEACH_IN",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "countdown-beat",
+      "timestamp_ms": 2508.5,
+      "phase": "LEVEL_INTRO",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "add",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "countdown-beat",
+      "timestamp_ms": 2567.4,
+      "phase": "LEVEL_INTRO",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "add",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "countdown-beat",
+      "timestamp_ms": 2627.8,
+      "phase": "LEVEL_INTRO",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "add",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "countdown-go",
+      "timestamp_ms": 2688,
+      "phase": "LEVEL_INTRO",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "add",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "ball-impact",
+      "timestamp_ms": 2748,
+      "phase": "GAMEPLAY",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "ball-capture",
+      "timestamp_ms": 2808.7,
+      "phase": "GAMEPLAY",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "layer",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "ball-capture",
+      "timestamp_ms": 2808.7,
+      "phase": "GAMEPLAY",
+      "source": "audio-manager",
+      "implementation": "procedural",
+      "decision": "layer",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "ui-confirm",
+      "timestamp_ms": 2808.7,
+      "phase": "GAMEPLAY",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "ball-fall",
+      "timestamp_ms": 2868.2,
+      "phase": "GAMEPLAY",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "level-clear",
+      "timestamp_ms": 2930.5,
+      "phase": "LEVEL_CLEAR",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "ui-move",
+      "timestamp_ms": 2988.6,
+      "phase": "GAMEPLAY",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "ui-confirm",
+      "timestamp_ms": 3048.1,
+      "phase": "PAUSE_MENU",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "finish-crowd",
+      "timestamp_ms": 3107.9,
+      "phase": "LEVEL_CLEAR",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "well-done",
+      "timestamp_ms": 3107.9,
+      "phase": "LEVEL_CLEAR",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "bgm-balance-beam",
+      "timestamp_ms": 3108.1,
+      "phase": "LEVEL_CLEAR",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "result-count",
+      "timestamp_ms": 3167.4,
+      "phase": "RESULT_CALC",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    },
+    {
+      "key": "result-rank",
+      "timestamp_ms": 3167.4,
+      "phase": "RESULT_CALC",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false,
+      "scheduled_delay_ms": 0
+    }
+  ],
+  "loop_history": [
+    {
+      "key": "bgm-balance-beam",
+      "start_timestamp_ms": 2387,
+      "stop_timestamp_ms": 3108,
+      "loop_duration_ms": null,
+      "completed_cycles": 0,
+      "source": "audio-manager",
+      "implementation": "sample"
+    }
+  ],
+  "bgm_ramp_ms": {
+    "start": 480,
+    "resume": 220,
+    "stop": 900
+  },
+  "bgm_requested_audio_files": [
+    {
+      "key": "bgm-balance-beam",
+      "url": "http://127.0.0.1:4317/audio/bgm/balance-beam-loop.ogg?v=b163059c",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "key": "bgm-precision-puzzle",
+      "url": "http://127.0.0.1:4317/audio/bgm/precision-puzzle-loop.ogg?v=71ffc52d",
+      "status": 200,
+      "ok": true,
+      "decoded": true,
+      "content_type": "audio/ogg"
+    }
+  ],
+  "captured_at_utc": "2026-08-11T05:27:16.983Z",
+  "browser_console_errors": [],
+  "browser_console_warnings": [],
+  "victory_mix": {
+    "source_project": "h5-balance-dunesong-slalom",
+    "active_keys": [
+      "finish-crowd",
+      "well-done"
+    ],
+    "runtime_delays_ms": [
+      0,
+      0
+    ],
+    "runtime_gains": [
+      1.05,
+      0.98
+    ],
+    "fallback": false,
+    "phase": "LEVEL_CLEAR"
+  }
+}

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Moss Tilt — 蜗牛独立预览 / 调参</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden;
+    font: 13px/1.55 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+  body { background: #12191b; color: #e6ede9; }
+  #view { position: fixed; inset: 0; display: block; }
+
+  #panel { position: fixed; top: 0; right: 0; bottom: 0; width: 320px;
+    overflow-y: auto; padding: 14px 16px 40px;
+    background: rgba(14,20,22,.90); border-left: 1px solid rgba(255,255,255,.09); }
+  #panel h1 { margin: 0 0 2px; font-size: 15px; font-weight: 600; }
+  #panel .sub { margin: 0 0 14px; font-size: 11px; color: #93a49e; }
+  fieldset { border: 0; border-top: 1px solid rgba(255,255,255,.10);
+    margin: 16px 0 0; padding: 12px 0 0; }
+  legend { padding: 0 8px 0 0; font-size: 11px; letter-spacing: .12em;
+    color: #7fd6a8; text-transform: uppercase; }
+
+  .row { display: grid; grid-template-columns: 96px 1fr 46px;
+    align-items: center; gap: 8px; margin: 7px 0; }
+  .row label { font-size: 12px; color: #c3d0cb; }
+  .row output { font-size: 11px; color: #8fa39c; text-align: right;
+    font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; accent-color: #57c98a; }
+  input[type=color] { width: 100%; height: 22px; padding: 0; border: 0;
+    background: none; cursor: pointer; }
+  .swatches { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; }
+  .swatch label { display: block; font-size: 11px; color: #c3d0cb; margin-bottom: 2px; }
+
+  .btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  button { flex: 1 1 auto; padding: 7px 10px; font: inherit; font-size: 12px;
+    color: #eaf3ee; background: #23312e; border: 1px solid rgba(255,255,255,.12);
+    border-radius: 5px; cursor: pointer; }
+  button:hover { background: #2e403b; }
+  button.primary { background: #2f7d55; border-color: #3d9a6a; }
+  button.primary:hover { background: #37906230; background: #389463; }
+
+  .checks { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: 4px; }
+  .checks label { font-size: 12px; color: #c3d0cb; cursor: pointer; }
+
+  #stats { margin-top: 10px; font-size: 11px; line-height: 1.7;
+    font-variant-numeric: tabular-nums; color: #9fb3ac; }
+  #stats b { color: #dfe9e4; font-weight: 600; }
+  #stats .ok { color: #6fd39a; }
+  #stats .bad { color: #ff8a72; }
+
+  textarea { width: 100%; height: 130px; margin-top: 8px; padding: 8px;
+    font: 11px/1.5 ui-monospace, Consolas, monospace; color: #cfe0d8;
+    background: #0c1214; border: 1px solid rgba(255,255,255,.12);
+    border-radius: 5px; resize: vertical; }
+
+  #hint { position: fixed; left: 14px; bottom: 12px; font-size: 11px;
+    color: rgba(255,255,255,.42); pointer-events: none; }
+</style>
+</head>
+<body>
+
+<canvas id="view"></canvas>
+<div id="hint">拖动旋转 · 滚轮缩放 · 右键拖动平移</div>
+
+<div id="panel">
+  <h1>蜗牛调参台</h1>
+  <p class="sub">Moss Tilt · Advanced A05 障碍物。改完点「复制参数」把 JSON 发回来即可。</p>
+
+  <fieldset>
+    <legend>视图</legend>
+    <div class="checks" id="viewChecks"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>品种</legend>
+    <div class="btns">
+      <button id="btnFresh" class="primary">fresh（硬弹）</button>
+      <button id="btnAged">aged（软弹·带苔）</button>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>颜色</legend>
+    <div class="swatches" id="colorRows"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>壳</legend>
+    <div id="shellRows"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>身体 / 触角</legend>
+    <div id="bodyRows"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>材质</legend>
+    <div id="matRows"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>弹动</legend>
+    <div id="springRows"></div>
+    <div class="btns">
+      <button id="btnHit" class="primary">撞一下</button>
+      <button id="btnLoop">循环撞击：关</button>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>体检（碰撞体约束）</legend>
+    <div id="stats"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>导出</legend>
+    <div class="btns">
+      <button id="btnCopy" class="primary">复制参数</button>
+      <button id="btnReset">还原默认</button>
+    </div>
+    <textarea id="dump" readonly></textarea>
+  </fieldset>
+</div>
+
+<script>/*__THREE__*/</script>
+<script>
+"use strict";
+/* =====================================================================
+ * Moss Tilt — 蜗牛独立预览
+ *
+ * 这个文件是从游戏源码 src/adapters/board-snails.js 原样搬过来的，几何、
+ * 颜色推导、弹簧全部一致，只是把关键数字提到了顶上的 P / C 两个对象里，
+ * 右侧面板直接绑在它们身上。
+ *
+ * 想改什么就拖右边的滑块，满意后点「复制参数」，把那段 JSON 发回来，
+ * 我按它改回游戏里就行。
+ *
+ * 一条硬约束（面板底部「体检」实时算给你看）：
+ *   游戏的物理把这个障碍物当成一个半径 r = 0.30 m、高 h = 0.50 m 的圆柱，
+ *   球撞的是那个圆柱。所以蜗牛
+ *     · 任何地方都不能超出 r（超了 = 球还没碰到就被弹开，穿模感）；
+ *     · 侧向空隙别超过 0.14 m（空隙 = 球停下时离蜗牛表面还有多远）。
+ *   把壳加厚（壳厚 ×r）能减小空隙，但就不像参考图那只扁壳蜗牛了。
+ * ===================================================================== */
+
+const TAU = Math.PI * 2;
+const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
+/* ---------------------------------------------------------------------
+ * 1) 参数
+ * ------------------------------------------------------------------- */
+
+/* 关卡里的四只：BLOCK_01/02 是 r 0.30，BLOCK_03/04 是 r 0.27，高度都是 0.50。
+ * 这里默认按大的那只显示。所有带「×r」「×h」的数字都是比例，改 r 会整体缩放。 */
+const DEFAULT_P = {
+  r: 0.30,            // 碰撞半径（米）—— 游戏关卡数据，别动
+  h: 0.50,            // 碰撞高度（米）—— 游戏关卡数据，别动
+
+  // —— 壳 ——（壳是一枚立着的扁透镜，正面刻一条对数螺线）
+  shellSX: 0.52,      // 壳厚（左右半厚）×r  ← 越大越圆、越不像参考图，但侧向空隙越小
+  shellSY: 0.42,      // 壳高（上下半径）×h
+  shellSZ: 0.82,      // 壳长（前后半径）×r
+  shellCY: 0.58,      // 壳心高度 ×h
+  shellCZ: -0.14,     // 壳心前后 ×r（负 = 往后坐）
+  lipK: 0.55,         // 壳唇（深色边）厚度，占壳厚的比例
+  turns: 2.5,         // 螺旋圈数
+  rho0: 0.95,         // 螺旋外圈起点（占壳半径）
+  rho1: 0.12,         // 螺旋内圈终点
+  grooveR: 0.048,     // 螺旋沟槽的管半径 ×r
+  eyeDot: 0.058,      // 螺旋中心那颗小圆点半径 ×r
+
+  // —— 身体 ——
+  footR: 0.92,        // 腹足（贴地那圈）半径 ×r  ← 撑住碰撞体下半段的就是它
+  footH: 0.13,        // 腹足厚度 ×h
+  mantleR: 0.80,      // 外套膜（壳根部那坨）半径 ×r
+  mantleH: 0.34,      // 外套膜高度 ×h
+  headX: 0.40,        // 头 半宽 ×r
+  headY: 0.23,        // 头 半高 ×h
+  headZ: 0.38,        // 头 半长 ×r
+  headCY: 0.44,       // 头心高度 ×h
+  headCZ: 0.62,       // 头心前伸 ×r
+  dotR: 0.058,        // 脸颊那颗黑点半径 ×r
+
+  // —— 触角 ——
+  antBaseY: 0.58,     // 触角根部高度 ×h
+  antBaseZ: 0.62,     // 触角根部前后 ×r
+  antLen: 0.38,       // 触角高度 ×h
+  antSpread: 0.26,    // 触角尖端左右张开 ×r
+  stalkTop: 0.052,    // 触角上端粗细 ×r
+  stalkBot: 0.078,    // 触角下端粗细 ×r
+  eyeR: 0.135,        // 眼球半径 ×r
+
+  // —— 材质 ——
+  rough: 0.26, metal: 0.03, cc: 1.00, ccRough: 0.07,
+
+  // —— 弹动（被球撞到时的压扁/后仰）——
+  omega: 16,          // 弹簧刚度（rad/s）越大抖得越快
+  zeta: 0.35,         // 阻尼比 越大停得越快
+  squashKick: 9.5,    // 压扁力度
+  leanKick: 5.4,      // 后仰力度
+  fullHit: 2.2,       // 打满力度所需的球速（m/s）—— 实测盘面最快 2.74
+  maxSquash: 0.42,    // 压扁上限
+  hitSpeed: 1.17,     // 「撞一下」用的球速，1.17 是盘面上的中位数
+};
+
+/* 颜色。默认值是按游戏的推导算出来的（瓢虫的 Marigold 橙降一档），
+ * 面板里改了就直接盖掉。注意游戏里每只蜗牛还会再随机抖 ±8% 的色，
+ * 所以四只不会完全一样，这里显示的是没抖过的标准色。 */
+const INK = { shell: 0xff8a2b, shellDark: 0xb84f06 };   // 瓢虫 Marigold
+const SHELL_STEP_DOWN = 0.78;                            // 壳色降档系数
+const BODY_FRESH = { mid: 0x8cc35c, light: 0xcbe289, dark: 0x5c8a41 };
+const BODY_AGED  = { mid: 0x7aa855, light: 0xb3cb7c, dark: 0x4e7639 };
+const MOSS = { light: 0x6f8a4a, dark: 0x5d7a3d };
+const EYE_CREAM = 0xfff3e2;
+const HEAD_DOT = 0x1e1206;
+
+const _c = new THREE.Color();
+
+/** 往低饱和、低明度挪一档（在 HSL 里做，色相不变）。 */
+function stepDown(hex, k) {
+  _c.set(hex);
+  const hsl = _c.getHSL({ h: 0, s: 0, l: 0 });
+  _c.setHSL(hsl.h, hsl.s * k, hsl.l * (0.5 + k * 0.5));
+  return _c.getHex();
+}
+
+function paletteFor(aged) {
+  const k = aged ? SHELL_STEP_DOWN * 0.86 : SHELL_STEP_DOWN;
+  const skin = aged ? BODY_AGED : BODY_FRESH;
+  return {
+    shell:     stepDown(INK.shell, k),
+    lip:       stepDown(INK.shellDark, k * 0.94),
+    groove:    stepDown(INK.shellDark, k * 0.60),
+    body:      skin.mid,
+    bodyLight: skin.light,
+    bodyDark:  skin.dark,
+    eye:       EYE_CREAM,
+    dot:       HEAD_DOT,
+    mossLight: MOSS.light,
+    mossDark:  MOSS.dark,
+  };
+}
+
+const MAT_FRESH = { rough: 0.26, metal: 0.03, cc: 1.00, ccRough: 0.07 };
+const MAT_AGED  = { rough: 0.58, metal: 0.03, cc: 0.35, ccRough: 0.32 };
+
+let P = Object.assign({}, DEFAULT_P);
+let C = paletteFor(false);
+let aged = false;
+
+/* ---------------------------------------------------------------------
+ * 2) 几何合并器（和游戏里同一份）
+ *
+ * 二十几个基本体烘进一个 buffer，颜色写进顶点，整只蜗牛一次 draw call。
+ * ------------------------------------------------------------------- */
+
+const _v = new THREE.Vector3();
+const _axis = new THREE.Vector3();
+const _q = new THREE.Quaternion();
+const _e = new THREE.Euler();
+const _m = new THREE.Matrix4();
+const _n3 = new THREE.Vector3();
+const _nm = new THREE.Matrix3();
+const _up = new THREE.Vector3(0, 1, 0);
+const _fwd = new THREE.Vector3(0, 0, 1);
+const _col = new THREE.Color();
+
+class Acc {
+  constructor() { this.p = []; this.n = []; this.c = []; this.i = []; }
+  get empty() { return this.p.length === 0; }
+
+  add(geo, m, color) {
+    const pos = geo.attributes.position;
+    const nrm = geo.attributes.normal;
+    const idx = geo.index;
+    const base = this.p.length / 3;
+    const nm = _nm.getNormalMatrix(m);
+    _col.set(color);
+    for (let vi = 0; vi < pos.count; vi++) {
+      _v.set(pos.getX(vi), pos.getY(vi), pos.getZ(vi)).applyMatrix4(m);
+      this.p.push(_v.x, _v.y, _v.z);
+      if (nrm) {
+        _n3.set(nrm.getX(vi), nrm.getY(vi), nrm.getZ(vi)).applyMatrix3(nm).normalize();
+        this.n.push(_n3.x, _n3.y, _n3.z);
+      } else this.n.push(0, 1, 0);
+      this.c.push(_col.r, _col.g, _col.b);
+    }
+    if (idx) for (let k = 0; k < idx.count; k++) this.i.push(base + idx.getX(k));
+    else for (let k = 0; k < pos.count; k++) this.i.push(base + k);
+    geo.dispose();
+    return this;
+  }
+
+  /** 平面上最远的一点 —— 物理把这个障碍物压扁成一个圆盘。 */
+  maxRadius() {
+    let m = 0;
+    for (let i = 0; i < this.p.length; i += 3) {
+      const d = Math.hypot(this.p[i], this.p[i + 2]);
+      if (d > m) m = d;
+    }
+    return m;
+  }
+
+  /** 把 x/z 挤到 k 倍：造型按舒服的比例画，最后统一收进碰撞体。 */
+  scaleHorizontal(k) {
+    if (!(k > 0) || Math.abs(k - 1) < 1e-6) return this;
+    const inv = 1 / k;
+    for (let i = 0; i < this.p.length; i += 3) {
+      this.p[i] *= k; this.p[i + 2] *= k;
+      const nx = this.n[i] * inv, ny = this.n[i + 1], nz = this.n[i + 2] * inv;
+      const len = Math.hypot(nx, ny, nz) || 1;
+      this.n[i] = nx / len; this.n[i + 1] = ny / len; this.n[i + 2] = nz / len;
+    }
+    return this;
+  }
+
+  build() {
+    if (this.empty) return null;
+    const g = new THREE.BufferGeometry();
+    const n = this.p.length / 3;
+    g.setAttribute("position", new THREE.Float32BufferAttribute(this.p, 3));
+    g.setAttribute("normal", new THREE.Float32BufferAttribute(this.n, 3));
+    g.setAttribute("color", new THREE.Float32BufferAttribute(this.c, 3));
+    g.setIndex(n > 65535
+      ? new THREE.Uint32BufferAttribute(this.i, 1)
+      : new THREE.Uint16BufferAttribute(this.i, 1));
+    g.computeBoundingSphere();
+    return g;
+  }
+}
+
+/** 摆一个基本体：先缩放，再旋转（Euler XYZ），最后平移。 */
+function put(sx, sy, sz, rx, ry, rz, tx, ty, tz) {
+  _e.set(rx || 0, ry || 0, rz || 0, "XYZ");
+  _q.setFromEuler(_e);
+  _v.set(tx || 0, ty || 0, tz || 0);
+  _axis.set(sx, sy == null ? sx : sy, sz == null ? sx : sz);
+  return _m.compose(_v, _q, _axis);
+}
+
+/** 把一个片贴到曲面上，本地 +z 朝 dir —— 脸上的黑点要顺着法线躺平。 */
+function putDir(scale, dir, tx, ty, tz) {
+  _v.copy(dir).normalize();
+  _q.setFromUnitVectors(_fwd, _v);
+  _v.set(tx, ty, tz);
+  _axis.setScalar(scale);
+  return _m.compose(_v, _q, _axis);
+}
+
+/* ---------------------------------------------------------------------
+ * 3) 零件
+ *
+ * 本地坐标：+y 向上，底面在 y = 0；+z 向前（头的方向）。
+ * 横向尺寸都是碰撞半径 r 的倍数，纵向都是 h 的倍数。
+ * ------------------------------------------------------------------- */
+
+/**
+ * 软体：宽腹足、壳根部的外套膜、往前伸出的脖子和头、每边一颗黑点。
+ * 参考图的身体是一整块连续的绿，没有分节，所以这里全是球体叠出来的。
+ *
+ * 腹足故意做得比真蜗牛宽：壳扁下去之后，还能顶到碰撞体的就只剩它了。
+ */
+function buildBody(acc) {
+  const r = P.r, h = P.h;
+  const HX = r * P.headX, HY = h * P.headY, HZ = r * P.headZ;
+  const HCY = h * P.headCY, HCZ = r * P.headCZ;
+
+  // 腹足，底下再垫一层深色，免得整只看起来浮在叶面上
+  acc.add(new THREE.SphereGeometry(1, 16, 8),
+    put(r * P.footR, h * P.footH, r * P.footR, 0, 0, 0, 0, h * 0.12, r * 0.02), C.body);
+  acc.add(new THREE.SphereGeometry(1, 16, 6),
+    put(r * (P.footR - 0.06), h * 0.06, r * (P.footR - 0.06), 0, 0, 0, 0, h * 0.055, r * 0.02), C.bodyDark);
+  // 外套膜：身体在壳根部鼓起来，把宽度尽量往上带
+  acc.add(new THREE.SphereGeometry(1, 16, 10),
+    put(r * P.mantleR, h * P.mantleH, r * (P.mantleR - 0.04), 0, 0, 0, 0, h * 0.24, r * 0.10), C.body);
+  // 尾巴，收在壳后面
+  acc.add(new THREE.SphereGeometry(1, 12, 8),
+    put(r * 0.32, h * 0.09, r * 0.28, 0, 0, 0, 0, h * 0.10, -r * 0.66), C.body);
+  // 脖子和头，伸到壳前面去 —— 参考图里头超出壳前缘约三分之一个半径
+  acc.add(new THREE.SphereGeometry(1, 14, 10),
+    put(r * 0.46, h * 0.24, r * 0.40, 0, 0, 0, 0, h * 0.36, r * 0.36), C.body);
+  acc.add(new THREE.SphereGeometry(1, 16, 10),
+    put(HX, HY, HZ, 0, 0, 0, 0, HCY, HCZ), C.body);
+
+  // 参考图的前缘偏黄绿，用两块浅色盖出来：一块在鼻头，一块在腹足前沿
+  acc.add(new THREE.SphereGeometry(1, 14, 8),
+    put(r * 0.30, h * 0.12, r * 0.19, 0, 0, 0, 0, h * 0.38, r * 0.78), C.bodyLight);
+  acc.add(new THREE.SphereGeometry(1, 14, 6),
+    put(r * 0.58, h * 0.075, r * 0.34, 0, 0, 0, 0, h * 0.115, r * 0.52), C.bodyLight);
+
+  // 每边一颗黑点，顺着头的法线贴上去。眼睛上了触角之后，这是脸上唯一的记号
+  for (const side of [1, -1]) {
+    const px = side * 0.86 * HX, py = -0.16 * HY, pz = 0.48 * HZ;
+    _n3.set(px / (HX * HX), py / (HY * HY), pz / (HZ * HZ)).normalize();
+    acc.add(new THREE.CircleGeometry(1, 12),
+      putDir(r * P.dotR, _n3,
+        px + _n3.x * 0.008, HCY + py + _n3.y * 0.008, HCZ + pz + _n3.z * 0.008),
+      C.dot);
+  }
+}
+
+/**
+ * 壳：一枚立着的扁螺旋，照参考图画。
+ *
+ * 一个左右扁的透镜（正面朝 ±x），两个面上各贴一条对数螺线，边缘露一圈深色唇。
+ * 螺线不是浮在表面上的贴花，而是"抬"到透镜面上的：在平面半径 rho 处，
+ * 表面高度是 x = SX·sqrt(1 - rho²)，所以线一路贴着面往里绕，最后落在壳最厚的
+ * 中心 —— 这才读得出是一圈盘起来的壳，而不是印上去的图案。
+ *
+ * shellSX 是唯一一个"好看"和"碰撞"打架的数：0.52 时壳的厚是宽的 0.63 倍，
+ * 明显是个盘子，也还够胖够玩具感。做得更圆能把侧向空隙补上，但就不是参考图了。
+ */
+function buildShell(acc) {
+  const r = P.r, h = P.h;
+  const CY = h * P.shellCY, CZ = r * P.shellCZ;
+  const SX = r * P.shellSX, SY = h * P.shellSY, SZ = r * P.shellSZ;
+
+  // 先摆唇：比透镜大一丝、薄得多，所以只在边缘露出来，正面看不见
+  acc.add(new THREE.SphereGeometry(1, 22, 14),
+    put(SX * P.lipK, SY * 1.015, SZ * 1.015, 0, 0, 0, 0, CY, CZ), C.lip);
+  acc.add(new THREE.SphereGeometry(1, 24, 16),
+    put(SX, SY, SZ, 0, 0, 0, 0, CY, CZ), C.shell);
+
+  // 从外缘往里绕 2.5 圈。衰减系数由两个端点反推，所以圈距一路成比例，
+  // 到中心也不会挤成一团。起点在正后方 —— 那里是壳最宽的地方，
+  // 于是螺线的最外点正好落在球撞得到的高度带里
+  const TURNS = P.turns, SEGS = 88, RHO0 = P.rho0, RHO1 = P.rho1;
+  const decay = Math.log(RHO0 / RHO1) / (TURNS * TAU);
+  for (const side of [1, -1]) {
+    const pts = [];
+    for (let i = 0; i <= SEGS; i++) {
+      const t = i / SEGS;
+      const a = Math.PI + t * TURNS * TAU;
+      const rho = RHO0 * Math.exp(-decay * t * TURNS * TAU);
+      pts.push(new THREE.Vector3(
+        side * SX * Math.sqrt(Math.max(0, 1 - rho * rho)),
+        CY + rho * Math.sin(a) * SY,
+        CZ + rho * Math.cos(a) * SZ
+      ));
+    }
+    acc.add(
+      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 84, r * P.grooveR, 4, false),
+      put(1, 1, 1, 0, 0, 0, 0, 0, 0), C.groove);
+    // 螺旋的"眼"，让线收在一个东西上
+    const end = pts[SEGS];
+    acc.add(new THREE.SphereGeometry(r * P.eyeDot, 8, 6),
+      put(1, 1, 1, 0, 0, 0, end.x, end.y, end.z), C.groove);
+  }
+
+  if (aged) {
+    // 苔痕：外圈交汇处一块、壳顶一块。都压在碰撞体高度以下，不会撑轮廓
+    acc.add(new THREE.SphereGeometry(1, 10, 7),
+      put(r * 0.11, h * 0.055, r * 0.19, 0.15, 0, 0.25, r * 0.30, h * 0.84, -r * 0.30), C.mossLight);
+    acc.add(new THREE.SphereGeometry(1, 10, 6),
+      put(r * 0.26, h * 0.045, r * 0.17, 0, 0.3, 0, -r * 0.06, h * 0.94, -r * 0.30), C.mossDark);
+  }
+}
+
+/**
+ * 两根眼柄：细、高、绿，顶一颗奶油色球。
+ *
+ * 参考图的眼睛离头很远，柄比瓢虫的触角还细，而且完全没有瞳孔 —— 球面上那点
+ * 高光就是唯一的记号。柄尖只比碰撞体高一点点，那已经在球的肩膀以上了，
+ * 所以不会对碰撞撒谎。
+ */
+function buildAntennae(acc) {
+  const r = P.r, h = P.h;
+  const eyeR = r * P.eyeR;
+  for (const side of [1, -1]) {
+    const bx = side * r * 0.13, by = 0, bz = 0;
+    const tx = side * r * P.antSpread, ty = h * P.antLen, tz = r * 0.10;
+    const dx = tx - bx, dy = ty - by, dz = tz - bz;
+    const L = Math.hypot(dx, dy, dz);
+
+    const shaft = new THREE.CylinderGeometry(r * P.stalkTop, r * P.stalkBot, L, 8, 1, false);
+    shaft.translate(0, L * 0.5, 0);
+    _n3.set(dx / L, dy / L, dz / L);
+    _q.setFromUnitVectors(_up, _n3);
+    _v.set(bx, by, bz);
+    _axis.setScalar(1);
+    acc.add(shaft, _m.compose(_v, _q, _axis).clone(), C.body);
+    // 柄根部一颗深色球，免得看起来像焊上去的
+    acc.add(new THREE.SphereGeometry(r * 0.10, 8, 6),
+      put(1, 0.7, 1, 0, 0, 0, bx, by + h * 0.012, bz), C.bodyDark);
+    acc.add(new THREE.SphereGeometry(eyeR, 14, 10),
+      put(1, 1, 1, 0, 0, 0, tx, ty, tz), C.eye);
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * 4) 组装
+ * ------------------------------------------------------------------- */
+
+let material = null;
+const wobble = new THREE.Group();      // 弹动挂在这一层
+const orient = new THREE.Group();      // 朝向（游戏里让蜗牛横过盘面）
+const antennaeNode = new THREE.Group();// 触角单独一层，撞到时会缩回
+wobble.add(orient);
+orient.add(antennaeNode);
+
+let bodyMesh = null, antMesh = null;
+
+function rebuild() {
+  for (const mesh of [bodyMesh, antMesh]) {
+    if (mesh) { mesh.parent.remove(mesh); mesh.geometry.dispose(); }
+  }
+  if (material) material.dispose();
+
+  material = new THREE.MeshPhysicalMaterial({
+    vertexColors: true, roughness: P.rough, metalness: P.metal,
+  });
+  material.clearcoat = P.cc;
+  material.clearcoatRoughness = P.ccRough;
+  material.wireframe = view.wireframe;
+
+  const acc = new Acc();
+  buildBody(acc);
+  buildShell(acc);
+  // 什么都不许超出碰撞体：量出实际最宽点，再整体收到 r 上
+  const fit = acc.maxRadius() > 1e-6 ? P.r / acc.maxRadius() : 1;
+  acc.scaleHorizontal(fit);
+  bodyMesh = new THREE.Mesh(acc.build(), material);
+  bodyMesh.castShadow = true;
+  orient.add(bodyMesh);
+
+  antennaeNode.position.set(0, P.h * P.antBaseY, P.r * P.antBaseZ * fit);
+  const ant = new Acc();
+  buildAntennae(ant);
+  ant.scaleHorizontal(fit);
+  antMesh = new THREE.Mesh(ant.build(), material);
+  antMesh.castShadow = true;
+  antennaeNode.add(antMesh);
+
+  refreshStats();
+  refreshDump();
+}
+
+/* ---------------------------------------------------------------------
+ * 5) 弹动（阻尼弹簧，和游戏里同一份）
+ * ------------------------------------------------------------------- */
+
+const SUB_STEP = 1 / 120, MAX_SUB_STEPS = 8;
+const REST_X = 1.5e-3, REST_V = 1.5e-2;
+const spring = { squash: 0, squashV: 0, lean: 0, leanV: 0, dirX: 0, dirZ: 1, active: false };
+
+function hit(speed, nx, nz) {
+  const intensity = clamp(speed / P.fullHit, 0.18, 1);
+  const len = Math.hypot(nx, nz);
+  if (len > 1e-6) { spring.dirX = -nx / len; spring.dirZ = -nz / len; }
+  spring.squashV += P.squashKick * intensity;
+  spring.leanV += P.leanKick * intensity;
+  spring.active = true;
+}
+
+function stepSpring(dt) {
+  if (!spring.active || !(dt > 0)) return;
+  const steps = Math.min(MAX_SUB_STEPS, Math.max(1, Math.ceil(dt / SUB_STEP)));
+  const sdt = dt / steps;
+  const k = P.omega * P.omega;
+  const c = 2 * P.zeta * P.omega;
+  for (let i = 0; i < steps; i++) {
+    spring.squashV += (-k * spring.squash - c * spring.squashV) * sdt;
+    spring.squash += spring.squashV * sdt;
+    spring.leanV += (-k * spring.lean - c * spring.leanV) * sdt;
+    spring.lean += spring.leanV * sdt;
+  }
+  if (Math.abs(spring.squash) < REST_X && Math.abs(spring.squashV) < REST_V &&
+      Math.abs(spring.lean) < REST_X && Math.abs(spring.leanV) < REST_V) {
+    spring.squash = spring.squashV = spring.lean = spring.leanV = 0;
+    spring.active = false;
+    wobble.scale.set(1, 1, 1);
+    wobble.position.set(0, 0, 0);
+    wobble.quaternion.identity();
+    antennaeNode.scale.setScalar(1);
+    return;
+  }
+  // 体积守恒的压扁
+  const q = clamp(spring.squash, -P.maxSquash, P.maxSquash);
+  wobble.scale.set(1 + q * 0.42, 1 - q * 0.72, 1 + q * 0.42);
+  // 沿受击方向后仰
+  const lean = clamp(spring.lean, -0.5, 0.5);
+  if (Math.abs(lean) > 1e-5) {
+    _axis.set(spring.dirZ, 0, -spring.dirX).normalize();
+    wobble.quaternion.setFromAxisAngle(_axis, lean);
+  } else wobble.quaternion.identity();
+  // 再加一点位移，免得看起来只是原地转
+  const push = lean * P.r * 0.30;
+  wobble.position.set(spring.dirX * push, 0, spring.dirZ * push);
+  // 眼柄缩回再伸出
+  antennaeNode.scale.setScalar(1 - 0.35 * clamp(q, 0, P.maxSquash));
+}
+
+/* ---------------------------------------------------------------------
+ * 6) 体检 —— 把游戏测试里的那把尺子搬过来
+ * ------------------------------------------------------------------- */
+
+const BALL = 0.30;   // A05 上每颗球都是半径 0.30、球心在 y 0.30
+
+function refreshStats() {
+  const r = P.r, h = P.h;
+  wobble.updateMatrixWorld(true);
+  const inv = new THREE.Matrix4().copy(wobble.matrixWorld).invert();
+  const rel = new THREE.Matrix4();
+  const v = new THREE.Vector3();
+  const BINS = 24, SLICES = 24;
+  const reach = Array.from({ length: BINS }, () => new Array(SLICES).fill(0));
+  let widest = 0, tallest = 0, tris = 0;
+
+  wobble.traverse((node) => {
+    if (!node.isMesh) return;
+    rel.multiplyMatrices(inv, node.matrixWorld);
+    const pos = node.geometry.getAttribute("position");
+    tris += node.geometry.index ? node.geometry.index.count / 3 : pos.count / 3;
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i).applyMatrix4(rel);
+      const radius = Math.hypot(v.x, v.z);
+      if (radius > widest) widest = radius;
+      if (v.y > tallest) tallest = v.y;
+      if (v.y < 0 || v.y >= h) continue;
+      const turn = (Math.atan2(v.z, v.x) + TAU) % TAU;
+      const bin = Math.floor((turn / TAU) * BINS) % BINS;
+      const slice = Math.min(SLICES - 1, Math.floor((v.y / h) * SLICES));
+      if (radius > reach[bin][slice]) reach[bin][slice] = radius;
+    }
+  });
+
+  // 物理让球心停在 r + 0.30 处，所以"空隙"是两个表面之间沿高度的最小距离
+  let gapMin = Infinity, gapMax = 0;
+  for (let bin = 0; bin < BINS; bin++) {
+    let gap = Infinity;
+    for (let slice = 0; slice < SLICES; slice++) {
+      const y = ((slice + 0.5) / SLICES) * h;
+      const dy = Math.abs(y - BALL);
+      if (dy >= BALL) continue;
+      const ball = r + BALL - Math.sqrt(BALL * BALL - dy * dy);
+      gap = Math.min(gap, ball - reach[bin][slice]);
+    }
+    if (gap < gapMin) gapMin = gap;
+    if (gap > gapMax) gapMax = gap;
+  }
+
+  const tag = (ok, text) => '<span class="' + (ok ? "ok" : "bad") + '">' + text + "</span>";
+  document.getElementById("stats").innerHTML =
+    "三角形 <b>" + Math.round(tris) + "</b>（游戏里 fresh 5,264 ／ aged 5,484，四只共 21,496）<br>" +
+    "最宽 <b>" + widest.toFixed(4) + "</b> m ／ 碰撞体 r = " + r.toFixed(3) + " " +
+      tag(widest <= r + 1e-4, widest <= r + 1e-4 ? "✓ 没超出" : "✗ 超出了") + "<br>" +
+    "最高 <b>" + tallest.toFixed(4) + "</b> m ＝ " + (tallest / h).toFixed(3) + "×h " +
+      tag(tallest < h * 1.1, tallest < h * 1.1 ? "✓" : "✗ 太高") + "<br>" +
+    "正面贴合 <b>" + gapMin.toFixed(4) + "</b> m " +
+      tag(gapMin < 0.01, gapMin < 0.01 ? "✓ 前后贴住碰撞体" : "✗ 到处都不贴") + "<br>" +
+    "侧向空隙 <b>" + gapMax.toFixed(4) + "</b> m ／ 上限 0.14 " +
+      tag(gapMax < 0.14, gapMax < 0.14 ? "✓" : "✗ 球会停太远");
+}
+
+/* ---------------------------------------------------------------------
+ * 7) 场景（灯光取自游戏 A05 所在的 Split Gallery 区，数值一致）
+ * ------------------------------------------------------------------- */
+
+const canvas = document.getElementById("view");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+scene.add(wobble);
+
+const BG_GAME = 0x62b4a4;   // 游戏里 A05 的雾色，也是画面底色
+const BG_WHITE = 0xf2f2f2;  // 参考图那种白底
+
+const key = new THREE.DirectionalLight(0xffd08f, 2.05);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.bias = -0.0006;
+key.shadow.normalBias = 0.004;
+key.shadow.radius = 2.2;
+key.position.set(-0.34, 0.82, -0.46).normalize().multiplyScalar(6);
+scene.add(key, key.target);
+{
+  const sc = key.shadow.camera;
+  sc.near = 0.5; sc.far = 12;
+  sc.left = -1; sc.right = 1; sc.top = 1; sc.bottom = -1;
+  sc.updateProjectionMatrix();
+}
+
+const hemi = new THREE.HemisphereLight(0x7cb4e6, 0x4d8d70, 0.88);
+scene.add(hemi);
+
+const fill = new THREE.DirectionalLight(0xd1c4bd, 2.357);
+fill.position.set(0.42, 0.30, 0.86).normalize().multiplyScalar(8);
+scene.add(fill, fill.target);
+
+const fill2 = new THREE.DirectionalLight(0xa5bbd7, 0.99);
+fill2.position.set(-0.74, 0.26, 0.62).normalize().multiplyScalar(8);
+scene.add(fill2, fill2.target);
+
+// 叶面：只是给影子一个落点，不是游戏里的真叶片
+const groundMat = new THREE.MeshStandardMaterial({ color: 0x4ea567, roughness: 0.85 });
+const ground = new THREE.Mesh(new THREE.CircleGeometry(3, 48).rotateX(-Math.PI / 2), groundMat);
+ground.position.y = -0.001;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// 碰撞体线框：物理真正认的那个圆柱
+const colliderMat = new THREE.LineBasicMaterial({ color: 0xff5a3c, transparent: true, opacity: 0.65 });
+let collider = null;
+function rebuildCollider() {
+  if (collider) { collider.geometry.dispose(); scene.remove(collider); }
+  const g = new THREE.CylinderGeometry(P.r, P.r, P.h, 32, 1, true);
+  g.translate(0, P.h / 2, 0);
+  collider = new THREE.LineSegments(new THREE.EdgesGeometry(g, 1), colliderMat);
+  g.dispose();
+  collider.visible = view.collider;
+  scene.add(collider);
+}
+
+const camera = new THREE.PerspectiveCamera(34, 1, 0.05, 60);
+const target = new THREE.Vector3(0, 0.26, 0);
+const orbit = { yaw: 0.62, pitch: 0.18, dist: 1.35 };
+
+function applyCamera() {
+  const cp = Math.cos(orbit.pitch), sp = Math.sin(orbit.pitch);
+  camera.position.set(
+    target.x + Math.sin(orbit.yaw) * cp * orbit.dist,
+    target.y + sp * orbit.dist,
+    target.z + Math.cos(orbit.yaw) * cp * orbit.dist
+  );
+  camera.lookAt(target);
+}
+
+/* 鼠标：左键转、右键平移、滚轮缩放 */
+let drag = null;
+canvas.addEventListener("pointerdown", (e) => {
+  drag = { x: e.clientX, y: e.clientY, pan: e.button === 2 || e.shiftKey };
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointermove", (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  drag.x = e.clientX; drag.y = e.clientY;
+  if (drag.pan) {
+    target.x -= (dx * 0.0016 * orbit.dist) * Math.cos(orbit.yaw);
+    target.z += (dx * 0.0016 * orbit.dist) * Math.sin(orbit.yaw);
+    target.y += dy * 0.0016 * orbit.dist;
+  } else {
+    orbit.yaw -= dx * 0.008;
+    orbit.pitch = clamp(orbit.pitch + dy * 0.006, -0.35, 1.35);
+  }
+});
+canvas.addEventListener("pointerup", () => { drag = null; });
+canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+canvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  orbit.dist = clamp(orbit.dist * Math.exp(e.deltaY * 0.0012), 0.35, 8);
+}, { passive: false });
+
+function resize() {
+  const w = window.innerWidth, h = window.innerHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener("resize", resize);
+
+/* ---------------------------------------------------------------------
+ * 8) 面板
+ * ------------------------------------------------------------------- */
+
+const view = { white: false, ground: true, collider: false, wireframe: false, spin: false };
+let loopHit = false;
+
+const SLIDERS = {
+  shellRows: [
+    ["shellSX", "壳厚 ×r", 0.20, 1.00, 0.01],
+    ["shellSY", "壳高 ×h", 0.20, 0.70, 0.01],
+    ["shellSZ", "壳长 ×r", 0.40, 1.00, 0.01],
+    ["shellCY", "壳心高 ×h", 0.30, 0.90, 0.01],
+    ["shellCZ", "壳心前后 ×r", -0.50, 0.30, 0.01],
+    ["lipK", "唇厚占比", 0.20, 1.00, 0.01],
+    ["turns", "螺旋圈数", 1.00, 4.50, 0.10],
+    ["rho0", "螺旋外圈", 0.60, 1.00, 0.01],
+    ["rho1", "螺旋内圈", 0.04, 0.40, 0.01],
+    ["grooveR", "沟槽粗细 ×r", 0.015, 0.12, 0.002],
+  ],
+  bodyRows: [
+    ["footR", "腹足半径 ×r", 0.60, 1.00, 0.01],
+    ["footH", "腹足厚 ×h", 0.06, 0.28, 0.01],
+    ["mantleR", "外套膜 ×r", 0.50, 1.00, 0.01],
+    ["mantleH", "外套膜高 ×h", 0.15, 0.60, 0.01],
+    ["headCZ", "头前伸 ×r", 0.30, 1.00, 0.01],
+    ["headCY", "头高 ×h", 0.20, 0.80, 0.01],
+    ["headX", "头宽 ×r", 0.20, 0.70, 0.01],
+    ["dotR", "脸颊黑点 ×r", 0.00, 0.14, 0.004],
+    ["antLen", "触角长 ×h", 0.10, 0.90, 0.01],
+    ["antSpread", "触角张开 ×r", 0.05, 0.60, 0.01],
+    ["stalkBot", "触角粗细 ×r", 0.03, 0.16, 0.004],
+    ["eyeR", "眼球大小 ×r", 0.05, 0.28, 0.005],
+  ],
+  matRows: [
+    ["rough", "粗糙度", 0.02, 1.00, 0.01],
+    ["metal", "金属度", 0.00, 0.60, 0.01],
+    ["cc", "清漆强度", 0.00, 1.00, 0.01],
+    ["ccRough", "清漆粗糙", 0.00, 0.60, 0.01],
+  ],
+  springRows: [
+    ["omega", "弹簧刚度", 6, 34, 0.5],
+    ["zeta", "阻尼比", 0.10, 1.00, 0.01],
+    ["squashKick", "压扁力度", 0, 24, 0.5],
+    ["leanKick", "后仰力度", 0, 16, 0.2],
+    ["fullHit", "打满球速", 0.5, 6.0, 0.1],
+    ["hitSpeed", "试撞球速", 0.2, 3.0, 0.05],
+  ],
+};
+
+const COLOR_KEYS = [
+  ["shell", "壳面"], ["lip", "壳唇"], ["groove", "螺旋沟"],
+  ["body", "身体"], ["bodyLight", "身体亮部"], ["bodyDark", "身体暗部"],
+  ["eye", "眼球"], ["dot", "脸颊点"],
+  ["mossLight", "苔·亮"], ["mossDark", "苔·暗"],
+];
+
+const outputs = {};
+
+function buildSliders() {
+  for (const containerId in SLIDERS) {
+    const host = document.getElementById(containerId);
+    for (const [key, label, min, max, step] of SLIDERS[containerId]) {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML =
+        "<label>" + label + "</label>" +
+        '<input type="range" min="' + min + '" max="' + max + '" step="' + step + '">' +
+        "<output></output>";
+      const input = row.querySelector("input");
+      const out = row.querySelector("output");
+      outputs[key] = { input: input, out: out, step: step };
+      input.value = P[key];
+      out.textContent = Number(P[key]).toFixed(step < 0.01 ? 3 : 2);
+      input.addEventListener("input", () => {
+        P[key] = parseFloat(input.value);
+        out.textContent = P[key].toFixed(step < 0.01 ? 3 : 2);
+        rebuild();
+      });
+      host.appendChild(row);
+    }
+  }
+}
+
+function buildColors() {
+  const host = document.getElementById("colorRows");
+  for (const [key, label] of COLOR_KEYS) {
+    const cell = document.createElement("div");
+    cell.className = "swatch";
+    cell.innerHTML = "<label>" + label + '</label><input type="color">';
+    const input = cell.querySelector("input");
+    outputs["c:" + key] = { input: input };
+    input.value = "#" + _c.set(C[key]).getHexString();
+    input.addEventListener("input", () => {
+      C[key] = parseInt(input.value.slice(1), 16);
+      rebuild();
+    });
+    host.appendChild(cell);
+  }
+}
+
+function buildViewChecks() {
+  const host = document.getElementById("viewChecks");
+  const items = [
+    ["white", "白底"], ["ground", "地面"],
+    ["collider", "碰撞体"], ["wireframe", "线框"], ["spin", "自动旋转"],
+  ];
+  for (const [key, label] of items) {
+    const wrap = document.createElement("label");
+    wrap.innerHTML = '<input type="checkbox"> ' + label;
+    const box = wrap.querySelector("input");
+    box.checked = view[key];
+    box.addEventListener("change", () => {
+      view[key] = box.checked;
+      if (key === "white") renderer.setClearColor(view.white ? BG_WHITE : BG_GAME, 1);
+      if (key === "ground") ground.visible = view.ground;
+      if (key === "collider" && collider) collider.visible = view.collider;
+      if (key === "wireframe") material.wireframe = view.wireframe;
+    });
+    host.appendChild(wrap);
+  }
+}
+
+function syncControls() {
+  for (const key in outputs) {
+    const ctl = outputs[key];
+    if (key.startsWith("c:")) {
+      ctl.input.value = "#" + _c.set(C[key.slice(2)]).getHexString();
+    } else {
+      ctl.input.value = P[key];
+      ctl.out.textContent = Number(P[key]).toFixed(ctl.step < 0.01 ? 3 : 2);
+    }
+  }
+}
+
+function setVariant(next) {
+  aged = next;
+  C = paletteFor(aged);
+  const m = aged ? MAT_AGED : MAT_FRESH;
+  P.rough = m.rough; P.metal = m.metal; P.cc = m.cc; P.ccRough = m.ccRough;
+  document.getElementById("btnFresh").className = aged ? "" : "primary";
+  document.getElementById("btnAged").className = aged ? "primary" : "";
+  syncControls();
+  rebuild();
+}
+
+function refreshDump() {
+  const colors = {};
+  for (const [key] of COLOR_KEYS) colors[key] = "#" + _c.set(C[key]).getHexString();
+  document.getElementById("dump").value = JSON.stringify(
+    { variant: aged ? "aged" : "fresh", params: P, colors: colors }, null, 2);
+}
+
+document.getElementById("btnFresh").addEventListener("click", () => setVariant(false));
+document.getElementById("btnAged").addEventListener("click", () => setVariant(true));
+document.getElementById("btnHit").addEventListener("click", () => hit(P.hitSpeed, 0, -1));
+document.getElementById("btnLoop").addEventListener("click", (e) => {
+  loopHit = !loopHit;
+  e.target.textContent = "循环撞击：" + (loopHit ? "开" : "关");
+});
+document.getElementById("btnReset").addEventListener("click", () => {
+  P = Object.assign({}, DEFAULT_P);
+  setVariant(aged);
+});
+document.getElementById("btnCopy").addEventListener("click", () => {
+  const area = document.getElementById("dump");
+  area.select();
+  let done = false;
+  try { done = document.execCommand("copy"); } catch (err) { done = false; }
+  if (!done && navigator.clipboard) navigator.clipboard.writeText(area.value).catch(() => {});
+  const btn = document.getElementById("btnCopy");
+  btn.textContent = "已复制 ✓";
+  setTimeout(() => { btn.textContent = "复制参数"; }, 1200);
+});
+
+buildViewChecks();
+buildColors();
+buildSliders();
+renderer.setClearColor(BG_GAME, 1);
+rebuildCollider();
+rebuild();
+resize();
+applyCamera();
+
+/* ---------------------------------------------------------------------
+ * 9) 主循环
+ * ------------------------------------------------------------------- */
+
+let last = performance.now();
+let loopTimer = 0;
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+  if (view.spin) orbit.yaw += dt * 0.5;
+  if (loopHit) {
+    loopTimer -= dt;
+    if (loopTimer <= 0) { hit(P.hitSpeed, 0, -1); loopTimer = 1.4; }
+  }
+  stepSpring(dt);
+  applyCamera();
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

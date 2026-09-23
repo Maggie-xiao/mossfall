@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Moss Tilt — Title Options v2</title>
+<style>
+  /* 全部用 macOS 自带字体，所见即所得。定稿后转成 SVG 轮廓嵌进游戏，
+     不再依赖任何字体文件，安卓/Windows 上完全一致。 */
+  :root{
+    --slab:'Superclarendon','Superclarendon Regular',Georgia,serif;
+    --typw:'American Typewriter',Georgia,serif;
+    --fut:'Futura','Futura Medium',Avenir,sans-serif;
+    --trat:'Trattatello',fantasy,serif;
+    --aven:'Avenir Next','Avenir',system-ui,sans-serif;
+    --cream:#f6fce0; --cream2:#eaf6c4;
+    --deep:#0c2a16; --deep2:#16351f;
+    --moss:#a8cd6d; --moss-lt:#d9f0a4; --gold:#f3d78d;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:#07140d;color:#eff8d1;
+    font-family:-apple-system,system-ui,sans-serif}
+
+  /* 实时游戏画面当底。标题横跨中间深色树干 + 两侧浅色叶丛，
+     明暗正好相反 —— 这是这个标题最难的地方，必须在真背景上判断。 */
+  .world{position:fixed;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+
+  /* 游戏 UI 是 1280×720 定尺盒 + 单一缩放。这里复刻同一套坐标，
+     所以稿子里的位置和大小 = 游戏里的位置和大小。 */
+  .uispace{position:fixed;left:50%;top:50%;width:1280px;height:720px;z-index:3;
+    transform:translate(-50%,-50%) scale(var(--fit,1));transform-origin:center;pointer-events:none}
+  .mark{position:absolute;left:50%;top:118px;width:620px;transform:translateX(-50%);
+    display:none;text-align:center;white-space:nowrap;user-select:none}
+  .mark.on{display:block}
+
+  /* 共用的抗背景方案：奶白字身 + 一圈深林光晕（压浅叶丛）+ 落影（压深树干）。
+     只做落影会在浅色叶丛上糊掉，只做描边会在深树干上发闷，两个都要。 */
+  .halo{filter:
+      drop-shadow(0 0 9px rgba(6,26,14,.86))
+      drop-shadow(0 0 22px rgba(6,26,14,.55))
+      drop-shadow(0 14px 26px rgba(2,12,8,.55))}
+
+  /* ---------- A · CANOPY SLAB ---------- */
+  .A .w{font-family:var(--slab);font-weight:700;font-size:96px;line-height:1;
+    letter-spacing:.01em;color:var(--cream);display:inline-block;transform:rotate(-1.6deg)}
+  .A .w em{font-style:normal;color:var(--moss-lt)}
+  .A .leaf{display:inline-block;width:20px;height:34px;margin:0 14px;vertical-align:-4px;
+    border-radius:100% 0 100% 0;background:linear-gradient(145deg,#eefbc0,#79ab4d 74%);
+    transform:rotate(42deg)}
+  .A .rule{width:390px;height:2px;margin:16px auto 0;border-radius:2px;
+    background:linear-gradient(90deg,transparent,rgba(216,240,160,.85),transparent);
+    transform:rotate(-1.6deg)}
+
+  /* ---------- B · HEAVY PRESS ---------- */
+  .B .w{font-family:var(--typw);font-weight:700;font-size:104px;line-height:.94;
+    color:var(--cream);-webkit-text-stroke:7px var(--deep);paint-order:stroke fill}
+  .B .w span{display:block}
+  .B .w .t{letter-spacing:.30em;text-indent:.30em}   /* 齐宽：MOSS 4 字 / TILT 4 字，字距顶齐 */
+  .B .kb{margin-top:14px;font-family:var(--aven);font-weight:600;font-size:15px;
+    letter-spacing:.42em;text-indent:.42em;color:var(--moss-lt)}
+
+  /* ---------- C · TILT ---------- */
+  .C .top{font-family:var(--fut);font-weight:500;font-size:30px;
+    letter-spacing:.64em;text-indent:.64em;color:var(--moss-lt)}
+  .C .big{margin-top:6px;font-family:var(--fut);font-weight:500;font-size:118px;line-height:1;
+    letter-spacing:.14em;text-indent:.14em;color:var(--cream);
+    display:inline-block;transform:rotate(-7deg)}   /* 字面意义上的 tilt */
+  .C .rule{width:300px;height:2px;margin:2px auto 0;border-radius:2px;background:var(--moss);
+    transform:rotate(-7deg)}
+
+  /* ---------- D · FOREST CUT ---------- */
+  .D .w{font-family:var(--trat);font-size:104px;line-height:1;color:var(--cream)}
+  .D .w em{font-style:normal;color:#eae6a8}
+  .D .vine{display:block;margin:8px auto 0}
+
+  /* ---------- E · BOLD CASUAL ---------- */
+  .E .w{font-family:var(--aven);font-weight:800;font-size:92px;line-height:1;
+    letter-spacing:-.005em;color:var(--cream);
+    text-shadow:0 5px 0 #2b5230, 0 10px 0 rgba(8,32,16,.9)}
+  .E .w em{font-style:normal;color:var(--gold);text-shadow:0 5px 0 #6a5a22, 0 10px 0 rgba(8,32,16,.9)}
+  .E .leaf{display:inline-block;width:18px;height:31px;margin:0 12px;vertical-align:-2px;
+    border-radius:100% 0 100% 0;background:linear-gradient(145deg,#eefbc0,#79ab4d 74%);
+    transform:rotate(42deg)}
+  .E .kb{margin-top:16px;font-family:var(--aven);font-weight:700;font-size:14px;
+    letter-spacing:.4em;text-indent:.4em;color:var(--moss-lt)}
+
+  /* ---------- 底部选择器 ---------- */
+  .picker{position:fixed;left:0;right:0;bottom:0;z-index:9;display:flex;gap:8px;
+    justify-content:center;flex-wrap:wrap;
+    padding:14px 16px max(16px,env(safe-area-inset-bottom));
+    background:rgba(4,17,10,.78);border-top:1px solid rgba(211,237,157,.18);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+  .picker button{min-width:132px;height:52px;border:0;border-radius:8px;cursor:pointer;
+    color:#dce9ba;background:rgba(21,54,32,.85);box-shadow:inset 0 0 0 1px rgba(214,239,165,.22);
+    font:600 13.5px/1.35 -apple-system,system-ui,sans-serif}
+  .picker button b{display:block;font-size:14.5px;margin-bottom:3px}
+  .picker button[aria-pressed=true]{color:#12301c;background:#d4e99a;box-shadow:0 4px 0 #6c8d49}
+  .note{position:fixed;left:16px;top:14px;z-index:9;max-width:430px;font-size:12.5px;
+    line-height:1.7;color:rgba(226,240,196,.72);text-shadow:0 1px 4px rgba(0,0,0,.9)}
+</style>
+</head>
+<body>
+
+<iframe class="world" src="./" title="Moss Tilt live cover" aria-hidden="true"></iframe>
+
+<p class="note">
+  底下是<b>实时游戏画面</b>，标题按游戏真实坐标（1280×720 盒 / top 118 / 宽 620）叠上去，
+  所以这里的位置和大小就是游戏里的。原标题已隐藏。
+</p>
+
+<div class="uispace">
+
+  <div class="mark A on halo">
+    <div class="w">MOSS<i class="leaf"></i><em>TILT</em></div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="mark B halo">
+    <div class="w"><span class="t">MOSS</span><span class="t">TILT</span></div>
+    <div class="kb">FIND YOUR BALANCE</div>
+  </div>
+
+  <div class="mark C halo">
+    <div class="top">MOSS</div>
+    <div class="big">TILT</div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="mark D halo">
+    <div class="w">MOSS <em>TILT</em></div>
+    <svg class="vine" width="360" height="26" viewBox="0 0 360 26" fill="none" aria-hidden="true">
+      <path d="M14 15c58-12 96-11 148 2 47 12 86 11 144-4" stroke="#b9dc84" stroke-width="2.2"
+            stroke-linecap="round" opacity=".9"/>
+      <path d="M96 13c-6-8-16-9-22-4 6 8 16 9 22 4Z" fill="#cdeb96"/>
+      <path d="M252 13c6-8 16-9 22-4-6 8-16 9-22 4Z" fill="#cdeb96"/>
+    </svg>
+  </div>
+
+  <div class="mark E halo">
+    <div class="w">MOSS<i class="leaf"></i><em>TILT</em></div>
+    <div class="kb">LEAN &nbsp;·&nbsp; ROLL &nbsp;·&nbsp; DROP</div>
+  </div>
+
+</div>
+
+<nav class="picker" aria-label="Title style options">
+  <button data-i="0" aria-pressed="true"><b>A · Canopy Slab</b>Superclarendon｜童书感板衬线</button>
+  <button data-i="1" aria-pressed="false"><b>B · Heavy Press</b>American Typewriter｜两行齐宽</button>
+  <button data-i="2" aria-pressed="false"><b>C · Tilt</b>Futura｜TILT 真的是歪的</button>
+  <button data-i="3" aria-pressed="false"><b>D · Forest Cut</b>Trattatello｜手刻感 + 藤蔓</button>
+  <button data-i="4" aria-pressed="false"><b>E · Bold Casual</b>Avenir Heavy｜厚实，最抗糊</button>
+</nav>
+
+<script>
+  // 复刻游戏的缩放：min(vw/1280, vh/720)
+  function fit(){
+    document.documentElement.style.setProperty('--fit',
+      String(Math.min(innerWidth/1280, innerHeight/720)));
+  }
+  fit(); addEventListener('resize', fit, {passive:true});
+
+  // 藏掉 iframe 里的原标题，免得两个标题叠在一起
+  const frame = document.querySelector('.world');
+  frame.addEventListener('load', () => {
+    const hide = () => {
+      try{
+        const d = frame.contentDocument;
+        const el = d && d.querySelector('.title-screen .logo');
+        if (el) { el.style.visibility = 'hidden'; return true; }
+      }catch(e){}
+      return false;
+    };
+    if (!hide()) { let n = 0; const id = setInterval(() => { if (hide() || ++n > 40) clearInterval(id); }, 250); }
+  });
+
+  const marks = [...document.querySelectorAll('.mark')];
+  const btns  = [...document.querySelectorAll('.picker button')];
+  btns.forEach(b => b.addEventListener('click', () => {
+    const i = +b.dataset.i;
+    marks.forEach((m, k) => m.classList.toggle('on', k === i));
+    btns.forEach(x => x.setAttribute('aria-pressed', String(+x.dataset.i === i)));
+  }));
+</script>
+</body>
+</html>

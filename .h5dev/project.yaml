@@ -1,0 +1,14 @@
+id: mossfall
+display_name: Moss Tilt
+repo_url: https://git.kiwiiai.cn/Kiwii-AI/h5-balance-mossfall
+status: prototype
+stack: custom
+sdk_version: 0.2.0-private.1
+owner_team: Game-Dev
+default_branch: main
+demo_url: null
+tags:
+  - h5-game
+  - balance-board
+  - cop
+  - threejs

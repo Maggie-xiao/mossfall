@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Moss Tilt title options</title>
+  <style>
+    @font-face{font-family:Bricolage;src:url("./fonts/bricolage-grotesque-400.ttf") format("truetype");font-weight:400}
+    @font-face{font-family:Bricolage;src:url("./fonts/bricolage-grotesque-600.ttf") format("truetype");font-weight:600}
+    @font-face{font-family:Bricolage;src:url("./fonts/bricolage-grotesque-800.ttf") format("truetype");font-weight:800}
+    @font-face{font-family:SpaceG;src:url("./fonts/space-grotesk-500.ttf") format("truetype");font-weight:500}
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#07140d;color:#eff8d1}
+    body{font-family:Bricolage,system-ui,sans-serif}
+    .world{position:fixed;inset:0;width:100%;height:100%;border:0;transform:scale(1.012);pointer-events:none}
+    .shade{position:fixed;inset:0;background:linear-gradient(180deg,rgba(3,14,8,.12),rgba(3,14,8,.02) 46%,rgba(2,11,7,.72) 100%);pointer-events:none}
+    main{position:fixed;inset:0;display:grid;grid-template-rows:1fr auto;z-index:2}
+    .hero{display:grid;place-items:center;min-height:0;padding:40px 24px 16px}
+    .mark{position:relative;display:flex;align-items:center;justify-content:center;width:min(78vw,920px);min-height:190px;white-space:nowrap;transition:opacity 140ms ease,transform 200ms ease}
+    .mark.swap{opacity:0;transform:translateY(8px)}
+    .mark .moss,.mark .tilt{display:inline-block}
+    .mark .sprout{display:none}
+
+    .style-1{gap:30px;font-size:clamp(72px,9.6vw,138px);font-weight:400;line-height:1;color:#f2f6d7;filter:drop-shadow(0 18px 24px rgba(2,10,5,.48))}
+    .style-1 .moss,.style-1 .tilt{-webkit-text-stroke:1px rgba(255,255,226,.38);text-shadow:0 5px 0 #24462d}
+    .style-1 .moss{transform:skewX(-6deg)}
+    .style-1 .tilt{transform:skewX(6deg)}
+    .style-1::after{content:"";position:absolute;left:9%;right:9%;bottom:8px;height:2px;background:linear-gradient(90deg,transparent,#d9e994 20%,#d9e994 80%,transparent)}
+
+    .style-2{gap:20px;font-size:clamp(74px,10vw,142px);font-weight:800;line-height:1;filter:drop-shadow(0 16px 28px rgba(0,0,0,.5))}
+    .style-2 .moss,.style-2 .tilt{color:#afce70;-webkit-text-stroke:2px #eaf5b9;text-shadow:0 6px 0 #315333,0 12px 0 rgba(7,27,14,.72)}
+    .style-2 .moss{transform:rotate(-2deg)}
+    .style-2 .tilt{color:#e6dfa1;transform:rotate(2deg)}
+    .style-2 .sprout{display:block;position:absolute;left:49%;top:1px;width:22px;height:38px;border-radius:100% 0 100% 0;background:#cce997;transform:rotate(42deg)}
+
+    .style-3{gap:34px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(74px,10.2vw,146px);font-weight:400;line-height:.92;color:#f2ebc3;text-shadow:0 4px 0 #2d472f,0 18px 30px rgba(0,0,0,.48)}
+    .style-3 .moss{font-style:italic;transform:translateY(-5px)}
+    .style-3 .tilt{font-style:italic;transform:translateY(8px)}
+    .style-3::before{content:"";position:absolute;width:54%;height:72%;border-top:2px solid rgba(210,232,150,.72);border-radius:50%;top:5px;transform:rotate(-3deg)}
+
+    .style-4{gap:25px;font-size:clamp(72px,9.8vw,140px);font-weight:600;line-height:1;color:#eef7cf;filter:drop-shadow(0 18px 26px rgba(0,0,0,.5))}
+    .style-4 .moss,.style-4 .tilt{transform:scaleX(.88);text-shadow:3px 3px 0 #75984f,6px 6px 0 #29462f}
+    .style-4 .moss{clip-path:polygon(0 5%,100% 0,96% 92%,3% 100%)}
+    .style-4 .tilt{clip-path:polygon(4% 0,100% 7%,97% 100%,0 92%)}
+    .style-4::after{content:"";position:absolute;left:15%;right:15%;bottom:3px;height:7px;border-radius:50%;background:#b5d26f;box-shadow:0 4px 0 #29462f;transform:rotate(-1deg)}
+
+    .style-5{gap:16px;font-family:SpaceG,Bricolage,sans-serif;font-size:clamp(70px,9vw,130px);font-weight:500;line-height:1;letter-spacing:.08em;color:#eff5d2;text-shadow:0 3px 0 #3c6541,0 15px 30px rgba(0,0,0,.52)}
+    .style-5 .moss{border-bottom:3px solid #9fbe68;padding-bottom:9px}
+    .style-5 .tilt{border-top:3px solid #d8df99;padding-top:9px}
+
+    .style-6{display:grid;grid-template-columns:1fr;gap:0;text-align:center;font-size:clamp(66px,8.5vw,122px);font-weight:800;line-height:.69;color:#dceaa8;text-shadow:0 4px 0 #36583a,0 15px 28px rgba(0,0,0,.55)}
+    .style-6 .moss{transform:translateX(-13%);letter-spacing:.04em}
+    .style-6 .tilt{transform:translateX(18%);color:#f0e7b2;letter-spacing:.2em}
+    .style-6::after{content:"";position:absolute;left:29%;top:50%;width:42%;height:3px;background:#b4cf76;transform:rotate(-7deg);box-shadow:0 3px 0 #29462f}
+
+    .picker{display:grid;grid-template-columns:repeat(6,minmax(62px,108px));justify-content:center;gap:10px;padding:16px 20px max(20px,env(safe-area-inset-bottom));background:rgba(3,15,9,.72);border-top:1px solid rgba(211,237,157,.18);backdrop-filter:blur(18px)}
+    .picker button{height:52px;border:0;border-radius:6px;color:#dce9ba;background:rgba(20,52,31,.82);box-shadow:inset 0 0 0 1px rgba(214,239,165,.2);font:600 15px/1 SpaceG,sans-serif;cursor:pointer}
+    .picker button[aria-pressed="true"]{color:#17341f;background:#d4e99a;box-shadow:0 4px 0 #6c8d49}
+    @media(max-width:680px){.picker{grid-template-columns:repeat(6,1fr);gap:6px;padding-inline:10px}.picker button{height:46px}.mark{width:94vw}.style-1,.style-2,.style-3,.style-4,.style-5{gap:12px}.style-6 .moss{transform:translateX(-8%)}.style-6 .tilt{transform:translateX(12%)}}
+    @media(prefers-reduced-motion:reduce){.mark{transition:none}}
+  </style>
+</head>
+<body>
+  <iframe class="world" src="./" title="Moss Tilt live cover" aria-hidden="true"></iframe>
+  <div class="shade" aria-hidden="true"></div>
+  <main>
+    <section class="hero" aria-label="Selected title preview">
+      <h1 class="mark style-1" aria-label="Moss Tilt"><span class="moss">MOSS</span><i class="sprout" aria-hidden="true"></i><span class="tilt">TILT</span></h1>
+    </section>
+    <nav class="picker" aria-label="Title style options">
+      <button type="button" data-style="1" aria-pressed="true">01</button>
+      <button type="button" data-style="2" aria-pressed="false">02</button>
+      <button type="button" data-style="3" aria-pressed="false">03</button>
+      <button type="button" data-style="4" aria-pressed="false">04</button>
+      <button type="button" data-style="5" aria-pressed="false">05</button>
+      <button type="button" data-style="6" aria-pressed="false">06</button>
+    </nav>
+  </main>
+  <script>
+    const frame = document.querySelector(".world");
+    const mark = document.querySelector(".mark");
+    const buttons = [...document.querySelectorAll("[data-style]")];
+    frame.addEventListener("load", () => {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      const style = doc.createElement("style");
+      style.textContent = "#screen-layer,#screen-backdrop,#ui-layer,#boot-fallback{display:none!important}";
+      doc.head.appendChild(style);
+    });
+    for (const button of buttons) {
+      button.addEventListener("click", () => {
+        const next = button.dataset.style;
+        mark.classList.add("swap");
+        window.setTimeout(() => {
+          mark.className = `mark style-${next}`;
+          for (const item of buttons) item.setAttribute("aria-pressed", String(item === button));
+        }, 140);
+      });
+    }
+  </script>
+</body>
+</html>

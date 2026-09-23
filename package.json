@@ -1,0 +1,26 @@
+{
+  "name": "kiwii-mossfall-table-tilt",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "npm run build && node tools/serve.mjs",
+    "serve": "node tools/serve.mjs",
+    "snail": "node tools/build-snail-standalone.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "runtime:evidence": "node scripts/runtime-evidence.mjs",
+    "verify": "npm test && npm run build",
+    "verify:evidence": "npm run verify && npm run runtime:evidence"
+  },
+  "dependencies": {
+    "@kiwii/game-sdk": "file:private/sdk-candidates/kiwii-game-sdk-0.2.0-private.1.tgz",
+    "@kiwii/game-sdk-external-game-candidate": "file:private/sdk-candidates/kiwii-game-sdk-external-game-candidate-0.2.0-private.1.tgz",
+    "three": "0.169.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.6",
+    "jpeg-js": "0.4.4",
+    "pngjs": "7.0.0"
+  }
+}

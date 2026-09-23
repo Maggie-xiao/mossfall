@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "target_html": "../../../index.html",
+  "generated_on": "2026-08-16",
+  "scope": "Candidate review only. No production audio mapping is changed before user selection.",
+  "bgm_policy": "Preserve both existing BGM files and references byte-for-byte.",
+  "cues": [
+    {
+      "key": "ending-paper-bonk",
+      "category": "sfx",
+      "origin": "procedural",
+      "decision": "replace",
+      "event": "The crumpled fortune paper lands on the ending beetle's head.",
+      "implementation_ref": "EndingDirector._actTwo() -> callbacks.onImpact -> GameAudio.hit(0.45)",
+      "trigger_event": "u crosses BONK_AT",
+      "timing": "Immediate at the visible head contact frame.",
+      "repetition_pattern": "Once per completed run.",
+      "replacement_key": "ending-paper-bonk",
+      "fallback_policy": "Keep the current generic impact only as a load/decode fallback.",
+      "decision_reason": "The current hard-surface marble impact does not communicate a light crumpled-paper bonk."
+    },
+    {
+      "key": "ending-fortune-appear",
+      "category": "sfx",
+      "origin": "missing",
+      "decision": "add",
+      "event": "The fortune words begin revealing across the unfolded paper.",
+      "implementation_ref": "EndingDirector._actTwo() -> EndingScroll.setReveal()",
+      "trigger_event": "u crosses WORD_AT",
+      "timing": "Start on the first visible word; the useful body may support the opening part of the reveal.",
+      "repetition_pattern": "Once per completed run.",
+      "replacement_key": "ending-fortune-appear",
+      "fallback_policy": "Silence if the selected file fails to load.",
+      "decision_reason": "The reveal is a major ceremonial beat and currently has no independent audible identity."
+    },
+    {
+      "key": "ending-fortune-vanish",
+      "category": "sfx",
+      "origin": "missing",
+      "decision": "add",
+      "event": "The fortune paper dissolves into light motes after the reading hold.",
+      "implementation_ref": "EndingDirector._actTwo() -> EndingScroll.setDissolve()",
+      "trigger_event": "u crosses vanishAt",
+      "timing": "Start at dissolve onset and resolve within VANISH_DUR.",
+      "repetition_pattern": "Once per completed run.",
+      "replacement_key": "ending-fortune-vanish",
+      "fallback_policy": "Silence if the selected file fails to load.",
+      "decision_reason": "The visual dissolve closes the ending ceremony and currently fades without a matching sound."
+    }
+  ]
+}

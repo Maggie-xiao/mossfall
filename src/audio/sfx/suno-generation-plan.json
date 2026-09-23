@@ -1,0 +1,845 @@
+{
+  "schema_version": 1,
+  "target_html": "../../index.html",
+  "audio_dir": ".",
+  "source": "Suno web",
+  "credit_budget": null,
+  "units": [
+    {
+      "id": "mossfall-level-clear",
+      "cue_keys": [
+        "level-clear-rejected-20260806"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Isolated stylized game sound effect for completing a level in a gentle magical moss forest balance game. A crisp soft wooden-glass sparkle at the start, followed by a warm organic leaf flex release, tiny luminous chimes, and a restrained airy forest shimmer tail. Precise rewarding transient, elegant natural magic, family-friendly, intimate and polished, centered clean game mix, about 1.2 to 1.8 seconds.",
+      "negative_prompt": "music, song, melody phrase, vocals, speech, choir, fanfare, brass, heavy drums, cinematic boom, cartoon jingle, retro arcade, long ambience, rain, birds, insects, harsh high frequencies, clipping",
+      "expected_duration_seconds": [
+        1.2,
+        1.8
+      ],
+      "attempt_limit": 2,
+      "status": "rejected",
+      "user_review": {
+        "reviewed_on": "2026-08-06",
+        "status": "rejected-pending-replacement",
+        "reason": "The 0.786-second leafy cue is improved but still lacks enough character and satisfaction. Keep it active only until the user selects a stronger alternative."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-06T06:48:00Z",
+          "prompt": "Isolated one-shot game SFX for completing a level in a gentle magical moss forest balance game. Start with a crisp soft wood-and-glass sparkle, then a warm organic leaf-flex release, tiny luminous chimes, and a restrained airy forest shimmer tail. Precise rewarding transient, intimate, elegant, family-friendly, clean centered mix, 1.2-1.8 seconds. No music, melody phrase, vocals, speech, choir, fanfare, brass, drums, cinematic boom, arcade jingle, birds, insects, rain, harsh highs, clipping.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state shows a paid Pro plan; the public plan copy states commercial use rights for new creations made on paid plans. Release rights remain subject to the account's current Suno terms.",
+          "status": "rejected",
+          "candidates": [
+            {
+              "id": "66330061-cdf5-407e-b645-bb5e6abb2886",
+              "url": "https://suno.com/song/66330061-cdf5-407e-b645-bb5e6abb2886",
+              "duration_seconds": 9,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-attempt-1-candidate-1.wav",
+              "selection_reason": null,
+              "rejection_reason": "Too long and too eventful for the 2.4-second win tableau. The first 3.5 seconds stay near the cue's main RMS level, reading as a miniature soundscape instead of one completion accent."
+            },
+            {
+              "id": "32aabe30-ff32-4dc1-b6fd-d24dfc4eb1b6",
+              "url": "https://suno.com/song/32aabe30-ff32-4dc1-b6fd-d24dfc4eb1b6",
+              "duration_seconds": 5.12,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-attempt-1-candidate-2.wav",
+              "selection_reason": null,
+              "rejection_reason": "Cleaner than candidate 1, but it retains a distinct second energy stage after 1.5 seconds and an active tail through 5.12 seconds. Trimming to the target range would cut through meaningful content."
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "submitted_at_utc": "2026-08-06T07:07:00Z",
+          "prompt": "Single isolated one-shot completion SFX, not a sequence. One soft glass-wood sparkle at 0.0s, one warm leaf-flex release beneath it, then a very short mossy air shimmer that is silent by 1.4s. Gentle magical forest balance game, intimate, organic, polished, centered dry mix. Exactly one impact and one decay, no second hit, no repeated chimes, no melody, no rhythm, no ambience bed, no vocals, no choir, no fanfare, no brass, no drums, no boom, no birds, no insects, no rain, no harsh highs, no clipping.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state shows a paid Pro plan; the public plan copy states commercial use rights for new creations made on paid plans. Release rights remain subject to the account's current Suno terms.",
+          "status": "ready",
+          "candidates": [
+            {
+              "id": "caa315b3-362e-4f0d-a976-aed787c0d20c",
+              "url": "https://suno.com/song/caa315b3-362e-4f0d-a976-aed787c0d20c",
+              "duration_seconds": 2,
+              "status": "verified",
+              "source_file": "_source/suno/mossfall-level-clear-attempt-2-candidate-1.wav",
+              "source_sha256": "9c8f2c01a528326a88eeec6a9e44ba23060c3201e750475e3000636980e6da5e",
+              "selection_reason": "One concentrated transient at 0.075 seconds, approximately 0.95 seconds of active sound, 99.69 percent of energy within 0.6 seconds, and a smooth restrained decay. It provides more organic body than candidate 2 without introducing a second event.",
+              "rejection_reason": null
+            },
+            {
+              "id": "eef23631-f9f7-4b30-b8d1-d4f065a59e8f",
+              "url": "https://suno.com/song/eef23631-f9f7-4b30-b8d1-d4f065a59e8f",
+              "duration_seconds": 2,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-attempt-2-candidate-2.wav",
+              "source_sha256": "7537708e973a720f9dc48e8304df62a74289f940fc454ef550e3b18e3a8f9ce4",
+              "selection_reason": null,
+              "rejection_reason": "Although concise, its 0.61-second active body has very high spectral flatness and a thinner, noisier high-frequency character. Candidate 1 better supports the soft living-leaf atmosphere."
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "caa315b3-362e-4f0d-a976-aed787c0d20c",
+      "source_file": "_source/suno/mossfall-level-clear-attempt-2-candidate-1.wav",
+      "production_file": "retired-level-clear-20260806.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 24,
+        "edge_fade_ms": 12
+      },
+      "processing_result": {
+        "source_file": "_source/mossfall-level-clear-source.wav",
+        "production_file": "_source/retired-level-clear-20260806.ogg",
+        "source_sha256": "9c8f2c01a528326a88eeec6a9e44ba23060c3201e750475e3000636980e6da5e",
+        "production_sha256": "fc92bf2e4bb6ff0d2caa48f2b222f5e7ea80c24ac8c3c53b87ce66858ae057eb",
+        "output_duration_seconds": 0.975812,
+        "quality_passed": true
+      },
+      "verification": {
+        "browser_runtime_report": "browser-runtime-report.json",
+        "validation_pack": "../../../verification/audio-sfx-20260806",
+        "audio_pack_errors": 0,
+        "audio_pack_warnings": 0,
+        "level_clear_http_status": 200,
+        "level_clear_decoded": true,
+        "level_clear_implementation": "sample",
+        "level_clear_fallback": false,
+        "javascript_errors": 0,
+        "unit_tests_passed": 85,
+        "production_build_passed": true
+      },
+      "integration_targets": [
+        {
+          "file": "../../controller.js",
+          "event": "LEVEL_CLEAR state entry aligned with the leaf bend, camera win impulse, beetle glow, and time-bonus pulse",
+          "symbol": "GameController.enterState"
+        },
+        {
+          "file": "../../audio.js",
+          "event": "Semantic level-clear playback with procedural fallback only on load or decode failure",
+          "symbol": "GameAudio.clear"
+        }
+      ],
+      "notes": "Retained for levels 1-7 only after user review rejected it as the final victory treatment. Preserve both current BGM tracks and all unrelated SFX."
+    },
+    {
+      "id": "mossfall-run-victory",
+      "cue_keys": [
+        "run-victory-rejected-20260806"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Isolated final victory celebration sound effect for Mossfall, a gentle magical balance game set on living leaves beneath the Lantern Tree. At 0.0 seconds, an immediate confident wooden-and-glass victory stinger. Then a joyful wordless crowd of tiny woodland creatures and beetles cheering because every beetle has reached its glowing burrow, with seed-pod claps, soft leaf percussion, warm organic celebration, rising luminous chimes, pollen and firefly shimmer, and a clear triumphant homecoming cadence. Big, unmistakably victorious, charming and family-friendly, polished centered game mix, 3.8 to 5.5 seconds, with a clean resolved ending.",
+      "negative_prompt": "human stadium crowd, intelligible speech, lyrics, singing, announcer, choir, brass band, military fanfare, sports arena, EDM, rock drums, cinematic trailer boom, horror creatures, cartoon boing, arcade jingle, long music track, looping ambience, birdsong, rain, harsh screaming, piercing highs, clipping, second ending",
+      "expected_duration_seconds": [
+        3.8,
+        5.5
+      ],
+      "attempt_limit": 2,
+      "status": "rejected",
+      "user_review": {
+        "reviewed_on": "2026-08-06",
+        "status": "rejected-for-current-use",
+        "reason": "The single combined cue is too exaggerated. Replace it with three independently mixed layers in order: applause, cheer, then a light fresh celebration accent, with a combined duration around 2.5 seconds."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-06T08:15:41.556Z",
+          "prompt": "Final victory SFX for Mossfall, a magical living-leaf forest game. Immediate confident wood-and-glass win stinger; joyful wordless tiny woodland creatures and beetles cheering as all beetles reach glowing burrows; seed-pod claps, leaf percussion, rising luminous chimes, pollen/firefly shimmer, warm triumphant homecoming cadence, clean ending, 4-5 seconds. No human stadium, speech, lyrics, singing, choir, brass band, sports fanfare, EDM, trailer boom, horror, arcade jingle, screams or clipping.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state provides Pro-only WAV download and paid-plan creation access. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "selected",
+          "candidates": [
+            {
+              "id": "9523ef65-6875-420a-aa1e-e95096a5a245",
+              "url": "https://suno.com/song/9523ef65-6875-420a-aa1e-e95096a5a245",
+              "duration_seconds": 8.3335,
+              "status": "selected",
+              "source_file": "_source/suno/mossfall-run-victory-attempt-1-candidate-1.mp3",
+              "source_sha256": "0c192397c98cca6d1e3960d5c6860ebdab391244c9be2d2e229bbfc27b0a31ed",
+              "analysis_file": "_source/suno/mossfall-run-victory-attempt-1-candidate-1.wav",
+              "analysis_sha256": "a26851cf0743f9a2e6bb7e3b3436a67bfdea63798761e81831874967b5b35d22",
+              "selection_reason": "Strong opening within 0.25 seconds, meaningful celebration energy through about 5.0 seconds, and a warmer 3.8 kHz production spectral centroid. The selected 0.0-5.35 second segment preserves the complete victory arc while removing more than two seconds of empty tail.",
+              "rejection_reason": null
+            },
+            {
+              "id": "e177f328-7598-4c52-a56e-0835187e2709",
+              "url": "https://suno.com/song/e177f328-7598-4c52-a56e-0835187e2709",
+              "duration_seconds": 7.000167,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-run-victory-attempt-1-candidate-2.mp3",
+              "source_sha256": "d5d35fe4691a71b27bcddb5daea8170a1229a5c50f5b2e765b68fba80deb57ea",
+              "analysis_file": "_source/suno/mossfall-run-victory-attempt-1-candidate-2.wav",
+              "analysis_sha256": "30814ebfd076f4c38b6a84943c5cb9d08cd9fc2caffeaefc3dbfff7d7013a87c",
+              "selection_reason": null,
+              "rejection_reason": "The main energy resolves by about 4.1 seconds, the opening reaches full strength later, and the brighter 6.0 kHz spectral balance is less warm and grounded than candidate 1 for the Lantern Tree homecoming."
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "9523ef65-6875-420a-aa1e-e95096a5a245",
+      "source_file": "_source/suno/mossfall-run-victory-attempt-1-candidate-1.mp3",
+      "production_file": "retired-run-victory-monolithic-20260806.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 80,
+        "edge_fade_ms": 20
+      },
+      "processing_result": {
+        "source_file": "_source/mossfall-run-victory-source.wav",
+        "production_file": "_source/retired-run-victory-monolithic-20260806.ogg",
+        "source_sha256": "14f26a27107444f72515c0f741108746f58d4b54046c9bb71c1276bcc129a1e5",
+        "production_sha256": "31a176fe2ca48863768386c8794e05d15b03316e7c5c21000f63d87e680b06cd",
+        "selected_segment_seconds": [
+          0,
+          5.35
+        ],
+        "output_duration_seconds": 5.35,
+        "quality_passed": true
+      },
+      "verification": {
+        "browser_runtime_report": "browser-runtime-report.json",
+        "validation_pack": "../../../verification/audio-sfx-20260806",
+        "audio_pack_errors": 0,
+        "audio_pack_warnings": 0,
+        "sfx_files_loaded_and_decoded": 12,
+        "bgm_files_loaded_and_decoded": 2,
+        "run_victory_http_status": 200,
+        "run_victory_decoded": true,
+        "run_victory_implementation": "sample",
+        "run_victory_fallback": false,
+        "javascript_errors": 0,
+        "javascript_warnings": 0,
+        "unit_tests_passed": 85,
+        "production_build_passed": true
+      },
+      "reference_evidence": {
+        "project": "h5-balance-snowline-sprint",
+        "structure": "finish-crowd plus well_done stinger at FINISH_COAST, followed by bgm_victory and result-reveal at RESULT",
+        "translation": "Replace the human sports crowd and alpine victory music with woodland creature cheering, organic leaf and seed percussion, and Lantern Tree magic."
+      },
+      "integration_targets": [
+        {
+          "file": "../../controller.js",
+          "event": "Final LEVEL_CLEAR state entry when levelClear.isFinal is true; the cue spans RUN_COMPLETE into RESULT_CALC",
+          "symbol": "TableTiltController.enterState"
+        },
+        {
+          "file": "../../audio.js",
+          "event": "Semantic final-run victory playback with a layered procedural fallback only on load or decode failure",
+          "symbol": "GameAudio.victory"
+        },
+        {
+          "file": "../../controller.js",
+          "event": "QA audio tour records a dedicated run-victory flow and confirms sample playback without fallback",
+          "symbol": "TableTiltController.debugAudioTour"
+        }
+      ],
+      "notes": "Retained only as rollback evidence after user review rejected the monolithic mix. Both current BGM tracks remain protected."
+    },
+    {
+      "id": "mossfall-level-clear-leaf-v2",
+      "cue_keys": [
+        "level-clear"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Single cute crisp leaf-completion SFX for Mossfall. One tiny fresh green leaf unfurls and flicks open, a soft leafy snap and rustle with a dewdrop plink and brief firefly sparkle, clean silence by 0.8 seconds. Delicate, playful, organic, family-friendly, close dry game mix.",
+      "negative_prompt": "drums, percussion hit, wood knock, glass crash, chime melody, music, vocals, birds, insects, wind bed, cartoon boing, harsh highs, second hit, long tail",
+      "expected_duration_seconds": [
+        0.7,
+        0.9
+      ],
+      "attempt_limit": 2,
+      "status": "rejected",
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-06T09:12:52.387Z",
+          "prompt": "Single cute crisp leaf-completion SFX for Mossfall. One tiny fresh green leaf unfurls and flicks open, a soft leafy snap and rustle with a dewdrop plink and brief firefly sparkle, clean silence by 0.8 seconds. Delicate, playful, organic, family-friendly, close dry game mix. No drums, percussion hit, wood knock, glass crash, chime melody, music, vocals, birds, insects, wind bed, cartoon boing, harsh highs, second hit, long tail.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state provides paid-plan creation and Pro WAV download controls. Release rights remain subject to the generating account's current Suno plan and terms.",
+          "status": "rejected",
+          "candidates": [
+            {
+              "id": "0341bcbe-89f7-4e78-bc29-dfbd6fb98ac9",
+              "url": "https://suno.com/song/0341bcbe-89f7-4e78-bc29-dfbd6fb98ac9",
+              "duration_seconds": 2,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-leaf-v2-attempt-1-candidate-1.mp3",
+              "selection_reason": null,
+              "rejection_reason": "The first-attempt result did not provide as clean a short leafy phrase as the later second-attempt selection."
+            },
+            {
+              "id": "c37e12a6-6a49-496c-8f10-9559d15c7a68",
+              "url": "https://suno.com/song/c37e12a6-6a49-496c-8f10-9559d15c7a68",
+              "duration_seconds": 2,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-leaf-v2-attempt-1-candidate-2.mp3",
+              "selection_reason": null,
+              "rejection_reason": "The first-attempt result was not selected after the second attempt produced a clearer 0.8-second papery leaf opening."
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "submitted_at_utc": "2026-08-06T09:18:10.825Z",
+          "prompt": "Single cute crisp leaf-completion SFX for Mossfall. One tiny fresh leaf unfurls with a soft papery flick at 0.0 seconds, then a gentle airy leaf-rustle shimmer continues smoothly and fades naturally at 0.75 to 0.85 seconds, with one tiny dewdrop plink near the start. Organic green, playful, close dry game mix. No drums, percussion hit, wood knock, glass crash, melody, music, vocals, birds, insects, wind bed, cartoon boing, harsh highs, second hit or long tail.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state provides paid-plan creation and Pro WAV download controls. Release rights remain subject to the generating account's current Suno plan and terms.",
+          "status": "selected",
+          "candidates": [
+            {
+              "id": "4d20fda3-b22c-490c-a390-4360d14b43a3",
+              "url": "https://suno.com/song/4d20fda3-b22c-490c-a390-4360d14b43a3",
+              "duration_seconds": 4,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-leaf-v2-attempt-2-candidate-1.mp3",
+              "selection_reason": null,
+              "rejection_reason": "The four-second candidate could not be reduced to the requested single 0.8-second leaf acknowledgement as cleanly as candidate 2."
+            },
+            {
+              "id": "90ef9e37-f007-41a9-ab2b-2de58b340389",
+              "url": "https://suno.com/song/90ef9e37-f007-41a9-ab2b-2de58b340389",
+              "duration_seconds": 2,
+              "status": "selected",
+              "source_file": "_source/suno/mossfall-level-clear-leaf-v2-attempt-2-candidate-2.mp3",
+              "selection_reason": "The opening 0.82 seconds contain a crisp papery leaf flick, a light leafy tail, and no drum-like weight.",
+              "rejection_reason": null
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "90ef9e37-f007-41a9-ab2b-2de58b340389",
+      "source_file": "_source/suno/mossfall-level-clear-leaf-v2-source.wav",
+      "production_file": "retired-level-clear-leaf-v2-20260806.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 18,
+        "edge_fade_ms": 8
+      },
+      "processing_result": {
+        "source_file": "_source/mossfall-level-clear-leaf-v2-source.wav",
+        "production_file": "level-clear.ogg",
+        "source_sha256": "1ddda311b16e10736c9bc521665ce647940a252357823cbd3ef963c98afa279f",
+        "production_sha256": "8fde49553d8448f2ba09b08f125978315e3d926cf00a0031f4abae897fcd7405",
+        "selected_segment_seconds": [
+          0,
+          0.82
+        ],
+        "output_duration_seconds": 0.785896,
+        "quality_passed": true
+      },
+      "verification": {
+        "browser_runtime_report": "browser-runtime-report.json",
+        "validation_pack": "../../../verification/audio-sfx-20260806",
+        "audio_analysis_records": 22,
+        "audio_pack_errors": 0,
+        "audio_pack_warnings": 0,
+        "sfx_files_loaded_and_decoded": 14,
+        "bgm_files_loaded_and_decoded": 2,
+        "http_status": 200,
+        "decoded": true,
+        "implementation": "sample",
+        "fallback": false,
+        "scheduled_delay_ms": 0,
+        "javascript_errors": 0,
+        "javascript_warnings": 0,
+        "unit_tests_passed": 86,
+        "production_build_passed": true
+      },
+      "user_review": {
+        "reviewed_on": "2026-08-06",
+        "status": "rejected-replaced",
+        "reason": "The user found the leafy v2 cue still lacked enough character and selected supple-leaf-and-dewdrop candidate B as its replacement.",
+        "retired_production_file": "_source/retired-level-clear-leaf-v2-20260806.ogg"
+      },
+      "integration_targets": [
+        {
+          "file": "../../audio.js",
+          "event": "Replace the non-final level-clear sample while preserving the semantic method and fallback behavior",
+          "symbol": "GameAudio.clear"
+        },
+        {
+          "file": "../../controller.js",
+          "event": "Levels 1-7 only",
+          "symbol": "TableTiltController.enterState"
+        }
+      ],
+      "notes": "Retained as rollback evidence after the user selected the stronger supple-leaf-and-dewdrop v3 candidate."
+    },
+    {
+      "id": "mossfall-run-victory-applause",
+      "cue_keys": [
+        "run-victory-applause"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Isolated light applause layer for Mossfall final victory. Tiny woodland creatures clap soft leaves and petals in a cute fresh rhythm, starting immediately, gentle and intimate, clean dry stereo game layer, airy and organic, about 1.3 to 1.7 seconds.",
+      "negative_prompt": "stadium crowd, human hands, shouting, speech, music, drums, brass, big impacts, chanting, whistles, birds, rain, harsh claps, long tail",
+      "expected_duration_seconds": [
+        1.3,
+        1.7
+      ],
+      "attempt_limit": 2,
+      "status": "verified",
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-06T09:13:33.760Z",
+          "prompt": "Isolated light applause layer for Mossfall final victory. Tiny woodland creatures clap soft leaves and petals in a cute fresh rhythm, starting immediately, gentle and intimate, clean dry stereo game layer, airy and organic, about 1.3 to 1.7 seconds. No stadium crowd, human hands, shouting, speech, music, drums, brass, big impacts, chanting, whistles, birds, rain, harsh claps, long tail.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state provides paid-plan creation and Pro WAV download controls. Release rights remain subject to the generating account's current Suno plan and terms.",
+          "status": "selected",
+          "candidates": [
+            {
+              "id": "01f07779-9e7c-49d5-94b1-b91d0910f0b6",
+              "url": "https://suno.com/song/01f07779-9e7c-49d5-94b1-b91d0910f0b6",
+              "duration_seconds": 6,
+              "status": "selected",
+              "source_file": "_source/suno/mossfall-run-victory-applause-attempt-1-candidate-1.mp3",
+              "selection_reason": "Candidate 1 begins immediately and provides a light rhythmic applause phrase that fits the first 1.65 seconds.",
+              "rejection_reason": null
+            },
+            {
+              "id": "ae95b153-68e3-4945-977e-8ad2b4ad2f67",
+              "url": "https://suno.com/song/ae95b153-68e3-4945-977e-8ad2b4ad2f67",
+              "duration_seconds": 11,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-run-victory-applause-attempt-1-candidate-2.mp3",
+              "selection_reason": null,
+              "rejection_reason": "Its useful applause content begins roughly 0.4 seconds later, making the first layer less immediate."
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "01f07779-9e7c-49d5-94b1-b91d0910f0b6",
+      "source_file": "_source/suno/mossfall-run-victory-applause-source.wav",
+      "production_file": "run-victory-applause.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 24,
+        "edge_fade_ms": 12
+      },
+      "processing_result": {
+        "source_file": "_source/mossfall-run-victory-applause-source.wav",
+        "production_file": "run-victory-applause.ogg",
+        "source_sha256": "607685231f9d78a6c176328a9d56525ad370ed074a30d70dd6aa4789cbb5c37e",
+        "production_sha256": "ac1e32d8db2d0d67cd1734405b727f3b018ed1a6e3c7094491e35a7d140f32ed",
+        "selected_segment_seconds": [
+          0,
+          1.65
+        ],
+        "output_duration_seconds": 1.65,
+        "quality_passed": true
+      },
+      "verification": {
+        "browser_runtime_report": "browser-runtime-report.json",
+        "validation_pack": "../../../verification/audio-sfx-20260806",
+        "audio_analysis_records": 22,
+        "audio_pack_errors": 0,
+        "audio_pack_warnings": 0,
+        "sfx_files_loaded_and_decoded": 14,
+        "bgm_files_loaded_and_decoded": 2,
+        "http_status": 200,
+        "decoded": true,
+        "implementation": "sample",
+        "fallback": false,
+        "scheduled_delay_ms": 0,
+        "javascript_errors": 0,
+        "javascript_warnings": 0,
+        "unit_tests_passed": 86,
+        "production_build_passed": true
+      },
+      "integration_targets": [
+        {
+          "file": "../../audio.js",
+          "event": "First final-victory layer at 0.0 seconds",
+          "symbol": "GameAudio.victory"
+        }
+      ],
+      "notes": "Must remain a small leafy applause layer with no cheer or music baked in."
+    },
+    {
+      "id": "mossfall-run-victory-cheer",
+      "cue_keys": [
+        "run-victory-cheer"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Isolated short natural small-group victory cheer for Mossfall final completion. Three to five friendly adult human-like voices in a warm low-mid register give one brief wordless joyful cheer together, rounded and grounded, with a clean start within 80 milliseconds, one energetic peak, and a natural decay. Intimate magical forest celebration, family-friendly, dry centered stereo game sound effect, complete within about 0.9 to 1.4 seconds.",
+      "negative_prompt": "single voice, solo vocal, high-pitched scream, shriek, squeal, falsetto, child voice, cartoon creature, monster voice, intelligible words, singing, choir, chanting, whistle, stadium crowd, sports arena, applause, claps, drums, brass, music, melody, reverb wash, long tail, harsh highs, clipping",
+      "expected_duration_seconds": [
+        0.9,
+        1.4
+      ],
+      "attempt_limit": 3,
+      "status": "planned",
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-06T09:14:31.072Z",
+          "prompt": "Isolated cute wordless cheer layer for Mossfall final victory. A small group of tiny woodland creatures and beetles gives one warm airy joyful cheer, beginning quickly and resolving within 1.5 to 1.9 seconds. Fresh, friendly, magical forest, soft and charming, clean game layer. No words, singing, human stadium, screaming, chanting, whistles, applause, drums, brass, music, monster voices, birds, rain, long tail.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state provides paid-plan creation and Pro WAV download controls. Release rights remain subject to the generating account's current Suno plan and terms.",
+          "status": "selected",
+          "candidates": [
+            {
+              "id": "6aba2577-cbc0-4caf-a67f-5ebfb03705a5",
+              "url": "https://suno.com/song/6aba2577-cbc0-4caf-a67f-5ebfb03705a5",
+              "duration_seconds": 8,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-run-victory-cheer-attempt-1-candidate-1.mp3",
+              "selection_reason": null,
+              "rejection_reason": "Candidate 1 takes longer to settle into a small even cheer and is less precise for the staggered mix."
+            },
+            {
+              "id": "c69e46af-cc98-4fb4-991b-256ad487025d",
+              "url": "https://suno.com/song/c69e46af-cc98-4fb4-991b-256ad487025d",
+              "duration_seconds": 8,
+              "status": "selected",
+              "source_file": "_source/suno/mossfall-run-victory-cheer-attempt-1-candidate-2.mp3",
+              "selection_reason": "Candidate 2 reaches a friendly sustained cheer sooner and more evenly; removing its measured lead-in gives precise runtime timing.",
+              "rejection_reason": null
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": null,
+      "source_file": "_source/suno/mossfall-run-victory-cheer-v2-source.wav",
+      "production_file": "run-victory-cheer.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 36,
+        "edge_fade_ms": 24
+      },
+      "previous_processing_result": {
+        "source_file": "_source/mossfall-run-victory-cheer-source.wav",
+        "production_file": "_source/retired-run-victory-cheer-20260807.ogg",
+        "source_sha256": "d5ca356e280bafc23b233aa6439cae8f81d87bc73714612526aac9c5709597b3",
+        "production_sha256": "b1b8a26c0280b92d7f01ad0f47a9be140fd58d75d6b5deed21b65493747c49b2",
+        "selected_segment_seconds": [
+          0.372479,
+          2.272479
+        ],
+        "output_duration_seconds": 1.9,
+        "quality_passed": true
+      },
+      "previous_verification": {
+        "browser_runtime_report": "browser-runtime-report.json",
+        "validation_pack": "../../../verification/audio-sfx-20260806",
+        "audio_analysis_records": 22,
+        "audio_pack_errors": 0,
+        "audio_pack_warnings": 0,
+        "sfx_files_loaded_and_decoded": 14,
+        "bgm_files_loaded_and_decoded": 2,
+        "http_status": 200,
+        "decoded": true,
+        "implementation": "sample",
+        "fallback": false,
+        "scheduled_delay_ms": 180,
+        "javascript_errors": 0,
+        "javascript_warnings": 0,
+        "unit_tests_passed": 86,
+        "production_build_passed": true
+      },
+      "integration_targets": [
+        {
+          "file": "../../audio.js",
+          "event": "Second final-victory layer, scheduled about 0.18 seconds after applause",
+          "symbol": "GameAudio.victory"
+        }
+      ],
+      "post_integration_feedback": {
+        "date": "2026-08-07",
+        "result": "rejected",
+        "reason": "User hardware testing identified the layer as a piercing sustained cry rather than a natural group cheer. Local candidate 1 was also rejected because its dominant pitch and spectral balance were brighter than the shipped candidate."
+      },
+      "notes": "Attempt 1 is retained as rejected provenance and rollback evidence. Attempts 2 and 3 must replace the sustained squeal with one short, low-mid, multi-person natural cheer while keeping applause and celebration unchanged."
+    },
+    {
+      "id": "mossfall-run-victory-celebration",
+      "cue_keys": [
+        "run-victory-celebration"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Isolated light celebration accent for Mossfall final victory. A delicate rising trail of dewdrop plinks, leaf flutter and firefly sparkle resolves in one bright fresh homecoming twinkle, cute, small, organic magical forest, polished game layer, about 1.2 to 1.6 seconds.",
+      "negative_prompt": "drums, percussion groove, brass fanfare, orchestra, music phrase, vocals, applause, cheering, arcade jingle, boom, glass crash, harsh highs, second ending",
+      "expected_duration_seconds": [
+        1.2,
+        1.6
+      ],
+      "attempt_limit": 2,
+      "status": "verified",
+      "attempts": [
+        {
+          "attempt": 1,
+          "submitted_at_utc": "2026-08-06T09:15:11.795Z",
+          "prompt": "Isolated light celebration accent for Mossfall final victory. A delicate rising trail of dewdrop plinks, leaf flutter and firefly sparkle resolves in one bright fresh homecoming twinkle, cute, small, organic magical forest, polished game layer, about 1.2 to 1.6 seconds. No drums, percussion groove, brass fanfare, orchestra, music phrase, vocals, applause, cheering, arcade jingle, boom, glass crash, harsh highs, second ending.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state provides paid-plan creation and Pro WAV download controls. Release rights remain subject to the generating account's current Suno plan and terms.",
+          "status": "selected",
+          "candidates": [
+            {
+              "id": "1edcc11f-a167-4386-a158-66d51dcb9654",
+              "url": "https://suno.com/song/1edcc11f-a167-4386-a158-66d51dcb9654",
+              "duration_seconds": 6,
+              "status": "selected",
+              "source_file": "_source/suno/mossfall-run-victory-celebration-attempt-1-candidate-1.mp3",
+              "selection_reason": "Candidate 1 is the lighter, sparkle-forward option and resolves without a heavy finishing impact.",
+              "rejection_reason": null
+            },
+            {
+              "id": "e5ca2bb9-8a76-40e3-89ae-e14f79a4ccfd",
+              "url": "https://suno.com/song/e5ca2bb9-8a76-40e3-89ae-e14f79a4ccfd",
+              "duration_seconds": 5,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-run-victory-celebration-attempt-1-candidate-2.mp3",
+              "selection_reason": null,
+              "rejection_reason": "Candidate 2 is heavier and less fresh than the selected leaf, dewdrop, and firefly accent."
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "1edcc11f-a167-4386-a158-66d51dcb9654",
+      "source_file": "_source/suno/mossfall-run-victory-celebration-source.wav",
+      "production_file": "run-victory-celebration.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 24,
+        "edge_fade_ms": 12
+      },
+      "processing_result": {
+        "source_file": "_source/mossfall-run-victory-celebration-source.wav",
+        "production_file": "run-victory-celebration.ogg",
+        "source_sha256": "599b519193be57fbadbc92ebd8586669b2e37bfea2b5c5f49c06eb94f3aa73d3",
+        "production_sha256": "6e637f6a120d8cca212f5f3164658b87dbd80d362987197e99d461c03a90e667",
+        "selected_segment_seconds": [
+          0,
+          1.8
+        ],
+        "output_duration_seconds": 1.8,
+        "quality_passed": true
+      },
+      "verification": {
+        "browser_runtime_report": "browser-runtime-report.json",
+        "validation_pack": "../../../verification/audio-sfx-20260806",
+        "audio_analysis_records": 22,
+        "audio_pack_errors": 0,
+        "audio_pack_warnings": 0,
+        "sfx_files_loaded_and_decoded": 14,
+        "bgm_files_loaded_and_decoded": 2,
+        "http_status": 200,
+        "decoded": true,
+        "implementation": "sample",
+        "fallback": false,
+        "scheduled_delay_ms": 650,
+        "javascript_errors": 0,
+        "javascript_warnings": 0,
+        "unit_tests_passed": 86,
+        "production_build_passed": true
+      },
+      "integration_targets": [
+        {
+          "file": "../../audio.js",
+          "event": "Third final-victory layer, scheduled about 0.65 seconds after applause",
+          "symbol": "GameAudio.victory"
+        }
+      ],
+      "notes": "Prefer leaf, dewdrop, and firefly sparkle over percussion. The three-layer mix should resolve around 2.5 seconds."
+    },
+    {
+      "id": "mossfall-level-clear-alternatives-v3",
+      "cue_keys": [
+        "level-clear-alternative"
+      ],
+      "priority": "P0",
+      "asset_kind": "one-shot",
+      "prompt": "Short satisfying Mossfall level-complete SFX. A supple fresh leaf folds inward then springs open with a soft papery whoosh, one rounded dewdrop bloop, and a warm mossy shimmer. Cute tactile organic, cozy, clean dry one-shot, 0.75-1.0 sec.",
+      "negative_prompt": "drums, percussion, wood knock, hard snap, glass chime, melody, voices, birds, wind, buzz, boing, harsh highs, second hit, long tail",
+      "prompt_variants": [
+        {
+          "name": "supple-leaf-and-dewdrop",
+          "prompt": "Short satisfying Mossfall level-complete SFX. A supple fresh leaf folds inward then springs open with a soft papery whoosh, one rounded dewdrop bloop, and a warm mossy shimmer. Cute tactile organic, cozy, clean dry one-shot, 0.75-1.0 sec.",
+          "negative_prompt": "drums, percussion, wood knock, hard snap, glass chime, melody, voices, birds, wind, buzz, boing, harsh highs, second hit, long tail"
+        },
+        {
+          "name": "beetle-homecoming",
+          "prompt": "Short charming beetle-home SFX for Mossfall. A tiny beetle settles into its leafy burrow: plush moss tuck, gentle seed-pod pop, tiny happy wordless peep, then one soft firefly glow. Warm rounded forest magic, playful and rewarding, clean one-shot, 0.8-1.1 sec.",
+          "negative_prompt": "speech, singing, crowd, drums, percussion, wood knock, glass, music, birds, insect buzz, boing, sharp highs, long tail"
+        }
+      ],
+      "expected_duration_seconds": [
+        0.75,
+        1.1
+      ],
+      "attempt_limit": 2,
+      "status": "verified",
+      "attempts": [
+        {
+          "attempt": 1,
+          "variant": "supple-leaf-and-dewdrop",
+          "submitted_at_utc": "2026-08-06T09:54:13.223Z",
+          "prompt": "Short satisfying Mossfall level-complete SFX. A supple fresh leaf folds inward then springs open with a soft papery whoosh, one rounded dewdrop bloop, and a warm mossy shimmer. Cute tactile organic, cozy, clean dry one-shot, 0.75-1.0 sec. No drums, percussion, wood knock, hard snap, glass chime, melody, voices, birds, wind, buzz, boing, harsh highs, second hit, long tail.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state provides paid-plan creation and Pro WAV download controls. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "downloaded",
+          "candidates": [
+            {
+              "id": "1f266b35-dd5b-419f-86c2-391827406ed0",
+              "url": "https://suno.com/song/1f266b35-dd5b-419f-86c2-391827406ed0",
+              "duration_seconds": 2.76,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-v3-leaf-attempt-1-candidate-1.mp3",
+              "download_status": "pending-user-selection",
+              "selection_reason": null,
+              "rejection_reason": "The user selected supple-leaf-and-dewdrop candidate B instead."
+            },
+            {
+              "id": "f7687b8c-acab-4df8-a4bb-169c3dbe061c",
+              "url": "https://suno.com/song/f7687b8c-acab-4df8-a4bb-169c3dbe061c",
+              "duration_seconds": 2.48,
+              "status": "selected",
+              "source_file": "_source/suno/mossfall-level-clear-v3-leaf-attempt-1-candidate-2.wav",
+              "download_status": "downloaded-manually-as-pro-wav",
+              "downloaded_at_local": "2026-08-06T18:06:14+08:00",
+              "source_bytes": 476332,
+              "source_sha256": "8c573ee2826a78d6c29daf577a691f9215a42ae8b6503e5fd29453942629137f",
+              "selection_reason": "Explicitly selected by the user as the preferred dewdrop B alternative. The manually downloaded Pro WAV contains the complete selected candidate.",
+              "rejection_reason": null
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "variant": "beetle-homecoming",
+          "submitted_at_utc": "2026-08-06T09:54:53.894Z",
+          "prompt": "Short charming beetle-home SFX for Mossfall. A tiny beetle settles into its leafy burrow: plush moss tuck, gentle seed-pod pop, tiny happy wordless peep, then one soft firefly glow. Warm rounded forest magic, playful and rewarding, clean one-shot, 0.8-1.1 sec. No speech, singing, crowd, drums, percussion, wood knock, glass, music, birds, insect buzz, boing, sharp highs, long tail.",
+          "negative_prompt": "Embedded in the submitted Sounds prompt because the current Sounds UI exposes one description field.",
+          "model": "v5.5",
+          "sound_type": "One-Shot",
+          "visible_credit_cost": "Not displayed by the current Sounds creation UI.",
+          "visible_rights_evidence": "The visible account state provides paid-plan creation and Pro WAV download controls. Release rights remain subject to the generating account current Suno plan and terms.",
+          "status": "ready",
+          "candidates": [
+            {
+              "id": "92517dfc-412d-460d-8c38-a1d1ed326bad",
+              "url": "https://suno.com/song/92517dfc-412d-460d-8c38-a1d1ed326bad",
+              "duration_seconds": 12.32,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-v3-home-attempt-2-candidate-1.mp3",
+              "download_status": "pending-user-selection",
+              "selection_reason": null,
+              "rejection_reason": "The user selected supple-leaf-and-dewdrop candidate B instead."
+            },
+            {
+              "id": "3f8a8056-63a1-420e-a6cf-568e7d49d0ab",
+              "url": "https://suno.com/song/3f8a8056-63a1-420e-a6cf-568e7d49d0ab",
+              "duration_seconds": 1.8,
+              "status": "rejected",
+              "source_file": "_source/suno/mossfall-level-clear-v3-home-attempt-2-candidate-2.mp3",
+              "download_status": "pending-user-selection",
+              "selection_reason": null,
+              "rejection_reason": "The user selected supple-leaf-and-dewdrop candidate B instead."
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "f7687b8c-acab-4df8-a4bb-169c3dbe061c",
+      "source_file": "_source/suno/mossfall-level-clear-v3-leaf-attempt-1-candidate-2.wav",
+      "production_file": "level-clear.ogg",
+      "processing": {
+        "mode": "trim",
+        "padding_ms": 18,
+        "edge_fade_ms": 10
+      },
+      "processing_result": {
+        "downloaded_source_file": "_source/suno/mossfall-level-clear-v3-leaf-attempt-1-candidate-2.wav",
+        "downloaded_source_sha256": "8c573ee2826a78d6c29daf577a691f9215a42ae8b6503e5fd29453942629137f",
+        "integration_source_file": "_source/mossfall-level-clear-dewdrop-v3-source.wav",
+        "integration_source_sha256": "91fbaf6da72bd2575a2a70b17517296023c3c8bc1405d68ff603cc13993d9dd1",
+        "production_file": "level-clear.ogg",
+        "production_sha256": "84cd9ffd5aa6195ff8030b20a938f06939e05dc3eb26098cd530cb65f7dc4abe",
+        "selected_segment_seconds": [
+          0,
+          0.8
+        ],
+        "output_duration_seconds": 0.323437,
+        "peak_dbfs": -4.927,
+        "rms_dbfs": -21.464,
+        "clipped_sample_ratio": 0,
+        "quality_passed": true
+      },
+      "verification": {
+        "browser_runtime_report": "browser-runtime-report.json",
+        "validation_pack": "../../../verification/audio-sfx-20260806",
+        "audio_analysis_records": 22,
+        "audio_pack_errors": 0,
+        "audio_pack_warnings": 0,
+        "sfx_files_loaded_and_decoded": 14,
+        "bgm_files_loaded_and_decoded": 2,
+        "http_status": 200,
+        "decoded": true,
+        "implementation": "sample",
+        "fallback": false,
+        "scheduled_delay_ms": 0,
+        "javascript_errors": 0,
+        "javascript_warnings": 0,
+        "unit_tests_passed": 98,
+        "production_build_passed": true
+      },
+      "integration_targets": [
+        {
+          "file": "../../audio.js",
+          "event": "Replace level-clear only after explicit user selection",
+          "symbol": "GameAudio.clear"
+        }
+      ],
+      "download_gate": {
+        "status": "completed",
+        "reason": "The user manually downloaded the selected candidate as a Pro WAV. The source was found in the configured Windows download directory and preserved under _source/suno/."
+      },
+      "selected_segment_seconds": [
+        0,
+        0.8
+      ],
+      "integration_source_file": "_source/mossfall-level-clear-dewdrop-v3-source.wav",
+      "notes": "The selected WAV is 2.48 seconds long, but its intended leaf-and-dewdrop action resolves in the opening 0.80 seconds. A late near-silent tail artifact is excluded before production trimming."
+    }
+  ]
+}

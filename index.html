@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1f16">
+  <title>Moss Tilt</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css?v=78ae4bad">
+</head>
+<body>
+  <!-- shared svg defs · 照 docs/ui-catalog/table-tilt-ui-v3.html
+       stop-color 一律走 style="…var(--token)"，SVG 里同样不留散 hex。 -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <!-- K4 关键页金星（Dantong 2026-07-27 定：结算走 K4，不用 C11 单色青系） -->
+    <linearGradient id="stG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" style="stop-color:var(--gold-lt)"/><stop offset=".44" style="stop-color:var(--gold)"/><stop offset="1" style="stop-color:var(--gold-d)"/>
+    </linearGradient>
+    <g id="starC"><path d="M12 1.6l3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.27l-6.18 3.2L7 13.73l-5-4.87 6.91-1z" fill="url(#stG)" stroke="#fff" stroke-width="1"/></g>
+    <g id="starD"><path d="M12 1.6l3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.27l-6.18 3.2L7 13.73l-5-4.87 6.91-1z" fill="rgba(255,255,255,.12)" stroke="rgba(232,214,250,.5)" stroke-width="1.3"/></g>
+    <!-- C5 · footprint 三态渐变（待机苔灰 / 上板暖金 / 到位苔绿）
+         照 mossfall-ui-v2 的 fpIdle / fpStep / fpReady：dev / accent / mint 三族。 -->
+    <linearGradient id="fpB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--dev-lt)"/><stop offset="1" style="stop-color:var(--dev-d)"/></linearGradient>
+    <linearGradient id="fpO" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--accent-lt)"/><stop offset="1" style="stop-color:var(--accent)"/></linearGradient>
+    <linearGradient id="fpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--mint-lt)"/><stop offset="1" style="stop-color:var(--mint)"/></linearGradient>
+    <!-- Right footprint, 46×80. A footprint is only legible from three things:
+         a wide ball, a pinched arch on the big-toe side, and toes that fall away
+         in size from big to little. The previous glyph had a symmetric outline
+         and five near-equal toe circles, which at board scale read as a mitten. -->
+    <g id="bareR">
+      <path d="M15 22C27 18 40 23 40 34c0 9-6.5 13.5-8.6 19-2 5.2-1 9-1 15 0 8-5.4 12.6-11.4 12.6S8 76 8 68c0-6.6 3.4-10 4.6-15 1-4.4-4.8-8-4.8-16.4C7.8 28.4 9 24.6 15 22z"/>
+      <ellipse cx="12.2" cy="10.6" rx="6.3" ry="5.5"/>
+      <circle cx="23.2" cy="6.6" r="4.6"/><circle cx="31.6" cy="7.6" r="4"/>
+      <circle cx="38.2" cy="10.8" r="3.4"/><circle cx="43" cy="15.8" r="2.7"/>
+    </g>
+  </defs></svg>
+
+  <main id="app-shell">
+    <div id="screen-backdrop" aria-hidden="true"></div>
+    <div id="screen-layer">
+      <div id="screen-stage"></div>
+    </div>
+    <section id="stage" aria-label="Moss Tilt game">
+      <div id="webgl-host" aria-hidden="true"></div>
+      <div id="ui-layer">
+        <!-- K2 · HUD · in-play -->
+        <div id="game-hud" class="hidden" data-screen="GAMEPLAY">
+          <!-- C5-B · Level 胶囊 · total 橙族（v3 起 .tint-coral → .tint-total） -->
+          <div id="hud-level" class="tint-total">
+            <span class="lb">LEVEL</span><span class="nv num">1<small> / 8</small></span>
+          </div>
+          <!-- C6 · Timer · accent 品红胶囊（v3 起走默认 accent，不再挂 .tint-wii）；
+               加时 +20s 长在胶囊里（定稿 = 同体胶囊） -->
+          <div id="timer-shell" class="timer-shell">
+            <span class="timer-clock" aria-hidden="true"></span>
+            <div id="hud-timer" class="hud-timer num">60</div>
+            <span id="hud-time-bonus" class="hud-time-bonus num hidden">+20s</span>
+          </div>
+          <div id="rogue-blessings" class="rogue-blessings hidden" aria-live="polite"></div>
+          <div id="connection-note" class="connection-note"></div>
+          <!-- C7-A · 关卡开始倒计时（裸字 + halo） -->
+          <div id="level-flash" class="level-flash hidden" aria-hidden="true">
+            <div class="halo"></div><div class="n num"></div>
+          </div>
+          <div id="countdown-demo" class="countdown-demo hidden" aria-label="Balance shift demonstration">
+            <img class="countdown-demo-motion" alt="" draggable="false" decoding="async"
+              data-motion-src="./images/motion02-countdown.webp">
+          </div>
+          <!-- C10 · Toast -->
+          <div id="event-flash" class="event-flash hidden"></div>
+        </div>
+
+        <div id="touch-surface" class="touch-surface" aria-hidden="true"></div>
+
+        <div id="touch-stick" class="touch-stick hidden" aria-label="Tilt control" aria-hidden="true">
+          <div class="touch-stick-board" aria-hidden="true">
+            <span class="axis-v"></span>
+            <span class="axis-h"></span>
+            <div id="touch-knob" class="touch-knob"></div>
+          </div>
+        </div>
+        <div id="connection-required" class="connection-required hidden" role="status" aria-live="polite">
+          <div class="connection-required-panel">
+            <div id="connection-required-title" class="connection-required-title">
+              Balance Board connection required
+            </div>
+            <div id="connection-required-copy" class="connection-required-copy">
+              Reconnect the Balance Board to continue.
+            </div>
+          </div>
+        </div>
+
+        <!-- CoP 板 · 照 DUNESONG SLALOM #hud-dial 平移（无 target-band / 速度胶囊：
+             table tilt 没有前倾提速玩法） -->
+      </div>
+      <!-- C14 · Loading -->
+      <div id="boot-fallback" class="boot-fallback">
+        <div class="ldots"><i></i><i></i><i></i></div>
+        <div>Preparing Moss Tilt...</div>
+      </div>
+    </section>
+    <button id="debug-panel-toggle" class="debug-panel-toggle hidden" type="button" aria-controls="debug-panel" aria-expanded="false">DEBUG</button>
+    <aside id="debug-panel" class="debug-panel hidden" aria-label="Debug testing panel">
+      <header><strong>TEST LAB</strong><button id="debug-panel-close" type="button" aria-label="Close">×</button></header>
+      <label>Endless level<input id="debug-level-number" type="number" min="1" max="999" value="1"></label>
+      <button type="button" data-debug-action="level">LOAD LEVEL</button>
+      <label>Mechanism<select id="debug-mechanism">
+        <option value="web">Spider web</option><option value="hail">Hail</option>
+        <option value="chest">Treasure chest</option><option value="cloud">Cloud cover</option>
+        <option value="falling-bugs">Falling ladybugs</option><option value="mole">Mole</option>
+        <option value="spike">Retracting spikes</option><option value="ink">Ink pool</option>
+        <option value="dew">Collectible dew</option>
+      </select></label>
+      <button type="button" data-debug-action="mechanism">SHOW MECHANISM</button>
+      <div class="debug-grid">
+        <button type="button" data-debug-action="capture">CAPTURE</button>
+        <button type="button" data-debug-action="fall">DROP</button>
+        <button type="button" data-debug-action="next">NEXT</button>
+        <button type="button" data-debug-action="hint">BUTTERFLY</button>
+      </div>
+      <p id="debug-panel-status">Choose a level or mechanism.</p>
+    </aside>
+  </main>
+  <script src="./app.js?v=b2aed4ad"></script>
+  <script>
+    (() => {
+      const panel = document.querySelector("#countdown-demo");
+      let image = panel?.querySelector(".countdown-demo-motion");
+      const source = image?.dataset.motionSrc;
+      if (!panel || !image || !source) return;
+
+      const preload = document.createElement("link");
+      preload.rel = "preload";
+      preload.as = "image";
+      preload.type = "image/webp";
+      preload.href = source;
+      document.head.append(preload);
+
+      let visible = false;
+      const start = () => {
+        const next = image.cloneNode(false);
+        next.dataset.motionState = "playing";
+        next.addEventListener("error", () => {
+          next.dataset.motionState = "error";
+        }, { once: true });
+        next.src = source;
+        image.replaceWith(next);
+        image = next;
+      };
+      const stop = () => {
+        image.removeAttribute("src");
+        image.dataset.motionState = "idle";
+      };
+      const sync = () => {
+        const nextVisible = !panel.classList.contains("hidden");
+        if (nextVisible === visible) return;
+        visible = nextVisible;
+        if (visible) start();
+        else stop();
+      };
+
+      image.dataset.motionState = "idle";
+      new MutationObserver(sync).observe(panel, {
+        attributes: true,
+        attributeFilter: ["class"]
+      });
+      sync();
+    })();
+  </script>
+</body>
+</html>

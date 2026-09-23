@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-06",
+  "source": "D:/KiwiiGit/Kiwii-AI/mossfall/src",
+  "sourcePolicy": "read-only",
+  "localDivergence": [
+    {
+      "file": "render/world.js",
+      "patch": "patches/mossfall-upstream-render-fixes.patch",
+      "landed": "2026-08-13",
+      "reason": "Two rendering bugs fixed here because the upstream repo is unreachable \u2014 Kiwii-AI/mossfall is not on git.kiwiiai.cn. RE-APPLY THIS PATCH after any re-vendor, or the fixes are silently reverted. See patches/README.md.",
+      "fixes": [
+        "trunk dressing placed outside the lathe's 3.9 rad arc, at a radius that ignores the profile, and over carved hollows \u2014 all three left props hanging beside the trunk",
+        "parallax canopy shells too short, so the near shell's bottom rim swept across frame as a long arc whenever the camera pitched into a descent"
+      ]
+    }
+  ],
+  "threeVersion": "0.169.0",
+  "files": [
+    {
+      "file": "core/events.js",
+      "sha256": "2C4087993BB1FFA5AEF85E9624108040BD1D88F7E74C89A0198089E98C4BEB1E"
+    },
+    {
+      "file": "core/math.js",
+      "sha256": "39DB578E64B211ECD731BD765349C3E637265B886F659301BC96B5912AA686B8"
+    },
+    {
+      "file": "core/settings.js",
+      "sha256": "7BC4278B45E3469372A087DB5E3B39C4FAD718E09212F1174859698AF4A40802"
+    },
+    {
+      "file": "data/palette.js",
+      "sha256": "4F6BFCEF0FDE6955163E7BD6EF6EDF370A70A2AD07958D5922AEEEE14D890525"
+    },
+    {
+      "file": "sim/field.js",
+      "sha256": "67BF4E6C85FC62F541A0B8632D89256C3864887F4DC2E076692C30805CD39C62"
+    },
+    {
+      "file": "sim/physics.js",
+      "sha256": "30DDA9DAD6534406A8EFB8DE3A38499BC0970140C33CDF23F477C26BE9A054F4"
+    },
+    {
+      "file": "render/props.js",
+      "sha256": "35B7DC4005741A63D87E9DFD2E28EAA02AF37CC0B6C43CFB925AC20F86FD9980"
+    },
+    {
+      "file": "render/leaf.js",
+      "sha256": "619A1036B05DCAB7509FD797E2AB961C0DC1BE7F6F53C143FE4B3438D6066B23"
+    },
+    {
+      "file": "render/insect.js",
+      "sha256": "C6426B129B7C42C2E8F8ED106E37773ACB9C056B48EF0D2338923AF629F623BD"
+    },
+    {
+      "file": "render/world.js",
+      "sha256": "D6809947212F8BF8DAF468EC18BB0BC4BA0B6748BAA855D767F60C7253145603"
+    },
+    {
+      "file": "render/lighting.js",
+      "sha256": "5D388435C3A109BD41924CAC11A1C26A64A390323B82A41FD9DB24FCB10CF409"
+    },
+    {
+      "file": "fx/particles.js",
+      "sha256": "64BD51CBF7F120C7EB896E474ED9929C3D2BE98470CBBF2EC64F00F72B915F12"
+    },
+    {
+      "file": "fx/postfx.js",
+      "sha256": "37BEEFAFB2FAAC80B7F79CB17C181A98FFB75CC6B5A4B0CFB3E43BA45B355F56"
+    },
+    {
+      "file": "game/camera.js",
+      "sha256": "58AEF47DE1203F923BAA71637583947F186CA2B06270A46154E8B1407954DE31"
+    }
+  ]
+}

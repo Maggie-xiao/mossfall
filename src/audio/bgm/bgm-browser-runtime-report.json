@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-04T05:21:09.926728Z",
+  "project": "table-tilt",
+  "page_url": "http://127.0.0.1:4173/index.html?qa=1&screen=GAMEPLAY",
+  "capture_method": "Playwright Core with local Microsoft Edge, localhost responses, HTMLAudioElement clock verification, and GameAudio.snapshot()",
+  "bgm_file": "balance-beam-loop.ogg",
+  "responses": [
+    {
+      "url": "http://127.0.0.1:4173/audio/bgm/balance-beam-loop.ogg",
+      "status": 200,
+      "ok": true,
+      "content_type": "audio/ogg"
+    },
+    {
+      "url": "http://127.0.0.1:4173/audio/bgm/balance-beam-loop.ogg",
+      "status": 206,
+      "ok": true,
+      "content_type": "audio/ogg"
+    }
+  ],
+  "decoded_media": {
+    "duration_seconds": 149.543354,
+    "qa_playback_rate": 16,
+    "paused": false,
+    "failed": false
+  },
+  "accelerated_loop_verification": {
+    "complete_wraps": 4,
+    "expected_cycle_seconds_at_qa_rate": 9.34646,
+    "observed_wraps": [
+      {
+        "wall_ms": 4141,
+        "from_seconds": 148.693,
+        "to_seconds": 0.192
+      },
+      {
+        "wall_ms": 13612,
+        "from_seconds": 148.818,
+        "to_seconds": 0.21
+      },
+      {
+        "wall_ms": 23031,
+        "from_seconds": 148.848,
+        "to_seconds": 0.357
+      },
+      {
+        "wall_ms": 32412,
+        "from_seconds": 147.508,
+        "to_seconds": 0
+      }
+    ],
+    "passed": true
+  },
+  "pause_clock": {
+    "first": 0,
+    "second": 0,
+    "delta": 0,
+    "advanced": false
+  },
+  "resume_clock": {
+    "first": 2.891446,
+    "second": 13.353307,
+    "delta": 10.461861,
+    "advanced": true
+  },
+  "stopped": {
+    "key": "bgm-table-tilt",
+    "url": "./audio/bgm/balance-beam-loop.ogg",
+    "playing": false,
+    "failed": false,
+    "current_time": 0
+  },
+  "audio_play_history": [
+    {
+      "key": "bgm-table-tilt",
+      "timestamp_ms": 16569.2,
+      "phase": "GAMEPLAY",
+      "source": "audio-manager",
+      "implementation": "sample",
+      "decision": "replace",
+      "fallback": false
+    }
+  ],
+  "loop_history": [
+    {
+      "key": "bgm-table-tilt",
+      "start_timestamp_ms": 0,
+      "stop_timestamp_ms": 32412,
+      "loop_duration_ms": 9346,
+      "completed_cycles": 4,
+      "source": "browser-audio-clock",
+      "implementation": "sample",
+      "qa_playback_rate": 16
+    }
+  ],
+  "javascript_errors": [],
+  "console_errors": [],
+  "passed": true
+}

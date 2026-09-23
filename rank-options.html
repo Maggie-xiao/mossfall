@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Global Standing · options</title>
+<style>
+/* ── 字体与 token 取自 styles.css，保持与结算页同源 ───────────────── */
+@font-face{font-family:"Bricolage Grotesque";src:url("fonts/bricolage-grotesque-400.ttf") format("truetype");font-weight:400;font-display:block}
+@font-face{font-family:"Bricolage Grotesque";src:url("fonts/bricolage-grotesque-600.ttf") format("truetype");font-weight:600;font-display:block}
+@font-face{font-family:"Bricolage Grotesque";src:url("fonts/bricolage-grotesque-700.ttf") format("truetype");font-weight:700;font-display:block}
+@font-face{font-family:"Bricolage Grotesque";src:url("fonts/bricolage-grotesque-800.ttf") format("truetype");font-weight:800;font-display:block}
+@font-face{font-family:"Space Grotesk";src:url("fonts/space-grotesk-500.ttf") format("truetype");font-weight:500;font-display:block}
+@font-face{font-family:"Space Grotesk";src:url("fonts/space-grotesk-600.ttf") format("truetype");font-weight:600;font-display:block}
+@font-face{font-family:"Space Grotesk";src:url("fonts/space-grotesk-700.ttf") format("truetype");font-weight:700;font-display:block}
+
+:root{
+  --accent:#ff4d8f; --accent-lt:#ff8fb8; --accent-d:#d41b62;
+  --ink:#4a2f52; --ink-soft:#7d5f85;
+  --cream:#fffcf5; --cream-2:#fdefd8;
+  --mint:#35d97a; --mint-lt:#7bf0ac; --mint-d:#12a552;
+  --gold:#ffd633; --gold-lt:#ffefa0; --gold-d:#e0a600;
+  --total:#ff9a14; --total-lt:#ffc169;
+  --deep-1:#6d3fa8; --deep-2:#532f88; --deep-3:#391f63; --deep-lt:#c9a8f0;
+  --w-sky:#bdf3e4; --w-floor:#ffe9cf;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:#0e1116; color:#e8dff2;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;
+  padding:26px 26px 90px;
+}
+h1{font-size:19px;font-weight:800;letter-spacing:-.2px;margin:0 0 4px}
+.sub{font-size:13px;color:#8b7fa0;margin:0 0 22px;line-height:1.6}
+.sub b{color:#c9a8f0;font-weight:700}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:34px 26px;max-width:1300px}
+.cell{min-width:0}
+.cap{display:flex;align-items:baseline;gap:10px;margin-bottom:9px}
+.cap .no{font-family:"Space Grotesk",monospace;font-weight:700;font-size:15px;color:var(--gold);
+  background:rgba(255,214,51,.1);border:1px solid rgba(255,214,51,.28);
+  width:26px;height:26px;border-radius:8px;display:grid;place-items:center;flex:none}
+.cap .nm{font-size:14px;font-weight:800;letter-spacing:.3px}
+.cap .dc{font-size:11.5px;color:#8b7fa0;font-weight:500}
+.cap .rp{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:1.4px;
+  color:#a596bb;background:#1b1a26;border:1px solid #2e2b3d;border-radius:7px;
+  padding:5px 10px;cursor:pointer;font-family:inherit}
+.cap .rp:hover{color:var(--cream);border-color:#4a4460}
+
+/* 1280×720 定尺舞台，等比缩小 —— 里面每个 px 都可直接搬进游戏 */
+.frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  border:1px solid #262233;background:#000}
+.stage{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0}
+.world{position:absolute;inset:0;
+  background:radial-gradient(130% 100% at 50% 8%, var(--w-sky) 0%, #9fe4d6 34%, var(--w-floor) 72%, #f4cfa2 100%)}
+.veil{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 100% at 50% 30%, rgba(16,28,44,.06), rgba(16,28,44,.42))}
+
+/* ── 结算板：逐字取自 styles.css .rboard ─────────────────────────── */
+.board{position:absolute;left:50%;transform:translateX(-50%);z-index:11;
+  border-radius:26px;text-align:center;
+  background:linear-gradient(168deg,var(--deep-1) 0%,var(--deep-2) 42%,var(--deep-3) 100%);
+  box-shadow:0 2px 3px rgba(10,20,30,.5),0 24px 44px rgba(16,36,50,.45),
+    0 60px 110px rgba(16,36,50,.5),inset 0 2px 0 rgba(255,255,255,.2),
+    inset 0 -3px 0 rgba(6,14,24,.6),inset 0 0 0 1.5px rgba(255,255,255,.06)}
+.board::before{content:"";position:absolute;inset:10px;border-radius:18px;pointer-events:none;
+  border:1.5px solid rgba(200,232,244,.16)}
+.board::after{content:"";position:absolute;left:0;top:0;right:44%;height:150px;
+  border-radius:26px 0 80px 0;pointer-events:none;
+  background:linear-gradient(155deg,rgba(255,255,255,.14),rgba(255,255,255,0) 62%)}
+.scr{position:absolute;width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--deep-lt),var(--deep-3));
+  box-shadow:0 1px 1px rgba(6,14,24,.7)}
+.rope{position:absolute;top:-200px;width:3px;height:260px;z-index:10;
+  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(70,44,26,.5))}
+
+.num{font-family:"Space Grotesk",monospace;font-weight:700;font-variant-numeric:tabular-nums}
+.klab{font-size:11px;font-weight:800;letter-spacing:3.2px;color:rgba(220,240,250,.55)}
+.btn{position:absolute;left:50%;transform:translateX(-50%);bottom:34px;z-index:20;
+  font-family:inherit;font-size:19px;font-weight:800;letter-spacing:1.6px;color:#fff;
+  border:0;border-radius:16px;padding:17px 46px;min-width:280px;
+  background:linear-gradient(180deg,var(--accent-lt),var(--accent) 46%,var(--accent-d));
+  box-shadow:0 4px 0 var(--accent-d),0 12px 22px rgba(212,27,98,.36),
+    inset 0 2px 0 rgba(255,255,255,.4)}
+
+/* ══ ① RIDGE ══════════════════════════════════════════════════════ */
+.b1{top:52px;width:840px;padding:30px 46px 34px}
+.b1 .hd{font-size:13px;font-weight:800;letter-spacing:3px;color:rgba(220,240,250,.5)}
+.b1 .pc{margin-top:6px;font-size:76px;line-height:1;letter-spacing:-2px;
+  background:linear-gradient(180deg,var(--gold-lt) 0%,var(--gold) 44%,var(--gold-d) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(10,24,36,.6)) drop-shadow(0 0 22px rgba(240,170,70,.5))}
+.b1 .of{margin-top:2px;font-size:14px;font-weight:700;letter-spacing:2.2px;color:rgba(226,244,252,.55)}
+.b1 .plot{position:relative;margin-top:20px;height:196px}
+.b1 svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rvl{stroke-dasharray:2200;stroke-dashoffset:2200}
+.pin{position:absolute;bottom:0;transform:translateX(-50%);opacity:0}
+.pin .stem{width:3px;border-radius:2px;margin:0 auto}
+.pin .chip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  white-space:nowrap;border-radius:11px;padding:7px 14px 8px;font-size:13px;font-weight:800;letter-spacing:.6px}
+.pin.you .stem{height:150px;background:linear-gradient(180deg,var(--gold-lt),rgba(255,214,51,0))}
+.pin.you .chip{background:linear-gradient(180deg,var(--gold-lt),var(--gold-d));color:#3a2400;
+  box-shadow:0 4px 12px rgba(0,0,0,.4),inset 0 1.5px 0 rgba(255,255,255,.55)}
+.pin.you .dot{position:absolute;bottom:146px;left:50%;width:15px;height:15px;border-radius:50%;
+  transform:translate(-50%,50%);background:var(--gold);box-shadow:0 0 0 4px rgba(255,214,51,.25),0 0 16px var(--gold)}
+.pin.ghost .stem{height:96px;background:repeating-linear-gradient(180deg,rgba(226,244,252,.45) 0 5px,transparent 5px 10px)}
+.pin.ghost .chip{background:rgba(226,244,252,.13);color:rgba(226,244,252,.72);font-size:11px;
+  letter-spacing:1.6px;border:1px solid rgba(226,244,252,.2)}
+.axl{position:absolute;bottom:-24px;font-size:10.5px;font-weight:700;letter-spacing:1.6px;
+  color:rgba(226,244,252,.32)}
+
+/* ══ ② BINS ═══════════════════════════════════════════════════════ */
+.b2{top:56px;width:820px;padding:30px 44px 36px}
+.b2 .hl{font-size:40px;font-weight:800;letter-spacing:-.6px;color:var(--cream);margin:0;
+  text-shadow:0 2px 0 rgba(10,24,36,.55)}
+.b2 .hl em{font-style:normal;color:var(--gold)}
+.b2 .of{margin-top:7px;font-size:12px;font-weight:800;letter-spacing:2.6px;color:rgba(226,244,252,.5)}
+.bars{display:flex;align-items:flex-end;gap:4px;height:184px;margin-top:26px;padding:0 4px}
+.bar{flex:1;border-radius:5px 5px 2px 2px;transform-origin:50% 100%;transform:scaleY(0);
+  background:linear-gradient(180deg,rgba(201,168,240,.62),rgba(201,168,240,.2))}
+.bar.me{background:linear-gradient(180deg,var(--gold-lt),var(--gold) 50%,var(--gold-d));
+  box-shadow:0 0 22px rgba(255,214,51,.6)}
+.b2 .base{margin-top:11px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,rgba(226,244,252,.05),rgba(226,244,252,.28),rgba(226,244,252,.05))}
+.b2 .foot{display:flex;justify-content:space-between;margin-top:9px;font-size:10.5px;
+  font-weight:700;letter-spacing:1.6px;color:rgba(226,244,252,.34)}
+.mchip{position:absolute;transform:translate(-50%,0) scale(.6);opacity:0;
+  background:linear-gradient(180deg,var(--gold-lt),var(--gold-d));color:#3a2400;
+  border-radius:12px;padding:8px 15px;font-size:14px;font-weight:800;white-space:nowrap;
+  box-shadow:0 5px 14px rgba(0,0,0,.45),inset 0 1.5px 0 rgba(255,255,255,.55)}
+.mchip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:7px solid transparent;border-top-color:var(--gold-d)}
+
+/* ══ ③ COLUMN ═════════════════════════════════════════════════════ */
+.b3{top:60px;width:800px;padding:36px 46px 38px;text-align:left;display:flex;gap:44px;align-items:center}
+.b3 .L{flex:1}
+.b3 .kl{font-size:11px;font-weight:800;letter-spacing:3.2px;color:rgba(220,240,250,.5)}
+.b3 .big{margin-top:8px;font-size:68px;line-height:.98;font-weight:800;letter-spacing:-1.8px;color:var(--cream);
+  text-shadow:0 2px 0 rgba(10,24,36,.55)}
+.b3 .big .u{color:var(--gold);display:block;font-size:78px}
+.b3 .of{margin-top:14px;font-size:13px;font-weight:700;letter-spacing:1.8px;color:rgba(226,244,252,.52);line-height:1.5}
+.tube{position:relative;width:96px;height:290px;border-radius:48px;flex:none;
+  background:linear-gradient(180deg,rgba(10,18,30,.55),rgba(10,18,30,.3));
+  box-shadow:inset 0 3px 8px rgba(0,0,0,.6),inset 0 0 0 1.5px rgba(255,255,255,.1),
+    0 2px 0 rgba(255,255,255,.07)}
+.fill{position:absolute;left:0;right:0;bottom:0;height:0;border-radius:48px;
+  background:linear-gradient(180deg,var(--gold-lt),var(--gold) 26%,var(--total) 74%,var(--total-lt));
+  box-shadow:0 0 26px rgba(255,180,60,.55),inset 0 2px 0 rgba(255,255,255,.5)}
+.fill::after{content:"";position:absolute;left:8px;top:8px;width:16px;bottom:22px;border-radius:10px;
+  background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0))}
+.tick{position:absolute;left:100%;margin-left:12px;transform:translateY(50%);
+  font-size:10px;font-weight:700;letter-spacing:1.2px;color:rgba(226,244,252,.34);white-space:nowrap}
+.tick::before{content:"";position:absolute;right:calc(100% + 6px);top:50%;width:14px;height:1.5px;
+  background:rgba(226,244,252,.2)}
+.tmark{position:absolute;left:-14px;right:-14px;height:3px;border-radius:2px;opacity:0;
+  background:var(--cream);box-shadow:0 0 12px rgba(255,255,255,.8)}
+.tyou{position:absolute;right:calc(100% + 14px);transform:translateY(50%);opacity:0;
+  font-size:12px;font-weight:800;letter-spacing:1.4px;color:var(--cream);white-space:nowrap}
+
+/* ══ ④ NEIGHBOURS ═════════════════════════════════════════════════ */
+.b4{top:44px;width:720px;padding:28px 34px 30px}
+.b4 .hl{font-size:32px;font-weight:800;letter-spacing:-.4px;color:var(--cream);margin:0 0 4px;
+  text-shadow:0 2px 0 rgba(10,24,36,.55)}
+.b4 .hl em{font-style:normal;color:var(--gold)}
+.b4 .of{font-size:11px;font-weight:800;letter-spacing:2.6px;color:rgba(226,244,252,.45);margin-bottom:18px}
+.strip{position:relative;height:326px}
+.row{position:absolute;left:0;right:0;height:74px;display:flex;align-items:center;gap:16px;
+  padding:0 20px 0 16px;border-radius:16px;background:rgba(255,255,255,.055);
+  border:1.5px solid rgba(226,244,252,.09)}
+.row.me{background:linear-gradient(180deg,rgba(255,214,51,.22),rgba(255,154,20,.14));
+  border-color:rgba(255,214,51,.6);box-shadow:0 6px 20px rgba(0,0,0,.35),inset 0 1.5px 0 rgba(255,255,255,.22)}
+.av{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-size:18px;font-weight:800;color:#2a1338;box-shadow:inset 0 -3px 0 rgba(0,0,0,.14)}
+.nmx{flex:1;text-align:left;font-size:20px;font-weight:700;color:rgba(255,252,245,.9)}
+.row.me .nmx{color:var(--cream);font-weight:800}
+.sc{font-size:23px;color:rgba(255,252,245,.78)}
+.row.me .sc{color:var(--gold-lt);font-size:26px}
+.gap{position:absolute;left:50%;transform:translateX(-50%);z-index:5;opacity:0;
+  font-size:11px;font-weight:800;letter-spacing:1.8px;color:#3a2400;white-space:nowrap;
+  background:linear-gradient(180deg,var(--gold-lt),var(--gold-d));border-radius:9px;padding:5px 12px;
+  box-shadow:0 3px 10px rgba(0,0,0,.4)}
+
+.note{max-width:1300px;margin:34px 0 0;font-size:12.5px;line-height:1.85;color:#8b7fa0}
+.note b{color:#c9a8f0}
+</style>
+</head>
+<body>
+
+<h1>Global Standing · 结算之后的一屏 · 4 个方向</h1>
+<p class="sub">
+  都长在结算页那块深紫板上，同源字体和色板 —— 所以这是「下一屏」而不是另一个产品。<br>
+  统一口径：<b>不出名次，不出人数，按「局」计数</b>。点右上角 REPLAY 重看动效。看完报编号。
+</p>
+
+<div class="grid" id="grid">
+
+  <!-- ① RIDGE -->
+  <div class="cell">
+    <div class="cap"><span class="no">1</span>
+      <span class="nm">RIDGE · 分布曲线</span>
+      <span class="dc">你落在山脊的哪一段 · 带上一局的灰影</span>
+      <button class="rp" data-play="1">REPLAY</button></div>
+    <div class="frame"><div class="stage" data-stage>
+      <div class="world"></div><div class="veil"></div>
+      <span class="rope" style="left:340px"></span><span class="rope" style="left:940px"></span>
+      <div class="board b1" id="v1">
+        <i class="scr" style="left:15px;top:15px"></i><i class="scr" style="right:15px;top:15px"></i>
+        <i class="scr" style="left:15px;bottom:15px"></i><i class="scr" style="right:15px;bottom:15px"></i>
+        <div class="hd">YOU LANDED HERE</div>
+        <div class="pc num" id="p1">TOP 50%</div>
+        <div class="of num" id="o1">OF 0 RUNS</div>
+        <div class="plot" id="plot1">
+          <svg viewBox="0 0 748 196" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#d9c2ff" stop-opacity=".62"/>
+                <stop offset="1" stop-color="#c9a8f0" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g id="wipe1"><path id="area1" fill="url(#g1)"></path></g>
+            <path id="line1" class="rvl" fill="none" stroke="#e2d3ff" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round" opacity=".9"></path>
+          </svg>
+          <div class="pin ghost" id="gh1"><div class="chip">LAST RUN</div><div class="stem"></div></div>
+          <div class="pin you" id="me1"><div class="chip num" id="mc1">1,240</div><div class="dot"></div><div class="stem"></div></div>
+          <span class="axl" style="left:0">LOWER</span>
+          <span class="axl" style="right:0">HIGHER</span>
+        </div>
+      </div>
+      <button class="btn">PLAY AGAIN</button>
+    </div></div>
+  </div>
+
+  <!-- ② BINS -->
+  <div class="cell">
+    <div class="cap"><span class="no">2</span>
+      <span class="nm">BINS · 柱阵</span>
+      <span class="dc">同样的数据，离散化 —— 更像游戏，不像图表</span>
+      <button class="rp" data-play="2">REPLAY</button></div>
+    <div class="frame"><div class="stage" data-stage>
+      <div class="world"></div><div class="veil"></div>
+      <span class="rope" style="left:360px"></span><span class="rope" style="left:920px"></span>
+      <div class="board b2" id="v2">
+        <i class="scr" style="left:15px;top:15px"></i><i class="scr" style="right:15px;top:15px"></i>
+        <i class="scr" style="left:15px;bottom:15px"></i><i class="scr" style="right:15px;bottom:15px"></i>
+        <h2 class="hl">Better than <em id="pc2">50%</em> of all runs</h2>
+        <div class="of num" id="o2">0 RUNS ON RECORD</div>
+        <div style="position:relative">
+          <div class="bars" id="bars2"></div>
+          <div class="mchip num" id="chip2">1,240</div>
+        </div>
+        <div class="base"></div>
+        <div class="foot"><span>LOWER</span><span>HIGHER</span></div>
+      </div>
+      <button class="btn">PLAY AGAIN</button>
+    </div></div>
+  </div>
+
+  <!-- ③ COLUMN -->
+  <div class="cell">
+    <div class="cap"><span class="no">3</span>
+      <span class="nm">COLUMN · 水位管</span>
+      <span class="dc">最省地方 · 只讲一件事「你到哪了」</span>
+      <button class="rp" data-play="3">REPLAY</button></div>
+    <div class="frame"><div class="stage" data-stage>
+      <div class="world"></div><div class="veil"></div>
+      <span class="rope" style="left:360px"></span><span class="rope" style="left:920px"></span>
+      <div class="board b3" id="v3">
+        <i class="scr" style="left:15px;top:15px"></i><i class="scr" style="right:15px;top:15px"></i>
+        <i class="scr" style="left:15px;bottom:15px"></i><i class="scr" style="right:15px;bottom:15px"></i>
+        <div class="L">
+          <div class="kl">GLOBAL STANDING</div>
+          <div class="big">You beat<span class="u num" id="p3">0%</span></div>
+          <div class="of num" id="o3">OF 0 RUNS EVER PLAYED</div>
+        </div>
+        <div class="tube">
+          <div class="fill" id="f3"></div>
+          <span class="tick" style="bottom:25%">25</span>
+          <span class="tick" style="bottom:50%">50</span>
+          <span class="tick" style="bottom:75%">75</span>
+          <span class="tick" style="bottom:90%">90</span>
+          <div class="tmark" id="tm3"></div>
+          <div class="tyou" id="ty3">YOU</div>
+        </div>
+      </div>
+      <button class="btn">PLAY AGAIN</button>
+    </div></div>
+  </div>
+
+  <!-- ④ NEIGHBOURS -->
+  <div class="cell">
+    <div class="cap"><span class="no">4</span>
+      <span class="nm">NEIGHBOURS · 邻居条</span>
+      <span class="dc">Duolingo 那一路 · 无名次，只有上下两个人</span>
+      <button class="rp" data-play="4">REPLAY</button></div>
+    <div class="frame"><div class="stage" data-stage>
+      <div class="world"></div><div class="veil"></div>
+      <span class="rope" style="left:400px"></span><span class="rope" style="left:880px"></span>
+      <div class="board b4" id="v4">
+        <i class="scr" style="left:15px;top:15px"></i><i class="scr" style="right:15px;top:15px"></i>
+        <i class="scr" style="left:15px;bottom:15px"></i><i class="scr" style="right:15px;bottom:15px"></i>
+        <h2 class="hl"><em id="gapn">40</em> points to pass Mika</h2>
+        <div class="of">THIS WEEK · ROLLING</div>
+        <div class="strip" id="strip4"></div>
+      </div>
+      <button class="btn">PLAY AGAIN</button>
+    </div></div>
+  </div>
+
+</div>
+
+<p class="note">
+  <b>四个都用同一套后端</b>：一张 runs 表（score, ts, device），一个百分位查询。先上哪个都不影响以后换。<br>
+  <b>①②③ 不暴露人数</b> —— 曲线/柱阵/水位讲的是「所有历史成绩」，几千条就很好看，而且只增不减。<br>
+  <b>④ 会暴露</b> —— 三行里只要有一行空，用户立刻知道池子有多小。它是人多之后的升级项，不是首发项。<br>
+  三个都留了「上一局」的位置：①是灰虚线影子，②③④ 可以再叠。这条比全球对比更早生效。
+</p>
+
+<script>
+/* ── 舞台等比缩放 ───────────────────────────────────────────────── */
+function fit(){
+  document.querySelectorAll('.frame').forEach(f=>{
+    const s=f.clientWidth/1280;
+    f.querySelector('[data-stage]').style.transform='scale('+s+')';
+  });
+}
+addEventListener('resize',fit);
+
+/* ── 假数据：一条对数正态的成绩分布 ─────────────────────────────── */
+const NB=36, MU=.42, SG=.26;
+const bins=[...Array(NB)].map((_,i)=>{
+  const x=(i+.5)/NB, l=Math.log(x+.02);
+  return Math.exp(-Math.pow((l-Math.log(MU))/SG,2)/2)/(x+.02);
+});
+const mx=Math.max(...bins);
+const norm=bins.map(v=>v/mx);
+const TOTAL=norm.reduce((a,b)=>a+b,0);
+const RUNS=6483, ME=19, LAST=14, SCORE='1,240', GAP=40;
+const pctAt=i=>norm.slice(0,i+1).reduce((a,b)=>a+b,0)/TOTAL;
+const MEP=pctAt(ME), LASTP=pctAt(LAST);
+/* 分档：小样本下不给个位精度，否则一个新人进来就把数字推走了 */
+const band=p=>{const t=Math.round((1-p)*100);
+  return t<=1?1:t<=3?3:Math.max(5,Math.round(t/5)*5);};
+const TOPB=band(MEP), LASTB=band(LASTP);
+/* 标记的横坐标是「分数」在轴上的位置，不是百分位——用百分位会把人钉到最右边 */
+const xAt=i=>i/(NB-1)*100;
+
+/* ── 小工具 ─────────────────────────────────────────────────────── */
+const ease=t=>1-Math.pow(1-t,3);
+/* 计数器走 setTimeout 而不是 rAF —— 后台标签页里 rAF 会被挂起，
+   数字就永远停在 0 上（做这版时就踩到了）。 */
+function tick(el,to,ms,fmt){
+  const t0=Date.now();
+  (function f(){const k=Math.min(1,(Date.now()-t0)/ms);
+    el.textContent=fmt(Math.round(to*ease(k)));
+    if(k<1)setTimeout(f,16);})();
+}
+const next=fn=>setTimeout(fn,20);
+const comma=n=>n.toLocaleString('en-US');
+
+/* ── ① RIDGE ────────────────────────────────────────────────────── */
+const W=748,H=196;
+const pts=norm.map((v,i)=>[i/(NB-1)*W, H-v*(H-14)]);
+function smooth(p){
+  let d=`M${p[0][0]},${p[0][1]}`;
+  for(let i=0;i<p.length-1;i++){
+    const a=p[i],b=p[i+1],cx=(a[0]+b[0])/2;
+    d+=` C${cx},${a[1]} ${cx},${b[1]} ${b[0]},${b[1]}`;
+  }
+  return d;
+}
+const LINE=smooth(pts);
+document.getElementById('line1').setAttribute('d',LINE);
+document.getElementById('area1').setAttribute('d',LINE+` L${W},${H} L0,${H} Z`);
+document.getElementById('mc1').textContent=SCORE;
+
+function play1(){
+  const line=document.getElementById('line1'), wipe=document.getElementById('wipe1');
+  const me=document.getElementById('me1'), gh=document.getElementById('gh1');
+  const p1=document.getElementById('p1'), o1=document.getElementById('o1');
+  const L=line.getTotalLength();
+  line.style.transition='none'; line.style.strokeDasharray=L; line.style.strokeDashoffset=L;
+  wipe.style.transition='none'; wipe.style.clipPath='inset(0 100% 0 0)';
+  me.style.transition='none'; me.style.opacity=0;
+  gh.style.transition='none'; gh.style.opacity=0;
+  me.style.left=xAt(LAST)+'%'; gh.style.left=xAt(LAST)+'%';
+  p1.textContent='TOP —'; o1.textContent='OF — RUNS';
+  next(()=>{
+    /* 山脊从左向右画出来，描边和填充同步 */
+    line.style.transition='stroke-dashoffset 900ms cubic-bezier(.3,.9,.3,1)';
+    line.style.strokeDashoffset=0;
+    wipe.style.transition='clip-path 900ms cubic-bezier(.3,.9,.3,1)';
+    wipe.style.clipPath='inset(0 0 0 0)';
+    /* 上一局的灰影先出现 */
+    setTimeout(()=>{gh.style.transition='opacity 260ms ease';gh.style.opacity=1;},780);
+    /* 你从上一局的位置滑到今天的位置 */
+    setTimeout(()=>{
+      me.style.transition='opacity 200ms ease, left 900ms cubic-bezier(.25,1.05,.35,1)';
+      me.style.opacity=1; me.style.left=xAt(ME)+'%';
+      tick(o1,RUNS,900,v=>'OF '+comma(v)+' RUNS');
+      setTimeout(()=>{p1.textContent='TOP '+TOPB+'%';
+        p1.animate([{transform:'scale(.72)',opacity:0},{transform:'scale(1)',opacity:1}],
+          {duration:420,easing:'cubic-bezier(.2,1.4,.4,1)'});},560);
+    },1120);
+  });
+}
+
+/* ── ② BINS ─────────────────────────────────────────────────────── */
+const barsEl=document.getElementById('bars2');
+norm.forEach((v,i)=>{
+  const b=document.createElement('div');
+  b.className='bar'+(i===ME?' me':'');
+  b.style.height=Math.max(4,v*100)+'%';
+  barsEl.appendChild(b);
+});
+document.getElementById('chip2').textContent=SCORE;
+function play2(){
+  const bs=[...barsEl.children], chip=document.getElementById('chip2');
+  const pc=document.getElementById('pc2'), o2=document.getElementById('o2');
+  bs.forEach(b=>{b.style.transition='none';b.style.transform='scaleY(0)';});
+  chip.style.transition='none'; chip.style.opacity=0; chip.style.transform='translate(-50%,-14px) scale(.6)';
+  pc.textContent='—'; o2.textContent='— RUNS ON RECORD';
+  const me=bs[ME];
+  next(()=>{
+    bs.forEach((b,i)=>{
+      b.style.transition='transform 520ms cubic-bezier(.2,1.1,.35,1) '+(i*13)+'ms';
+      b.style.transform='scaleY(1)';
+    });
+    tick(o2,RUNS,900,v=>comma(v)+' RUNS ON RECORD');
+    setTimeout(()=>{
+      /* 你那根柱子顶一下，chip 落到它头上 */
+      me.animate([{transform:'scaleY(1)'},{transform:'scaleY(1.14)'},{transform:'scaleY(1)'}],
+        {duration:520,easing:'cubic-bezier(.3,1.3,.4,1)'});
+      chip.style.left=((ME+.5)/NB*100)+'%';
+      chip.style.bottom=(parseFloat(me.style.height)/100*184+16)+'px';
+      chip.style.transition='opacity 200ms ease, transform 480ms cubic-bezier(.2,1.5,.4,1)';
+      chip.style.opacity=1; chip.style.transform='translate(-50%,0) scale(1)';
+      pc.textContent=(100-TOPB)+'%';
+      pc.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],
+        {duration:360,easing:'ease-out'});
+    }, 200+ME*13+380);
+  });
+}
+
+/* ── ③ COLUMN ───────────────────────────────────────────────────── */
+function play3(){
+  const f=document.getElementById('f3'), tm=document.getElementById('tm3'), ty=document.getElementById('ty3');
+  const p3=document.getElementById('p3'), o3=document.getElementById('o3');
+  const H3=(100-TOPB);
+  [f,tm,ty].forEach(e=>e.style.transition='none');
+  f.style.height='0%'; tm.style.opacity=0; ty.style.opacity=0;
+  tm.style.bottom=ty.style.bottom='0%';
+  p3.textContent='—'; o3.textContent='OF — RUNS EVER PLAYED';
+  next(()=>{
+    /* 水位带一点过冲再落回，比匀速有生气 */
+    f.style.transition='height 1100ms cubic-bezier(.2,1.12,.3,1)';
+    f.style.height=H3+'%';
+    tick(p3,H3,1100,v=>v+'%');
+    tick(o3,RUNS,1100,v=>'OF '+comma(v)+' RUNS EVER PLAYED');
+    setTimeout(()=>{
+      [tm,ty].forEach(e=>{e.style.transition='opacity 240ms ease, bottom 900ms cubic-bezier(.2,1.1,.3,1)';
+        e.style.opacity=1; e.style.bottom=H3+'%';});
+    },260);
+  });
+}
+
+/* ── ④ NEIGHBOURS ───────────────────────────────────────────────── */
+const PEOPLE=[
+  {n:'Rui K.',   s:1362, c:'#7bf0ac'},
+  {n:'Mika',     s:1280, c:'#ff8fb8'},
+  {n:'You',      s:1240, c:'#ffd633', me:1},
+  {n:'Sasha L.', s:1188, c:'#c9a8f0'}
+];
+const RH=74, GAPY=10;
+const stripEl=document.getElementById('strip4');
+PEOPLE.forEach((p,i)=>{
+  const r=document.createElement('div');
+  r.className='row'+(p.me?' me':'');
+  r.innerHTML=`<div class="av" style="background:linear-gradient(180deg,${p.c},${p.c}bb)">${p.n[0]}</div>
+    <div class="nmx">${p.n}</div><div class="sc num">${p.s.toLocaleString()}</div>`;
+  stripEl.appendChild(r);
+});
+const gapEl=document.createElement('div');
+gapEl.className='gap'; gapEl.textContent='+'+GAP+' TO PASS';
+stripEl.appendChild(gapEl);
+document.getElementById('gapn').textContent=GAP;
+
+function play4(){
+  const rows=[...stripEl.querySelectorAll('.row')];
+  const y=i=>i*(RH+GAPY);
+  /* 起手是「跑这局之前」的排序：你还在 Sasha 下面 */
+  const start=[0,1,3,2];
+  rows.forEach((r,i)=>{
+    r.style.transition='none';
+    r.style.transform=`translateY(${y(start[i])}px)`;
+    r.style.zIndex=r.classList.contains('me')?3:1;
+  });
+  gapEl.style.transition='none'; gapEl.style.opacity=0;
+  /* 落在 Mika 和「你」之间的缝里，而不是压在谁的名字上 */
+  gapEl.style.top=(y(2)-GAPY/2-13)+'px';
+  next(()=>{
+    setTimeout(()=>{
+      /* 你上升一格，Sasha 让位 —— 位移才是这一屏的情绪 */
+      rows.forEach((r,i)=>{
+        r.style.transition='transform 760ms cubic-bezier(.3,1.12,.35,1)';
+        r.style.transform=`translateY(${y(i)}px)`;
+      });
+      rows[2].animate([{filter:'brightness(1)'},{filter:'brightness(1.45)'},{filter:'brightness(1)'}],
+        {duration:700,easing:'ease-out',delay:260});
+      setTimeout(()=>{
+        gapEl.style.transition='opacity 300ms ease, transform 420ms cubic-bezier(.2,1.4,.4,1)';
+        gapEl.style.opacity=1;
+        gapEl.animate([{transform:'translateX(-50%) scale(.7)'},{transform:'translateX(-50%) scale(1)'}],
+          {duration:420,easing:'cubic-bezier(.2,1.4,.4,1)',fill:'forwards'});
+      },820);
+    },420);
+  });
+}
+
+/* ── 驱动 ───────────────────────────────────────────────────────── */
+const PLAY={1:play1,2:play2,3:play3,4:play4};
+document.querySelectorAll('[data-play]').forEach(b=>
+  b.onclick=()=>PLAY[b.dataset.play]());
+function allIn(){
+  document.querySelectorAll('.board').forEach((b,i)=>{
+    b.animate([{opacity:0,transform:'translateX(-50%) translateY(18px) scale(.97)'},
+               {opacity:1,transform:'translateX(-50%)'}],
+      {duration:600,easing:'cubic-bezier(.2,1.1,.35,1)',delay:i*90});
+  });
+  [1,2,3,4].forEach(k=>setTimeout(PLAY[k],420+(k-1)*90));
+}
+document.fonts.ready.then(()=>{fit();allIn();});
+fit();
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "profileVersion": "kiwii.external-game.profile.v1",
+  "topology": "EXTERNAL_GAME_PRESENTATION",
+  "buttons": ["UP", "DOWN", "LEFT", "RIGHT", "A", "B", "X", "Y"],
+  "viewportPolicy": {
+    "designWidth": 1920,
+    "designHeight": 1080,
+    "fit": "ADAPTIVE_SAFE_FRAME",
+    "orientation": "ANY"
+  },
+  "lifecycleCapabilities": {
+    "viewportAck": true,
+    "pauseAck": true,
+    "checkpoint": true,
+    "checkpointMaxBytes": 4096
+  }
+}
